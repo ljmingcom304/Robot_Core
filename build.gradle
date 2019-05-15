@@ -1,0 +1,52 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.2'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
+        jcenter()
+        maven {
+            url 'https://jitpack.io'
+        }
+        /*maven {
+            url 'http://mvn.miaomore.cn/nexus/content/groups/public'
+        }*/
+        maven {
+            url 'http://10.1.1.22:8081/nexus/content/groups/public/'
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+ext {
+    compileSdkVersion = 27
+    buildToolsVersion = "26.0.2"
+    minSdkVersion = 19
+    targetSdkVersion = 27
+
+    //policy = 'RELEASE'
+    policy = 'SNAPSHOT'
+    clientcore = "com.mmednet.robot:mmednet-robot-client-core:2.0.1-RELEASE"
+    clientxyzj = "com.mmednet.robot:mmednet-robot-client-xyzj:1.0.0-RELEASE"
+    clientbaidu = "com.mmednet.robot:mmednet-robot-client-baidu:1.0.3-SNAPSHOT"
+}

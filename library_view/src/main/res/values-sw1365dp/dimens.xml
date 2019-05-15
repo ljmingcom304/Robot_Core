@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<dimen name="view_font_26">44.3625sp</dimen>
+	<dimen name="view_font_34">58.0125sp</dimen>
+	<dimen name="view_size_1">1.7063dp</dimen>
+	<dimen name="view_size_5">8.5312dp</dimen>
+	<dimen name="view_size_15">25.5938dp</dimen>
+	<dimen name="view_size_10">17.0625dp</dimen>
+	<dimen name="view_size_20">34.1250dp</dimen>
+	<dimen name="view_size_110">187.6875dp</dimen>
+	<dimen name="view_size_300">511.8750dp</dimen>
+</resources>

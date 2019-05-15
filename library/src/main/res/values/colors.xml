@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="core_color_title">#ffffff</color>
+    <color name="core_color_hint">#8f9cb5</color>
+    <color name="core_color_text">#ffffff</color>
+    <color name="core_spinner_normal">#ccdbf6</color><!--下拉框正常背景-->
+    <color name="core_spinner_pressed">#95a2bc</color><!--下拉框按下背景-->
+
+</resources>

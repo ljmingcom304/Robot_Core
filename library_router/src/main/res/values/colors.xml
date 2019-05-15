@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--字体颜色-->
+    <color name="router_font_white">#ffffff</color><!--一级文字、重要文字、标题、选中状态文字、背景色等-->
+    <color name="router_font_black">#5a6589</color><!--白色背景中的文字、icon等-->
+    <!--字体颜色-->
+
+</resources>

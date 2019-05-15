@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">控件</string>
+
+    <string name="view_mon">一</string>
+    <string name="view_tue">二</string>
+    <string name="view_wed">三</string>
+    <string name="view_thu">四</string>
+    <string name="view_fri">五</string>
+    <string name="view_sat">六</string>
+    <string name="view_sun">日</string>
+
+</resources>

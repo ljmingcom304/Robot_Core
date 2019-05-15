@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rl_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/size_290"
+        android:minWidth="@dimen/size_310">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ProgressBar
+                style="@android:style/Widget.ProgressBar"
+                android:layout_width="@dimen/size_120"
+                android:layout_height="@dimen/size_120"
+                android:indeterminateDrawable="@drawable/router_anim_loading" />
+
+            <TextView
+                android:id="@+id/tv_loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_48"
+                android:text="正在加载"
+                android:textColor="@color/router_font_white"
+                android:textSize="@dimen/font_30" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_success"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/size_290"
+        android:minWidth="@dimen/size_310"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_success"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/router_icon_state_success"
+                android:drawablePadding="@dimen/size_32"
+                android:text="加载成功"
+                android:textColor="@color/router_font_white"
+                android:textSize="@dimen/font_30" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_failure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/size_290"
+        android:minWidth="@dimen/size_380"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:padding="@dimen/size_40"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/router_icon_state_failure" />
+
+            <com.mmednet.library.view.AlignTextView
+                android:id="@+id/tv_failure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="加载失败"
+                android:textColor="@color/router_font_white"
+                android:layout_marginTop="@dimen/size_25"
+                android:layout_marginBottom="@dimen/size_25"
+                android:textSize="@dimen/font_30" />
+
+            <Button
+                android:id="@+id/btn_reload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/router_button_reload"
+                android:paddingBottom="@dimen/size_10"
+                android:paddingEnd="@dimen/size_20"
+                android:paddingStart="@dimen/size_20"
+                android:paddingTop="@dimen/size_10"
+                android:text="点击重试"
+                android:textSize="@dimen/font_26"
+                android:textColor="@color/router_font_black" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>

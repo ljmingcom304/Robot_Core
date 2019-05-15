@@ -1,0 +1,26 @@
+apply plugin: 'maven'
+
+def versionName = "${android.defaultConfig.versionName}-RELEASE"
+//def versionName = "${android.defaultConfig.versionName}-SNAPSHOT"
+def artifactName = "${repositoryArtifact}-core"
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: releaseRepositoryUrl) {
+                authentication(userName: repositoryUserName, password: repositoryPassword)
+            }
+            snapshotRepository(url: snapshotRepositoryUrl) {
+                authentication(userName: repositoryUserName, password: repositoryPassword)
+            }
+
+            pom.project {
+                version versionName
+                artifactId artifactName
+                groupId repositoryGroup
+                packaging 'aar'
+            }
+        }
+    }
+}
+

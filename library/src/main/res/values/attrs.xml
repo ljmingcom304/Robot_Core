@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--加载框-->
+    <declare-styleable name="Loader">
+        <attr name="state">
+            <enum name="loading" value="2" />
+            <enum name="error" value="3" />
+            <enum name="empty" value="4" />
+            <enum name="success" value="5" />
+        </attr>
+    </declare-styleable>
+
+    <attr name="editLayoutStyle" format="reference" />
+
+    <!--登记信息输入框-->
+    <declare-styleable name="EditLayout">
+        <!--输入框小数位数-->
+        <attr name="limit" format="integer" />
+        <!--输入框最大值-->
+        <attr name="maxValue" format="float" />
+        <!--输入框最小值-->
+        <attr name="minValue" format="float" />
+        <!--是否必填项-->
+        <attr name="required" format="boolean" />
+        <!--必填星号的样式-->
+        <attr name="requiredDrawable" format="reference" />
+        <!--文本框和编辑框TYPE_EDITBOX|TYPE_TEXTBOX-->
+        <attr name="editTextBackground" format="reference" />
+        <!--单选框和多选框TYPE_RADIOBOX|TYPE_CHECKBOX-->
+        <attr name="editBoxBackground" format="reference" />
+        <!--单选框和多选框TYPE_SINGLEBOX|TYPE_MULTIBOX-->
+        <attr name="selectBoxBackground" format="reference" />
+        <!--标题-->
+        <attr name="titleText" format="string|reference" />
+        <!--标题尺寸-->
+        <attr name="titleSize" format="dimension|reference" />
+        <!--标题颜色-->
+        <attr name="titleColor" format="color|reference" />
+        <!--提示-->
+        <attr name="hintText" format="string|reference" />
+        <!--提示颜色-->
+        <attr name="hintColor" format="color|reference" />
+        <!--正文-->
+        <attr name="text" format="string|reference" />
+        <!--正文颜色-->
+        <attr name="textColor" format="color|reference" />
+        <!--正文尺寸-->
+        <attr name="textSize" format="dimension|reference" />
+        <!--EditBox文字背景-->
+        <attr name="editBoxTextColor" format="color|reference" />
+        <!--EditBox文字背景-->
+        <attr name="editBoxHintColor" format="color|reference" />
+        <!--左图片-->
+        <attr name="leftDrawable" format="string|reference" />
+        <!--右图片-->
+        <attr name="rightDrawable" format="string|reference" />
+
+        <!--组合控件间隔距离-->
+        <attr name="space" format="dimension|reference" />
+        <attr name="leftSpace" format="dimension|reference" />
+        <attr name="topSpace" format="dimension|reference" />
+        <attr name="rightSpace" format="dimension|reference" />
+        <attr name="bottomSpace" format="dimension|reference" />
+
+        <!--EditBox间距-->
+        <attr name="editBoxHorizontalSpacing" format="dimension|reference" />
+        <attr name="editBoxVerticalSpacing" format="dimension|reference" />
+
+        <!--是否可编辑-->
+        <attr name="editable" format="boolean" />
+
+        <!--输入类型-->
+        <attr name="dataType">
+            <flag name="none" value="0x00000000" />
+            <flag name="text" value="0x00000001" />
+            <flag name="textCapCharacters" value="0x00001001" />
+            <flag name="textCapWords" value="0x00002001" />
+            <flag name="textCapSentences" value="0x00004001" />
+            <flag name="textAutoCorrect" value="0x00008001" />
+            <flag name="textAutoComplete" value="0x00010001" />
+            <flag name="textMultiLine" value="0x00020001" />
+            <flag name="textImeMultiLine" value="0x00040001" />
+            <flag name="textNoSuggestions" value="0x00080001" />
+            <flag name="textUri" value="0x00000011" />
+            <flag name="textEmailAddress" value="0x00000021" />
+            <flag name="textEmailSubject" value="0x00000031" />
+            <flag name="textShortMessage" value="0x00000041" />
+            <flag name="textLongMessage" value="0x00000051" />
+            <flag name="textPersonName" value="0x00000061" />
+            <flag name="textPostalAddress" value="0x00000071" />
+            <flag name="textPassword" value="0x00000081" />
+            <flag name="textVisiblePassword" value="0x00000091" />
+            <flag name="textWebEditText" value="0x000000a1" />
+            <flag name="textFilter" value="0x000000b1" />
+            <flag name="textPhonetic" value="0x000000c1" />
+            <flag name="textWebEmailAddress" value="0x000000d1" />
+            <flag name="textWebPassword" value="0x000000e1" />
+            <flag name="number" value="0x00000002" />
+            <flag name="numberSigned" value="0x00001002" />
+            <flag name="numberDecimal" value="0x00002002" />
+            <flag name="numberPassword" value="0x00000012" />
+            <flag name="phone" value="0x00000003" />
+            <flag name="datetime" value="0x00000004" />
+            <flag name="date" value="0x00000014" />
+            <flag name="time" value="0x00000024" />
+        </attr>
+
+        <!--控件类型-->
+        <attr name="viewType">
+            <enum name="editBox" value="0" />
+            <enum name="textBox" value="1" />
+            <enum name="radioBox" value="2" />
+            <enum name="checkBox" value="3" />
+            <enum name="spinner" value="4" />
+            <enum name="singleBox" value="5" />
+            <enum name="multiBox" value="6" />
+        </attr>
+    </declare-styleable>
+
+
+    <declare-styleable name="DrawableTextView">
+        <attr name="drawableLeftWidth" format="dimension" />
+        <attr name="drawableTopWidth" format="dimension" />
+        <attr name="drawableRightWidth" format="dimension" />
+        <attr name="drawableLeftHeight" format="dimension" />
+        <attr name="drawableTopHeight" format="dimension" />
+        <attr name="drawableRightHeight" format="dimension" />
+        <attr name="drawableBottomHeight" format="dimension" />
+        <attr name="drawableBottomWidth" format="dimension" />
+        <attr name="isAlignCenter" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="IAlignTextView">
+        <attr name="align" format="enum">
+            <enum name="left" value="0" />
+            <enum name="center" value="1" />
+            <enum name="right" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="CircleImageView">
+        <attr name="civ_border_width" format="dimension" />
+        <attr name="civ_border_color" format="color" />
+        <attr name="civ_border_overlay" format="boolean" />
+        <!-- {@deprecated Use civ_circlebackground_color instead.} -->
+        <attr name="civ_fill_color" format="color" />
+        <attr name="civ_circle_background_color" format="color" />
+    </declare-styleable>
+
+
+</resources>

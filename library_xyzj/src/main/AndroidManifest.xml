@@ -1,0 +1,26 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mmednet.xyzj">
+
+    <!-- 小鱼在家权限 -->
+    <uses-permission android:name="nemo.permission.FACE_DETECT" />
+    <uses-permission android:name="nemo.permission.REMOTE_SERVICE" />
+    <!-- 小鱼在家权限 -->
+
+    <application
+        android:allowBackup="true"
+        android:supportsRtl="true">
+        <!-- 小鱼在家 -->
+        <receiver android:name=".NemoReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="nemo.intent.action.ASR" />
+                <action android:name="nemo.intent.action.FACEDETECT" />
+                <action android:name="nemo.intent.action.TAKE_PICTURE"/>
+                <action android:name="nemo.intent.action.CANCEL_TAKE_PICTURE"/>
+            </intent-filter>
+        </receiver>
+        <!-- 小鱼在家 -->
+
+    </application>
+
+</manifest>

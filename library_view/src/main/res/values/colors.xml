@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="view_picker_background">#424e72</color>
+    <color name="view_picker_button_left">#00d2ff</color>
+    <color name="view_picker_button_right">#333d60</color>
+    <color name="view_picker_done_text_normal">#ffffff</color>
+    <color name="view_picker_font_title">#8f9cb5</color>
+    <color name="view_picker_split_line">#335d6c8c</color>
+    <color name="view_text1">#ffffff</color>
+    <color name="view_text2">#8f9cb5</color>
+</resources>

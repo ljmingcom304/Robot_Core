@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="EditLayout">
+        <item name="titleColor">@color/core_color_title</item>
+        <item name="titleSize">@dimen/core_font_30</item>
+        <item name="textSize">@dimen/core_font_30</item>
+        <item name="textColor">@color/core_color_text</item>
+        <item name="hintColor">@color/core_color_hint</item>
+        <item name="requiredDrawable">@drawable/core_icon_required</item>
+        <item name="editTextBackground">@drawable/core_bg_edittext</item>
+        <item name="editBoxTextColor">@color/core_color_text</item>
+        <item name="editBoxHintColor">@color/core_color_hint</item>
+        <item name="editBoxBackground">@drawable/core_selector_select_editbox</item>
+        <item name="editBoxHorizontalSpacing">@dimen/core_size_10</item>
+        <item name="editBoxVerticalSpacing">@dimen/core_size_10</item>
+        <item name="selectBoxBackground">@drawable/core_selector_select_selectbox</item>
+    </style>
+
+</resources>
+

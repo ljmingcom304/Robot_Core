@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/view_picker_background"
+        android:padding="@dimen/view_size_10">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/view_size_20"
+            android:text="请选择时间"
+            android:textColor="@color/view_picker_font_title"
+            android:textSize="@dimen/view_font_34" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/view_size_20"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_select"
+                android:layout_width="@dimen/view_size_110"
+                android:layout_height="wrap_content"
+                android:background="@drawable/view_selector_left"
+                android:gravity="center"
+                android:paddingBottom="@dimen/view_size_10"
+                android:paddingTop="@dimen/view_size_10"
+                android:text="确定"
+                android:textColor="@color/view_picker_done_text_normal"
+                android:textSize="@dimen/view_font_26" />
+
+            <TextView
+                android:id="@+id/tv_cancle"
+                android:layout_width="@dimen/view_size_110"
+                android:layout_height="wrap_content"
+                android:background="@drawable/view_selector_right"
+                android:gravity="center"
+                android:paddingBottom="@dimen/view_size_10"
+                android:paddingTop="@dimen/view_size_10"
+                android:text="取消"
+                android:textColor="@color/view_picker_done_text_normal"
+                android:textSize="@dimen/view_font_26" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_size_1"
+        android:background="@color/view_picker_split_line" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/ll_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/view_size_5"
+            android:background="@color/view_picker_background"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/view_size_15"
+            android:paddingLeft="@dimen/view_size_20"
+            android:paddingRight="@dimen/view_size_20"
+            android:paddingTop="@dimen/view_size_15">
+
+            <com.mmednet.view.picker.TimePicker
+                android:id="@+id/year_pv"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/view_size_300"
+                android:layout_weight="3" />
+
+            <com.mmednet.view.picker.TimePicker
+                android:id="@+id/month_pv"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/view_size_300"
+                android:layout_weight="2" />
+
+            <com.mmednet.view.picker.TimePicker
+                android:id="@+id/day_pv"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/view_size_300"
+                android:layout_weight="2" />
+
+            <com.mmednet.view.picker.TimePicker
+                android:id="@+id/hour_pv"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/view_size_300"
+                android:layout_weight="2" />
+
+            <com.mmednet.view.picker.TimePicker
+                android:id="@+id/minute_pv"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/view_size_300"
+                android:layout_weight="2" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

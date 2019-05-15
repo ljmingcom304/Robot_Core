@@ -1,0 +1,45 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    configurations.all {
+        resolutionStrategy {
+            //解决Warning:Conflict with dependency 'com.android.support:multidex' in project ':app'
+            force 'com.android.support:multidex:1.0.2'
+            //不使用缓存，使用仓库中最新的包
+            cacheChangingModulesFor 0, 'seconds'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:27.1.1'
+    compile 'com.android.support:design:27.1.1'
+    compile 'com.yanzhenjie:permission:2.0.0-rc4'
+    compile 'cn.funtalk.miao.miaoplus:miaoplus:1.4.02-SNAPSHOT'
+    testCompile 'junit:junit:4.12'
+    compile project(':library')
+}
+
+
+
+

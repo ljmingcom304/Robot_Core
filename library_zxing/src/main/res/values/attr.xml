@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ViewfinderView">
+        <attr name="maskColor" format="color|reference" />
+        <attr name="reactColor" format="color|reference" />
+        <attr name="scanLineColor" format="color|reference" />
+        <attr name="frameLineColor" format="color|reference" />
+        <attr name="resultColor" format="color|reference" />
+        <attr name="resultPointColor" format="color|reference" />
+    </declare-styleable>
+
+</resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="core_font_24">24sp</dimen><!--部分次要标题/辅助性文字，如次要副标题等-->
+    <dimen name="core_font_26">26sp</dimen><!--辅助性内容文字，如小标题、模块描述信息等-->
+    <dimen name="core_font_28">28sp</dimen><!--篇幅较大内容文字，如表格内容等-->
+    <dimen name="core_font_30">30sp</dimen><!--重要的文字或一级文字、标题、档案信息类内容字、重要按钮等-->
+    <dimen name="core_font_32">32sp</dimen><!--重要标题字，如全局档案标题字-->
+    <dimen name="core_font_34">34sp</dimen><!--重要标题字，如全局档案标题字-->
+
+    <dimen name="size_title_padding">10dp</dimen>
+    <dimen name="size_rect_round">5dp</dimen>
+    <dimen name="size_rect_padding">10dp</dimen>
+    <dimen name="size_rect_margin">10dp</dimen>
+
+    <dimen name="core_size_1">1dp</dimen>
+    <dimen name="core_size_5">5dp</dimen>
+    <dimen name="core_size_7">7dp</dimen>
+    <dimen name="core_size_8">8dp</dimen>
+    <dimen name="core_size_10">10dp</dimen>
+    <dimen name="core_size_24">24dp</dimen>
+    <dimen name="core_size_30">30dp</dimen>
+    <dimen name="core_size_34">34dp</dimen>
+    <dimen name="core_size_66">66dp</dimen>
+    <dimen name="core_size_74">74dp</dimen>
+    <dimen name="core_size_80">80dp</dimen>
+    <dimen name="core_size_100">100dp</dimen>
+</resources>
