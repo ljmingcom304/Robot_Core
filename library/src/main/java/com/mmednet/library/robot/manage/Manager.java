@@ -2,6 +2,8 @@ package com.mmednet.library.robot.manage;
 
 import android.content.Context;
 
+import org.jetbrains.annotations.Nullable;
+
 /**
  * Title:Manager
  * <p>
@@ -46,4 +48,19 @@ public interface Manager {
      * 语音识别唤醒
      */
     void wakeUp(boolean wakeup);
+
+    /**
+     * 拍照
+     *
+     * @param callback 回调拍照结果
+     */
+    void takePicture(Callback callback);
+
+    /**
+     * 人脸识别
+     *
+     * @param callback 回调识别结果
+     * @param dir      人脸库目录
+     */
+    void openFaceRecognition(Callback callback, @Nullable String dir);
 }

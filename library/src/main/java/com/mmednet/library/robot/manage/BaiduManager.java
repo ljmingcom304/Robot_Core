@@ -13,6 +13,8 @@ import com.mmednet.baidu.tts.TtsManager;
 import com.mmednet.baidu.wakeup.Wakeup;
 import com.mmednet.baidu.wakeup.WakeupListener;
 
+import org.jetbrains.annotations.Nullable;
+
 
 /**
  * Title:BaiduManager
@@ -169,6 +171,16 @@ public class BaiduManager implements Manager {
         } else {
             mAsrManager.stop();
         }
+    }
+
+    @Override
+    public void takePicture(Callback callback) {
+        
+    }
+
+    @Override
+    public void openFaceRecognition(Callback callback, @Nullable String dir) {
+
     }
 
 }
