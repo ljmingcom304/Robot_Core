@@ -38,7 +38,7 @@ import java.util.List;
 /**
  * Title:ISpinner
  * <p>
- * Description:下拉框
+ * Description:下拉框（支持主题@android:style/Theme.Holo.Light.NoActionBar）
  * </p>
  * Author Jming.L
  * Date 2017/9/22 15:46
@@ -162,6 +162,7 @@ public class ISpinner extends Spinner implements EditView {
         mHint.add(DEFAULT);
         mAdapter = new SpinnerAdapter(mContext, mHint);
         this.setAdapter(mAdapter);
+
         //下拉背景为NULL点击空白处Spinner不消失
         this.setPopupBackgroundDrawable(new ColorDrawable(Color.parseColor("#2e365a")));
         this.setOnTouchListener(new View.OnTouchListener() {

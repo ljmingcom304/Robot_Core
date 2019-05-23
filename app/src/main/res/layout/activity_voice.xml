@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -10,47 +11,11 @@
         android:layout_height="wrap_content"
         android:text="语音" />
 
-    <com.mmednet.test.GridLayout
+    <com.mmednet.library.view.EditLayout
+        android:id="@+id/el_spinner"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:background="#0F0">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="#F00"
-            android:text="大大大的dadadadadaddadda"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="#F00"
-            android:text="大大大的"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="#F00"
-            android:text="大大大的"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="#F00"
-            android:text="大大大的"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="#F00"
-            android:text="大大大的"/>
-
-
-    </com.mmednet.test.GridLayout>
+        app:hintText="小张|小王|小李"
+        app:viewType="spinner" />
 
 </LinearLayout>
