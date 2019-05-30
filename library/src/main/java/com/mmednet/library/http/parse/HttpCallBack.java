@@ -73,6 +73,7 @@ public abstract class HttpCallBack<T> extends ProgressUIListener {
      */
     protected abstract void onSuccess(Serializable s);
 
+
     /**
      * 网络请求失败
      */

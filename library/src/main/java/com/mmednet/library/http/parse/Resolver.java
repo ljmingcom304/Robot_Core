@@ -35,12 +35,16 @@ public class Resolver {
     private static final String TAG = "Resolver";
 
     public <T> void handleFailure(String result, HttpCallBack<T> callBack) {
-        if (callBack == null) return;
+        if (callBack == null) {
+            return;
+        }
         sendMessage(callBack, HttpCode.ERROR_NET, null, result);
     }
 
     public <T> void handleSuccess(String result, Class<T> clazz, HttpCallBack<T> callBack) {
-        if (callBack == null) return;
+        if (callBack == null) {
+            return;
+        }
 
         //泛型为String.class或空时不进行解析直接返回
         if (clazz == null || clazz == String.class) {
@@ -51,6 +55,13 @@ public class Resolver {
                 return;
             }
 
+            //响应数据
+            String data = null;
+            //响应状态码
+            int statusCode = HttpCode.SUCCESS.getCode();
+            //响应消息
+            String msg = null;
+
             // Json数据格式：{data:{},status:0,msg:""}
             JsonObject jsonObject = null;
             try {
@@ -58,29 +69,23 @@ public class Resolver {
                 jsonObject = parse.getAsJsonObject();
             } catch (Exception e) {
                 Log.e(TAG, "JSON解析异常：" + e.getMessage());
-            }
-
-            int statusCode = HttpCode.SUCCESS.getCode();
-
-            //如果不是JSON数据则返回未知异常
-            if (jsonObject == null) {
                 statusCode = HttpCode.ERROR_UNKNOWN.getCode();
             }
 
-            try {
-                if (jsonObject != null) {
+            if (jsonObject != null) {
+                //解析状态码
+                try {
                     JsonElement sElement = jsonObject.get("status");
                     if (sElement != null && !sElement.isJsonNull()) {
                         statusCode = sElement.getAsInt();
                     }
+                } catch (Exception e) {
+                    Log.e(TAG, "status解析异常：" + e.getMessage());
+                    statusCode = HttpCode.ERROR_UNKNOWN.getCode();
                 }
-            } catch (Exception e) {
-                Log.e(TAG, "状态解析异常：" + e.getMessage());
-            }
 
-            String data = null;
-            try {
-                if (jsonObject != null) {
+
+                try {
                     JsonElement dElement = jsonObject.get("data");
                     if (dElement != null && !dElement.isJsonNull()) {
                         if (dElement.isJsonArray() || dElement.isJsonObject()) {
@@ -90,22 +95,34 @@ public class Resolver {
                             data = dElement.getAsString();
                         }
                     }
+                } catch (Exception e) {
+                    Log.e(TAG, "data解析异常：" + e.getMessage());
                 }
-            } catch (Exception e) {
-                Log.e(TAG, "数据解析异常：" + e.getMessage());
-            }
 
-            String msg = null;
-            try {
-                if (jsonObject != null) {
+
+                try {
                     JsonElement mElement = jsonObject.get("msg");
                     if (mElement != null && !mElement.isJsonNull()) {
                         msg = mElement.getAsString();
                     }
+                } catch (Exception e) {
+                    Log.e(TAG, "msg解析异常：" + e.getMessage());
                 }
-            } catch (Exception e) {
-                Log.e(TAG, "消息解析异常：" + e.getMessage());
+
+                //解析apiCondition，如果apiMsg中存在数据则使用apiMsg中数据
+                try {
+                    JsonObject aJsonObject = jsonObject.getAsJsonObject("apiCondition");
+                    if (aJsonObject != null && !aJsonObject.isJsonNull()) {
+                        JsonElement element = aJsonObject.get("apiMsg");
+                        if (element != null && element.isJsonNull()) {
+                            msg = element.getAsString();
+                        }
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, "apiCondition解析异常：" + e.getMessage());
+                }
             }
+
 
             if (HttpCode.SUCCESS.getCode() == statusCode) {
 
@@ -115,7 +132,7 @@ public class Resolver {
                     try {
                         serializable = parseData(data, clazz);
                     } catch (Exception e) {
-                        Log.e(TAG, "POJO解析异常：" + e.getMessage());
+                        Log.e(TAG, "BEAN解析异常：" + e.getMessage());
                         e.printStackTrace();
                     }
 

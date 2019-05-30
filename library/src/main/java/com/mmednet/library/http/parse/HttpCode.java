@@ -17,6 +17,11 @@ public enum HttpCode {
     ERROR_400(400, "请求出错"),
     ERROR_404(404, "无效请求路径"),
     ERROR_500(500, "服务内部异常"),
+    AUTH_INVALID(20001, "授权权限不足"),
+    API_MISSING(40001, "缺少必选参数"),
+    API_INVALID(40002, "非法参数"),
+    BUSINESS_AUTH_INVALID(40006, "业务处理失败"),
+    BUSINESS_FAILURE(40004, "权限不足"),
     INVALID_VERSION(1000, "版本过时"),
     KICKOUT(6000,"已在其他端登录");
 

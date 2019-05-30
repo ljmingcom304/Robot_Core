@@ -1,18 +1,10 @@
 package com.mmednet.library;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.hp.hpl.sparta.Parser;
-import com.mmednet.library.http.code.Encrypt;
-import com.mmednet.library.util.AESUtils;
+import com.mmednet.library.util.SignUtils;
 
 import org.junit.Test;
 
-import java.security.Key;
-
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
+import java.util.HashMap;
 
 /**
  * Example local unit test, which will execute on the development machine (intentHost).
@@ -22,12 +14,14 @@ import javax.crypto.SecretKey;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
-        String data = "{\"data\":\"abcdefg\"}";
-        JsonParser parser = new JsonParser();
-        JsonElement parse = parser.parse(data);
-        JsonObject jsonObject = parse.getAsJsonObject();
-        JsonElement element = jsonObject.get("data");
-        System.out.println(element.isJsonArray() + "==" + element.isJsonObject()+"="+element.getAsString()+"="+element.toString());
+        HashMap<String, String> params = new HashMap<>();
+        params.put("doctorUid", "2c94808c6ae3a01f016ae783e46c0000");
+        params.put("queryUid", "2c94808c6ae3a01f016ae783e46c0000");
+        params.put("timestamp", "1558692602458");
+        params.put("token", "c423aa06715e4da48871aca3f902c759");
+        params.put("type", "1");
+        String sign = SignUtils.generateSign(params);
+        System.out.println(sign);
     }
 
 
