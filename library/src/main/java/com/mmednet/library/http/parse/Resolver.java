@@ -111,8 +111,9 @@ public class Resolver {
 
                 //解析apiCondition，如果apiMsg中存在数据则使用apiMsg中数据
                 try {
-                    JsonObject aJsonObject = jsonObject.getAsJsonObject("apiCondition");
-                    if (aJsonObject != null && !aJsonObject.isJsonNull()) {
+                    JsonElement aElement = jsonObject.get("apiCondition");
+                    if (aElement != null && !aElement.isJsonNull()) {
+                        JsonObject aJsonObject = aElement.getAsJsonObject();
                         JsonElement element = aJsonObject.get("apiMsg");
                         if (element != null && element.isJsonNull()) {
                             msg = element.getAsString();
