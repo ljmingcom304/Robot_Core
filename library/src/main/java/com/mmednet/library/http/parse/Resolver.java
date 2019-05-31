@@ -1,5 +1,6 @@
 package com.mmednet.library.http.parse;
 
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -8,6 +9,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.mmednet.library.http.json.JsonBuilder;
 import com.mmednet.library.http.okhttp.HttpHandler;
@@ -17,7 +19,6 @@ import com.mmednet.library.util.JsonUtils;
 import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * Title:Resolver
@@ -38,7 +39,10 @@ public class Resolver {
         if (callBack == null) {
             return;
         }
-        sendMessage(callBack, HttpCode.ERROR_NET, null, result);
+        HttpResult httpResult = new HttpResult();
+        httpResult.setHttpCode(HttpCode.ERROR_NET);
+        httpResult.setMsg(result);
+        sendMessage(callBack, null, httpResult);
     }
 
     public <T> void handleSuccess(String result, Class<T> clazz, HttpCallBack<T> callBack) {
@@ -48,84 +52,40 @@ public class Resolver {
 
         //泛型为String.class或空时不进行解析直接返回
         if (clazz == null || clazz == String.class) {
-            sendMessage(callBack, HttpCode.SUCCESS, result, null);
+            HttpResult httpResult = new HttpResult();
+            httpResult.setHttpCode(HttpCode.SUCCESS);
+            httpResult.setResult(result);
+            sendMessage(callBack, result, httpResult);
         } else {
             if (TextUtils.isEmpty(result)) {// 网络请求没数据返回
-                sendMessage(callBack, HttpCode.NO_DATA, null, null);
+                HttpResult httpResult = new HttpResult();
+                httpResult.setHttpCode(HttpCode.NO_DATA);
+                sendMessage(callBack, null, new HttpResult());
                 return;
             }
 
-            //响应数据
-            String data = null;
-            //响应状态码
-            int statusCode = HttpCode.SUCCESS.getCode();
-            //响应消息
-            String msg = null;
+            HttpResult httpResult = new HttpResult();
+            try {
+                httpResult = gson.fromJson(result, HttpResult.class);
+            } catch (Exception e) {
+                Log.e(TAG, "HttpResult解析异常：" + e.getMessage());
+            }
 
             // Json数据格式：{data:{},status:0,msg:""}
-            JsonObject jsonObject = null;
             try {
                 JsonElement parse = jsonParser.parse(result);
-                jsonObject = parse.getAsJsonObject();
+                JsonObject jsonObject = parse.getAsJsonObject();
+                JsonElement dElement = jsonObject.get("data");
+                if (dElement != null && !JsonUtils.isJsonEmpty(dElement)) {
+                    httpResult.setResult(dElement.toString());
+                }
             } catch (Exception e) {
-                Log.e(TAG, "JSON解析异常：" + e.getMessage());
-                statusCode = HttpCode.ERROR_UNKNOWN.getCode();
+                Log.e(TAG, "DATA解析异常：" + e.getMessage());
             }
 
-            if (jsonObject != null) {
-                //解析状态码
-                try {
-                    JsonElement sElement = jsonObject.get("status");
-                    if (sElement != null && !sElement.isJsonNull()) {
-                        statusCode = sElement.getAsInt();
-                    }
-                } catch (Exception e) {
-                    Log.e(TAG, "status解析异常：" + e.getMessage());
-                    statusCode = HttpCode.ERROR_UNKNOWN.getCode();
-                }
-
-
-                try {
-                    JsonElement dElement = jsonObject.get("data");
-                    if (dElement != null && !dElement.isJsonNull()) {
-                        if (dElement.isJsonArray() || dElement.isJsonObject()) {
-                            data = dElement.toString();
-                        } else {
-                            //data接字符串时
-                            data = dElement.getAsString();
-                        }
-                    }
-                } catch (Exception e) {
-                    Log.e(TAG, "data解析异常：" + e.getMessage());
-                }
-
-
-                try {
-                    JsonElement mElement = jsonObject.get("msg");
-                    if (mElement != null && !mElement.isJsonNull()) {
-                        msg = mElement.getAsString();
-                    }
-                } catch (Exception e) {
-                    Log.e(TAG, "msg解析异常：" + e.getMessage());
-                }
-
-                //解析apiCondition，如果apiMsg中存在数据则使用apiMsg中数据
-                try {
-                    JsonElement aElement = jsonObject.get("apiCondition");
-                    if (aElement != null && !aElement.isJsonNull()) {
-                        JsonObject aJsonObject = aElement.getAsJsonObject();
-                        JsonElement element = aJsonObject.get("apiMsg");
-                        if (element != null && !element.isJsonNull()) {
-                            msg = element.getAsString();
-                        }
-                    }
-                } catch (Exception e) {
-                    Log.e(TAG, "apiCondition解析异常：" + e.getMessage());
-                }
-            }
-
-
-            if (HttpCode.SUCCESS.getCode() == statusCode) {
+            String data = httpResult.getResult();
+            int status = httpResult.getStatus();
+            if (HttpCode.SUCCESS.getCode() == status) {
 
                 // 判断返回的结果数据是否为空
                 if (!TextUtils.isEmpty(data)) {
@@ -136,26 +96,25 @@ public class Resolver {
                         Log.e(TAG, "BEAN解析异常：" + e.getMessage());
                         e.printStackTrace();
                     }
-
-                    if (serializable != null) {
-                        sendMessage(callBack, HttpCode.SUCCESS, serializable, msg);
-                    } else {
-                        sendMessage(callBack, HttpCode.ERROR_DATA, null, msg);
-                    }
+                    httpResult.setHttpCode(serializable == null ? HttpCode.ERROR_DATA : HttpCode.SUCCESS);
+                    sendMessage(callBack, serializable, httpResult);
                 } else {
                     //没有数据返回时也走成功状态，当后台返回15时才走没有数据状态
-                    sendMessage(callBack, HttpCode.SUCCESS, null, msg);
+                    httpResult.setHttpCode(HttpCode.SUCCESS);
+                    sendMessage(callBack, null, httpResult);
                 }
             } else {
                 for (HttpCode httpCode : HttpCode.values()) {
                     int code = httpCode.getCode();
-                    if (code == statusCode) {
-                        sendMessage(callBack, httpCode, data, msg);
+                    if (code == status) {
+                        httpResult.setHttpCode(httpCode);
+                        sendMessage(callBack, data, httpResult);
                         return;
                     }
                 }
-                HttpCode.ERROR_UNKNOWN.setCode(statusCode);
-                sendMessage(callBack, HttpCode.ERROR_UNKNOWN, data, msg);
+                HttpCode.ERROR_UNKNOWN.setCode(status);
+                httpResult.setHttpCode(HttpCode.ERROR_UNKNOWN);
+                sendMessage(callBack, data, httpResult);
             }
         }
     }
@@ -163,12 +122,11 @@ public class Resolver {
     /**
      * 发送消息到主线程
      */
-    private <T> void sendMessage(HttpCallBack<T> callBack, HttpCode httpCode, Serializable result, String msg) {
+    private <T> void sendMessage(HttpCallBack<T> callBack, Serializable result, @NonNull HttpResult httpResult) {
         HttpMessage<T> message = new HttpMessage<>();
         message.setCallBack(callBack);
-        message.setHttpCode(httpCode);
         message.setSerializable(result);
-        message.setMessage(msg);
+        message.setHttpResult(httpResult);
         httpHandler.sendMessage(message.build());
     }
 

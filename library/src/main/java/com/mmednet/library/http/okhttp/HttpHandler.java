@@ -6,7 +6,7 @@ import android.os.Message;
 
 import com.mmednet.library.http.parse.HttpCallBack;
 import com.mmednet.library.http.parse.HttpCode;
-import com.mmednet.library.http.parse.Resolver;
+import com.mmednet.library.http.parse.HttpResult;
 
 import java.io.Serializable;
 
@@ -28,14 +28,9 @@ public class HttpHandler extends Handler {
     public void handleMessage(Message msg) {
         HttpMessage httpMessage = (HttpMessage) msg.obj;
         HttpCallBack callBack = httpMessage.getCallBack();
-        HttpCode httpCode = httpMessage.getHttpCode();
+        HttpResult httpResult = httpMessage.getHttpResult();
         Serializable serializable = httpMessage.getSerializable();
-        String message = httpMessage.getMessage();
-        if (httpCode == HttpCode.SUCCESS) {
-            callBack.onSuccessResult(httpCode, message, serializable);
-        } else {
-            callBack.onFailureResult(httpCode, message, (String) serializable);
-        }
+        callBack.onResult(httpResult, serializable);
     }
 
 }

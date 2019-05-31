@@ -1,5 +1,6 @@
 package com.mmednet.library.http.parse;
 
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -17,55 +18,30 @@ public abstract class HttpCallBack<T> extends ProgressUIListener {
 
     private String TAG = "HttpCallBack";
 
-    public final void onSuccessResult(HttpCode httpCode, String message, Serializable result) {
-        if (onPreExecute(httpCode, message, null)) {
-            return;
-        }
-        this.onSuccess(result);
-        this.onPostExecute();
-    }
-
     /**
      * 处理网络请求失败
      */
-    public final void onFailureResult(HttpCode httpCode, String message, String result) {
-        if (onPreExecute(httpCode, message, result)) {
+    public final void onResult(@NonNull HttpResult httpResult, Serializable result) {
+        if (onPreExecute(httpResult)) {
             return;
         }
-
-        String description = message;
-        if (TextUtils.isEmpty(message)) {
-            description = httpCode.getDescription();
-        }
-        String logger = "[Code:" + httpCode.getCode() + "][Msg:" + description + "]";
-        Log.e(TAG, logger);
-
-        if (httpCode == HttpCode.NO_DATA) {
-            this.onEmpty(description);
+        if (httpResult.getHttpCode() == HttpCode.SUCCESS) {
+            this.onSuccess(result);
+        } else if (httpResult.getHttpCode() == HttpCode.NO_DATA) {
+            this.onEmpty(httpResult);
         } else {
-            this.onFailure(description);
+            this.onFailure(httpResult);
         }
 
         this.onPostExecute();
+    }
+
+    protected boolean onPreExecute(HttpResult httpResult) {
+        return onPreExecute(httpResult.getHttpCode());
     }
 
     protected boolean onPreExecute(HttpCode httpcode) {
         return false;
-    }
-
-    protected boolean onPreExecute(HttpCode httpcode, String message) {
-        return onPreExecute(httpcode);
-    }
-
-    protected boolean onPreExecute(HttpCode httpCode, String message, String result) {
-        return onPreExecute(httpCode, message);
-    }
-
-    /**
-     * 执行后处理
-     */
-    protected void onPostExecute() {
-
     }
 
     /**
@@ -73,6 +49,19 @@ public abstract class HttpCallBack<T> extends ProgressUIListener {
      */
     protected abstract void onSuccess(Serializable s);
 
+    /**
+     * 网络请求失败
+     */
+    protected void onFailure(HttpResult httpResult) {
+        HttpCode httpCode = httpResult.getHttpCode();
+        String msg = httpResult.getMsg();
+        if (TextUtils.isEmpty(msg)) {
+            msg = httpCode.getDescription();
+        }
+        String logger = "[Code:" + httpCode.getCode() + "][Msg:" + msg + "]";
+        Log.e(TAG, logger);
+        onFailure(msg);
+    }
 
     /**
      * 网络请求失败
@@ -82,10 +71,31 @@ public abstract class HttpCallBack<T> extends ProgressUIListener {
     }
 
     /**
+     * 网络请求失败
+     */
+    protected void onEmpty(HttpResult httpResult) {
+        HttpCode httpCode = httpResult.getHttpCode();
+        String msg = httpResult.getMsg();
+        if (TextUtils.isEmpty(msg)) {
+            msg = httpCode.getDescription();
+        }
+        String logger = "[Code:" + httpCode.getCode() + "][Msg:" + msg + "]";
+        Log.e(TAG, logger);
+        onEmpty(msg);
+    }
+
+    /**
      * 网络请求为空
      */
     protected void onEmpty(String message) {
         Logger.e(TAG, message);
+    }
+
+    /**
+     * 执行后处理
+     */
+    protected void onPostExecute() {
+
     }
 
     @Override
