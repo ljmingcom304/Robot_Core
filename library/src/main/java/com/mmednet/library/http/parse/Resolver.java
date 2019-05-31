@@ -115,7 +115,7 @@ public class Resolver {
                     if (aElement != null && !aElement.isJsonNull()) {
                         JsonObject aJsonObject = aElement.getAsJsonObject();
                         JsonElement element = aJsonObject.get("apiMsg");
-                        if (element != null && element.isJsonNull()) {
+                        if (element != null && !element.isJsonNull()) {
                             msg = element.getAsString();
                         }
                     }
