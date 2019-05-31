@@ -22,7 +22,6 @@ public class HttpResult {
     public HttpResult() {
         this.httpCode = HttpCode.ERROR_UNKNOWN;
         this.status = HttpCode.ERROR_UNKNOWN.getCode();
-        this.apiCondition = new Condition();
     }
 
     public static class Condition {
@@ -31,7 +30,7 @@ public class HttpResult {
         private String apiMsg;
 
         public String getApiCode() {
-            return apiCode;
+            return apiCode == null ? "" : apiCode;
         }
 
         public void setApiCode(String apiCode) {
@@ -39,7 +38,7 @@ public class HttpResult {
         }
 
         public String getApiMsg() {
-            return apiMsg;
+            return apiMsg == null ? "" : apiMsg;
         }
 
         public void setApiMsg(String apiMsg) {
@@ -80,7 +79,7 @@ public class HttpResult {
     }
 
     public Condition getApiCondition() {
-        return apiCondition;
+        return apiCondition == null ? new Condition() : apiCondition;
     }
 
     public void setApiCondition(Condition apiCondition) {
