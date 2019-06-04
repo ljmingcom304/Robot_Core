@@ -87,7 +87,7 @@ public class HttpResult {
     }
 
     public HttpCode getHttpCode() {
-        return httpCode;
+        return httpCode == null ? HttpCode.ERROR_UNKNOWN : httpCode;
     }
 
     public void setHttpCode(HttpCode httpCode) {
