@@ -39,7 +39,7 @@ public class ValidateUtils {
     //邮箱规则：用户名@服务器名.后缀                                   ---已验证
     //匹配Email地址的正则表达式：^([a-z0-9A-Z]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}
     public static boolean isEmail(String inputString) {
-        Pattern pattern = Pattern.compile("^([a-z0-9A-Z]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}");
+        Pattern pattern = Pattern.compile("^([a-z0-9A-Z_\\.\\-]?)+[a-z0-9A-Z_\\.\\-]@([a-z0-9A-Z-]+(-[a-z0-9A-Z-]+)?\\.)+[a-zA-Z]{2,}");
         Matcher macher = pattern.matcher(inputString);
         return macher.find();
     }
