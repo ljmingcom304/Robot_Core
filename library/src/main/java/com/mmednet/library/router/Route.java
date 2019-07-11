@@ -78,6 +78,11 @@ public class Route {
         });
     }
 
+    /**
+     * 通过Application中上下文启动
+     *
+     * @param intent 启动意图
+     */
     public static void startActivity(@NonNull RouteIntent intent) {
         Route route = Singleton.INSTANCE.getInstance();
         List<RouteBean> beans = route.beans;
@@ -104,7 +109,37 @@ public class Route {
         }
     }
 
-    public static void startActivityForResult(@NonNull RouteIntent intent, @NonNull Activity activity, int requestCode) {
+    /**
+     * 根据当前上下文启动
+     *
+     * @param context 当前上下文
+     * @param intent  启动移除
+     */
+    public static void startActivity(Context context, @NonNull RouteIntent intent) {
+        Route route = Singleton.INSTANCE.getInstance();
+        List<RouteBean> beans = route.beans;
+        if (beans == null) {
+            throw new RuntimeException("Route not initialized!");
+        }
+        boolean flag = false;
+        for (RouteBean bean : beans) {
+            if (TextUtils.equals(bean.getHost(), intent.host())
+                    && TextUtils.equals(bean.getPath(), intent.path())) {
+                flag = true;
+                intent.setClassName(context.getPackageName(), bean.getClassName());
+                context.startActivity(intent);
+                break;
+            }
+        }
+        if (!flag) {
+            for (RouteBean bean : beans) {
+                Log.e(TAG, "[Host=" + bean.getHost() + "][Path=" + bean.getPath() + "]");
+            }
+            Log.e(TAG, "STATE_ERROR:[Host=" + intent.host() + "][Path=" + intent.path() + "]");
+        }
+    }
+
+    public static void startActivityForResult(@NonNull Activity activity, @NonNull RouteIntent intent, int requestCode) {
         Route route = Singleton.INSTANCE.getInstance();
         List<RouteBean> beans = route.beans;
         Context context = route.context;
@@ -117,7 +152,6 @@ public class Route {
                     && TextUtils.equals(bean.getPath(), intent.path())) {
                 flag = true;
                 intent.setClassName(context.getPackageName(), bean.getClassName());
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 activity.startActivityForResult(intent, requestCode);
                 break;
             }
