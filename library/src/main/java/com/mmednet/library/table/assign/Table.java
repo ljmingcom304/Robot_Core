@@ -1,7 +1,5 @@
 package com.mmednet.library.table.assign;
 
-import com.mmednet.library.table.BindTable;
-
 import java.util.List;
 
 /**

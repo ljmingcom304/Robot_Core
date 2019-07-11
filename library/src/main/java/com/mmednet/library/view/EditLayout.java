@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mmednet.library.R;
+import com.mmednet.library.table.assign.Table;
 import com.mmednet.library.table.assign.VoiceTable;
 import com.mmednet.library.util.StringUtils;
 import com.mmednet.library.view.edit.EditView;
@@ -41,7 +42,7 @@ import java.util.List;
  * Author Jming.L
  * Date 2017/9/22 15:32
  */
-public class EditLayout extends LinearLayout implements VoiceTable {
+public class EditLayout extends LinearLayout implements VoiceTable, Table {
 
     public static final int TYPE_EDITBOX = 0;       // 编辑框
     public static final int TYPE_TEXTBOX = 1;       // 文本框
@@ -167,14 +168,16 @@ public class EditLayout extends LinearLayout implements VoiceTable {
             //提示内容
             //String[] hints = null;
             String h = array.getString(R.styleable.EditLayout_hintText);
-            if (h != null)
+            if (h != null) {
                 mAttribute.hints = h.split("\\|");
+            }
 
             //正文内容
             //String[] texts = null;
             String t = array.getString(R.styleable.EditLayout_text);
-            if (t != null)
+            if (t != null) {
                 mAttribute.texts = t.split("\\|");
+            }
 
             //正文尺寸
             mAttribute.textSize = (int) array.getDimension(R.styleable.EditLayout_textSize, 24);
@@ -237,15 +240,17 @@ public class EditLayout extends LinearLayout implements VoiceTable {
         this.setInputType(attr.inputType);
         //优先判断图形资源，没有图形资源则选择文本
         if (attr.leftDrawable == 0) {
-            if (attr.leftText != null)
+            if (attr.leftText != null) {
                 this.setLeftDrawable(attr.leftText);
+            }
         } else {
             this.setLeftDrawable(attr.leftDrawable);
         }
 
         if (attr.rightDrawable == 0) {
-            if (attr.rightText != null)
+            if (attr.rightText != null) {
                 this.setRightDrawable(attr.rightText);
+            }
         } else {
             this.setRightDrawable(attr.rightDrawable);
         }
@@ -571,6 +576,7 @@ public class EditLayout extends LinearLayout implements VoiceTable {
      *
      * @return true:可以编辑;false:不可编辑
      */
+    @Override
     public boolean isEditable() {
         return mEditView.isEditable();
     }
@@ -613,6 +619,7 @@ public class EditLayout extends LinearLayout implements VoiceTable {
      *
      * @return true:存在被选项;false:不存在被选项
      */
+    @Override
     public boolean isLimit() {
         return mViewType == TYPE_CHECKBOX
                 || mViewType == TYPE_RADIOBOX
@@ -674,6 +681,7 @@ public class EditLayout extends LinearLayout implements VoiceTable {
      *
      * @return 提示内容或待选内容
      */
+    @Override
     public List<String> getHints() {
         return mEditView.getHints();
     }
@@ -770,6 +778,7 @@ public class EditLayout extends LinearLayout implements VoiceTable {
      *
      * @param text 文本内容集合
      */
+    @Override
     public void setText(List<String> text) {
         if (text == null) {
             text = new ArrayList<>();
@@ -800,6 +809,7 @@ public class EditLayout extends LinearLayout implements VoiceTable {
      *
      * @return 文本内容
      */
+    @Override
     public List<String> getTexts() {
         return mEditView.getTexts();
     }

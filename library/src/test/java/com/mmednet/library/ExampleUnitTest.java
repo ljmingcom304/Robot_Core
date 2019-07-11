@@ -14,14 +14,7 @@ import java.util.HashMap;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("doctorUid", "2c94808c6ae3a01f016ae783e46c0000");
-        params.put("queryUid", "2c94808c6ae3a01f016ae783e46c0000");
-        params.put("timestamp", "1558692602458");
-        params.put("token", "c423aa06715e4da48871aca3f902c759");
-        params.put("type", "1");
-        String sign = SignUtils.generateSign(params);
-        System.out.println(sign);
+        System.out.println(A.class.isAssignableFrom(B.class));
     }
 
 
