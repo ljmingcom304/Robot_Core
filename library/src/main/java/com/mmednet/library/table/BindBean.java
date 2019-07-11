@@ -16,6 +16,7 @@ public @interface BindBean {
     /**
      * 已废弃
      */
+    @Deprecated
     String code() default ""; // 编码：男=1|女=2|未知性别=3
 
     /**
