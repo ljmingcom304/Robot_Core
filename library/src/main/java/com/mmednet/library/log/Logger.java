@@ -159,7 +159,11 @@ public class Logger {
             className = stacks[num].getFileName();
             int index = className.lastIndexOf(".");
             if (index > 0) {
-                className = className.substring(0, index);
+                try {
+                    className = className.substring(0, index);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

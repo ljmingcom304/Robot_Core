@@ -42,7 +42,7 @@ import java.util.List;
  * Author Jming.L
  * Date 2017/9/22 15:32
  */
-public class EditLayout extends LinearLayout implements VoiceTable, Table {
+public class EditLayout extends LinearLayout implements VoiceTable{
 
     public static final int TYPE_EDITBOX = 0;       // 编辑框
     public static final int TYPE_TEXTBOX = 1;       // 文本框
