@@ -72,8 +72,7 @@ public class FileUtils {
                 String path = root.getAbsolutePath() + "/" + dirName + "/";
                 File file = new File(path);
                 if (!file.exists() && !file.mkdirs()) {
-                    throw new RuntimeException("can't make dirs in "
-                            + file.getAbsolutePath());
+                    Log.e(tag, "can't make dirs in " + file.getAbsolutePath());
                 }
                 return path;
             } else {
@@ -115,8 +114,7 @@ public class FileUtils {
                 String path = root.getAbsolutePath() + "/" + dirName + "/";
                 File file = new File(path);
                 if (!file.exists() && !file.mkdirs()) {
-                    throw new RuntimeException("can't make dirs in "
-                            + file.getAbsolutePath());
+                    Log.e(tag, "can't make dirs in " + file.getAbsolutePath());
                 }
                 return path;
             } else {
@@ -136,8 +134,7 @@ public class FileUtils {
             String path = root.getAbsolutePath() + "/" + dirName + "/";
             File file = new File(path);
             if (!file.exists() && !file.mkdirs()) {
-                throw new RuntimeException("can't make dirs in "
-                        + file.getAbsolutePath());
+                Log.e(tag, "can't make dirs in " + file.getAbsolutePath());
             }
             return path;
         }
@@ -158,8 +155,7 @@ public class FileUtils {
 
         File dir = new File(path);
         if (!dir.exists() && !dir.mkdirs()) {
-            throw new RuntimeException("can't make dirs in "
-                    + dir.getAbsolutePath());
+            Log.e(tag, "can't make dirs in " + dir.getAbsolutePath());
         }
         return path;
     }
@@ -204,9 +200,7 @@ public class FileUtils {
                 output.write(b, 0, length);
             }
             output.flush();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             if (input != null) {
