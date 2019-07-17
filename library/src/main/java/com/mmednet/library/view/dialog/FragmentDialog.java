@@ -33,6 +33,7 @@ import com.mmednet.library.util.WindowUtils;
  */
 public abstract class FragmentDialog extends DialogFragment implements LayoutDialog {
 
+    private static final String TAG = FragmentDialog.class.getSimpleName();
     private int mWidth = ViewGroup.LayoutParams.WRAP_CONTENT;
     private int mHeight = ViewGroup.LayoutParams.WRAP_CONTENT;
     private OnCloseListener mListener;
@@ -118,6 +119,7 @@ public abstract class FragmentDialog extends DialogFragment implements LayoutDia
         return null;
     }
 
+    @Override
     public Context getLayoutContext() {
         return getActivity();
     }
@@ -135,8 +137,12 @@ public abstract class FragmentDialog extends DialogFragment implements LayoutDia
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.remove(this);
         transaction.commitAllowingStateLoss();
-        //TODO  Can not perform this action after onSaveInstanceState
-        super.show(manager, this.getTag());
+        //Can not perform this action after onSaveInstanceState
+        try {
+            super.show(manager, this.getTag());
+        } catch (Exception e) {
+            Log.e(TAG, "异常：" + e.getMessage());
+        }
     }
 
     @Override
