@@ -62,7 +62,7 @@ public class SoftKeyBoard {
         mRootView.getViewTreeObserver().addOnGlobalLayoutListener(mLayoutListener);
     }
 
-    private void setListener(OnSoftKeyBoardChangeListener onSoftKeyBoardChangeListener) {
+    public void setListener(OnSoftKeyBoardChangeListener onSoftKeyBoardChangeListener) {
         this.mChangeListener = onSoftKeyBoardChangeListener;
     }
 
