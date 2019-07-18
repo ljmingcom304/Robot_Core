@@ -6,21 +6,21 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 
 /**
- * Title:SoftKeyBoardListener
+ * Title:SoftKeyBoard
  * <p>
  * Description:软键盘监听器
  * </p>
  * Author Jming.L
  * Date 2019/4/3 17:07
  */
-public class SoftKeyBoardListener {
+public class SoftKeyBoard {
 
     private View mRootView;//activity的根视图
     private int mVisibleHeight;//纪录根视图的显示高度
     private OnSoftKeyBoardChangeListener mChangeListener;
     private ViewTreeObserver.OnGlobalLayoutListener mLayoutListener;
 
-    private SoftKeyBoardListener(Activity activity) {
+    public SoftKeyBoard(Activity activity) {
         //获取activity的根视图
         mRootView = activity.getWindow().getDecorView();
         //监听视图树中全局布局发生改变或者视图树中的某个视图的可视状态发生改变
@@ -62,7 +62,7 @@ public class SoftKeyBoardListener {
         mRootView.getViewTreeObserver().addOnGlobalLayoutListener(mLayoutListener);
     }
 
-    private void setOnSoftKeyBoardChangeListener(OnSoftKeyBoardChangeListener onSoftKeyBoardChangeListener) {
+    private void setListener(OnSoftKeyBoardChangeListener onSoftKeyBoardChangeListener) {
         this.mChangeListener = onSoftKeyBoardChangeListener;
     }
 
@@ -70,11 +70,6 @@ public class SoftKeyBoardListener {
         void keyBoardShow(int height);
 
         void keyBoardHide(int height);
-    }
-
-    public static void setListener(Activity activity, OnSoftKeyBoardChangeListener onSoftKeyBoardChangeListener) {
-        SoftKeyBoardListener softKeyBoardListener = new SoftKeyBoardListener(activity);
-        softKeyBoardListener.setOnSoftKeyBoardChangeListener(onSoftKeyBoardChangeListener);
     }
 
 }
