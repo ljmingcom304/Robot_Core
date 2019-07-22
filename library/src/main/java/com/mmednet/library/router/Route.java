@@ -83,7 +83,7 @@ public class Route {
      *
      * @param intent 启动意图
      */
-    public static void startActivity(@NonNull RouteIntent intent) {
+    public static boolean startActivity(@NonNull RouteIntent intent) {
         Route route = Singleton.INSTANCE.getInstance();
         List<RouteBean> beans = route.beans;
         Context context = route.context;
@@ -107,6 +107,7 @@ public class Route {
             }
             Log.e(TAG, "STATE_ERROR:[Host=" + intent.host() + "][Path=" + intent.path() + "]");
         }
+        return flag;
     }
 
     /**
@@ -115,7 +116,7 @@ public class Route {
      * @param context 当前上下文
      * @param intent  启动移除
      */
-    public static void startActivity(Context context, @NonNull RouteIntent intent) {
+    public static boolean startActivity(Context context, @NonNull RouteIntent intent) {
         Route route = Singleton.INSTANCE.getInstance();
         List<RouteBean> beans = route.beans;
         if (beans == null) {
@@ -137,9 +138,10 @@ public class Route {
             }
             Log.e(TAG, "STATE_ERROR:[Host=" + intent.host() + "][Path=" + intent.path() + "]");
         }
+        return flag;
     }
 
-    public static void startActivityForResult(@NonNull Activity activity, @NonNull RouteIntent intent, int requestCode) {
+    public static boolean startActivityForResult(@NonNull Activity activity, @NonNull RouteIntent intent, int requestCode) {
         Route route = Singleton.INSTANCE.getInstance();
         List<RouteBean> beans = route.beans;
         Context context = route.context;
@@ -162,6 +164,7 @@ public class Route {
             }
             Log.e(TAG, "STATE_ERROR:[Host=" + intent.host() + "][Path=" + intent.path() + "]");
         }
+        return flag;
     }
 
 }
