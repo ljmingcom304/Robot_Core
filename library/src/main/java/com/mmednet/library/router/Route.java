@@ -7,6 +7,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -155,6 +156,32 @@ public class Route {
                 flag = true;
                 intent.setClassName(context.getPackageName(), bean.getClassName());
                 activity.startActivityForResult(intent, requestCode);
+                break;
+            }
+        }
+        if (!flag) {
+            for (RouteBean bean : beans) {
+                Log.e(TAG, "[Host=" + bean.getHost() + "][Path=" + bean.getPath() + "]");
+            }
+            Log.e(TAG, "STATE_ERROR:[Host=" + intent.host() + "][Path=" + intent.path() + "]");
+        }
+        return flag;
+    }
+
+    public static boolean startActivityForResult(@NonNull Fragment fragment, @NonNull RouteIntent intent, int requestCode) {
+        Route route = Singleton.INSTANCE.getInstance();
+        List<RouteBean> beans = route.beans;
+        Context context = route.context;
+        if (beans == null || context == null) {
+            throw new RuntimeException("Route not initialized!");
+        }
+        boolean flag = false;
+        for (RouteBean bean : beans) {
+            if (TextUtils.equals(bean.getHost(), intent.host())
+                    && TextUtils.equals(bean.getPath(), intent.path())) {
+                flag = true;
+                intent.setClassName(context.getPackageName(), bean.getClassName());
+                fragment.startActivityForResult(intent, requestCode);
                 break;
             }
         }
