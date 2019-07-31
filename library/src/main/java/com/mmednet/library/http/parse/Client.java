@@ -74,21 +74,31 @@ public class Client {
     }
 
     //设置安全措施的请求参数
-    private void setSecurityParams(Map<String, String> params) {
+    private void setSecurityParams(Map<String, String> params, Map<String, String> jsonParams) {
         //时间戳
         params.put("timestamp", String.valueOf(System.currentTimeMillis()));
-        for (Map.Entry<String, String> itEntry : params.entrySet()) {
-            String value = itEntry.getValue();
-            if (value == null) {
-                itEntry.setValue("");//OkHttp的Value不能为NULL
-            }
-        }
+
+        HashMap<String, String> signParams = new HashMap<>();
+        signParams.putAll(params);
+        signParams.putAll(jsonParams);
         //签名
         try {
-            String sign = SignUtils.generateSign(params);
+            String sign = SignUtils.generateSign(signParams);
             params.put("sign", sign);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+        }
+    }
+
+    //OkHttp的Value不能为NULL
+    private void formatNullParams(Map<String, String> params) {
+        if (params != null) {
+            for (Map.Entry<String, String> itEntry : params.entrySet()) {
+                String value = itEntry.getValue();
+                if (value == null) {
+                    itEntry.setValue("");//OkHttp的Value不能为NULL
+                }
+            }
         }
     }
 
@@ -126,12 +136,17 @@ public class Client {
 
         //添加请求头
         HashMap<String, String> headersMap = new HashMap<>();
+        headersMap.put("x-meridian-sign-version", "v1");        //将JSON数据也进行签名
         if (mHeaders != null) {
             headersMap.putAll(mHeaders);
         }
         if (headers != null) {
             headersMap.putAll(headers);
         }
+
+        //OKHttp中Value值不能为NULL
+        formatNullParams(mParams);
+        formatNullParams(params);
 
         //合并请求参数并打印(不包括TYPE_JSON)
         Map<String, String> mergeParams = new HashMap<>();
@@ -148,7 +163,7 @@ public class Client {
                 mergeParams.putAll(params);
             }
         }
-        this.setSecurityParams(mergeParams);
+        this.setSecurityParams(mergeParams, jsonParams);
 
         //打印请求参数
         Map<String, String> printParams = new HashMap<>();
