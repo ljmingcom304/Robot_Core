@@ -1,0 +1,119 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#000000"
+    android:onClick="onClickEmptyArea"
+    android:orientation="horizontal" >
+
+    <RelativeLayout
+        android:id="@+id/rl_normalscreen_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" >
+
+        <RelativeLayout
+            android:id="@+id/rl_header_bar"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#282828" >
+
+            <TextView
+                android:id="@+id/tv_top_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="视频名称"
+                android:textColor="#ffffff"
+                android:textSize="20dp" />
+
+            <RelativeLayout
+                android:id="@+id/rl_back"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true" >
+
+                <ImageButton
+                    android:id="@+id/ibtn_back"
+                    android:layout_width="10dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/btn_back_white" />
+            </RelativeLayout>
+
+            <ImageButton
+                android:id="@+id/ibtn_screen_control"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/btn_to_fullscreen" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_normalscreen_controller"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+
+        <com.baidu.cloud.videoplayer.controller.AdvancedMediaController
+            android:id="@+id/media_controller_bar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/view_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/rl_normalscreen_controller"
+        android:layout_below="@id/rl_normalscreen_header"
+        android:layout_centerInParent="true" >
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/preview_holder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/rl_normalscreen_controller"
+        android:layout_below="@id/rl_normalscreen_header"
+        android:layout_centerInParent="true" >
+        <ImageView
+            android:id="@+id/view_image"
+            android:layout_width="220dp"
+            android:layout_height="124dp"
+            android:visibility="invisible"
+            android:layout_centerInParent="true" >
+        </ImageView>
+        <TextView
+            android:id="@+id/time_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/view_image"
+            android:layout_centerHorizontal="true"
+            android:paddingBottom="10dp"
+            android:visibility="invisible"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="18dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_fullscreen_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" >
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_fullscreen_controller"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -12,6 +12,7 @@ library_klyl:康力优蓝库工程
 library_xyzj:小鱼在家库工程
 library_router:组件化开发下用于不同组件的路由转发
 library_reader:身份证读取器
+library_player:百度视频播放器
 
 gradle build --refresh-dependencies
 
