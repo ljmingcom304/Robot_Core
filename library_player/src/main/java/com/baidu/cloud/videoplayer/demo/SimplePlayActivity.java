@@ -10,7 +10,7 @@ import android.widget.RelativeLayout;
 import com.baidu.cloud.media.player.IMediaPlayer;
 import com.baidu.cloud.videoplayer.controller.SimpleMediaController;
 import com.baidu.cloud.videoplayer.demo.info.SharedPrefsStore;
-import com.baidu.cloud.videoplayer.demo.info.VideoInfo;
+import com.baidu.cloud.videoplayer.bean.VideoInfo;
 import com.baidu.cloud.videoplayer.widget.BDCloudVideoView;
 import com.baidu.cloud.videoplayer.widget.BDCloudVideoView.PlayerState;
 

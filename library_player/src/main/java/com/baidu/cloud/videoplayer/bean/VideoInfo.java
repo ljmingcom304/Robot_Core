@@ -1,4 +1,4 @@
-package com.baidu.cloud.videoplayer.demo.info;
+package com.baidu.cloud.videoplayer.bean;
 
 import org.json.JSONObject;
 

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import com.baidu.cloud.videoplayer.demo.info.DownloadObserverManager;
 import com.baidu.cloud.videoplayer.demo.info.SampleObserver;
 import com.baidu.cloud.videoplayer.demo.info.SharedPrefsStore;
-import com.baidu.cloud.videoplayer.demo.info.VideoInfo;
+import com.baidu.cloud.videoplayer.bean.VideoInfo;
 import com.baidu.cloud.videoplayer.demo.popview.CustomAlertWindow;
 import com.baidu.cloud.videoplayer.demo.popview.MorePopWindow;
 import com.baidu.cloud.media.download.DownloadableVideoItem;

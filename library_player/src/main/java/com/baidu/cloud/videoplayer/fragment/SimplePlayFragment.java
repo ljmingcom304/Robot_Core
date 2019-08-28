@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import com.baidu.cloud.media.player.IMediaPlayer;
 import com.baidu.cloud.videoplayer.controller.SimpleMediaController;
 import com.baidu.cloud.videoplayer.demo.R;
 import com.baidu.cloud.videoplayer.demo.info.SharedPrefsStore;
-import com.baidu.cloud.videoplayer.demo.info.VideoInfo;
+import com.baidu.cloud.videoplayer.bean.VideoInfo;
 import com.baidu.cloud.videoplayer.widget.BDCloudVideoView;
 
 import java.util.Timer;
@@ -38,7 +37,7 @@ public class SimplePlayFragment extends Fragment implements IMediaPlayer.OnPrepa
     /**
      * 您的AK 请到http://console.bce.baidu.com/iam/#/iam/accesslist获取
      */
-    private String ak = ""; // 请录入您的AK !!!
+    private String ak = "9bafe521b8b74f758f648918e56bacc6"; // 请录入您的AK !!!
 
     private VideoInfo info;
     private BDCloudVideoView mVV;

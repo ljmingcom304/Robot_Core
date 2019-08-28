@@ -22,7 +22,7 @@ import android.widget.Toast;
 import com.baidu.cloud.videoplayer.demo.PlayerMainActivity;
 import com.baidu.cloud.videoplayer.demo.R;
 import com.baidu.cloud.videoplayer.demo.info.SharedPrefsStore;
-import com.baidu.cloud.videoplayer.demo.info.VideoInfo;
+import com.baidu.cloud.videoplayer.bean.VideoInfo;
 
 public class AddPopWindow extends PopupWindow {
     private View contentView;

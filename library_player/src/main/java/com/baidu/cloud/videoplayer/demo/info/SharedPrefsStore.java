@@ -9,6 +9,8 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.baidu.cloud.videoplayer.bean.VideoInfo;
+
 /**
  * 此处仅为存储示例 您的项目中可能使用其他存储形式
  *
