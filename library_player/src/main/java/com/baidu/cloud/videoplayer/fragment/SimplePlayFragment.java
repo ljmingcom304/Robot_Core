@@ -59,7 +59,7 @@ public class SimplePlayFragment extends Fragment implements IMediaPlayer.OnPrepa
         BDCloudVideoView.setAK(ak);
 
         mVV = new BDCloudVideoView(getContext());
-        mVV.setVideoPath(info.getUrl());
+        mVV.setVideoPathWithToken(info.getUrl(), info.getToken());
         if (SharedPrefsStore.isPlayerFitModeCrapping(getContext())) {
             mVV.setVideoScalingMode(BDCloudVideoView.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
         } else {

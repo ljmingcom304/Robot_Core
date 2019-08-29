@@ -15,6 +15,7 @@ public class VideoInfo implements Parcelable {
     private String title = "";
     private String url = "";
     private String imageUrl = "";
+    private String token = "";
     private String[] preImages = new String[16];
     private boolean canDelete = true;
     
@@ -51,6 +52,14 @@ public class VideoInfo implements Parcelable {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String[] getPreImages() {
