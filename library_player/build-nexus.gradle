@@ -1,7 +1,7 @@
 apply plugin: 'maven'
 
 //def versionName = "${android.defaultConfig.versionName}-RELEASE"
-def versionName = "${android.defaultConfig.versionName}-SNAPSHOT"
+def versionName = "${android.defaultConfig.versionName}-RELEASE"
 def artifactName = "${repositoryArtifact}-player"
 
 uploadArchives {
