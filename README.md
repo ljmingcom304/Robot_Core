@@ -20,24 +20,27 @@ gradle build --refresh-dependencies
 
 
 ######################################################################
-    //打不包含依赖的jar包
-    def SDK_BASENAME = "mmednet-core-";
-    def SDK_VERSION = "v1.2.3";
-    def sdkDestinationPath = "build/libs/";
-    def zipFile = file('build/intermediates/bundles/default/classes.jar')
-    task deleteBuild(type: Delete) {
-        delete sdkDestinationPath + SDK_BASENAME + SDK_VERSION + ".jar"
-    }
-    task makeJar(type: Jar) {
-        from zipTree(zipFile)
-        from fileTree(dir: 'src/main', includes: ['assets*//**//**'])
-        baseName = SDK_BASENAME + SDK_VERSION
-        destinationDir = file(sdkDestinationPath)
-        //去掉不要的类
-        exclude('**//*BuildConfig.class')
-        exclude('**//*BuildConfig\$*.class')
-        exclude('**//*R.class')
-        exclude('**//*R\$*.class')
-        exclude('test/')
-        exclude('androidTest/')
-    }
+
+```
+//打不包含依赖的jar包
+def SDK_BASENAME = "mmednet-core-";
+def SDK_VERSION = "v1.2.3";
+def sdkDestinationPath = "build/libs/";
+def zipFile = file('build/intermediates/bundles/default/classes.jar')
+task deleteBuild(type: Delete) {
+    delete sdkDestinationPath + SDK_BASENAME + SDK_VERSION + ".jar"
+}
+task makeJar(type: Jar) {
+    from zipTree(zipFile)
+    from fileTree(dir: 'src/main', includes: ['assets*//**//**'])
+    baseName = SDK_BASENAME + SDK_VERSION
+    destinationDir = file(sdkDestinationPath)
+    //去掉不要的类
+    exclude('**//*BuildConfig.class')
+    exclude('**//*BuildConfig\$*.class')
+    exclude('**//*R.class')
+    exclude('**//*R\$*.class')
+    exclude('test/')
+    exclude('androidTest/')
+}
+```
