@@ -77,7 +77,7 @@ public class Resolver {
                 JsonObject jsonObject = parse.getAsJsonObject();
                 JsonElement dElement = jsonObject.get("data");
                 if (dElement != null && !JsonUtils.isJsonEmpty(dElement)) {
-                    httpResult.setResult(dElement.toString());
+                    httpResult.setResult(dElement.getAsString());
                 }
             } catch (Exception e) {
                 Log.e(TAG, "DATA解析异常：" + e.getMessage());
