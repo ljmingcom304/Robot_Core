@@ -77,7 +77,12 @@ public class Resolver {
                 JsonObject jsonObject = parse.getAsJsonObject();
                 JsonElement dElement = jsonObject.get("data");
                 if (dElement != null && !JsonUtils.isJsonEmpty(dElement)) {
-                    httpResult.setResult(dElement.getAsString());
+                    //是否为字符串类型
+                    if (dElement.isJsonPrimitive()) {
+                        httpResult.setResult(dElement.getAsString());
+                    } else {
+                        httpResult.setResult(dElement.toString());
+                    }
                 }
             } catch (Exception e) {
                 Log.e(TAG, "DATA解析异常：" + e.getMessage());

@@ -1,5 +1,10 @@
 package com.mmednet.library;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.mmednet.library.util.JsonUtils;
 import com.mmednet.library.util.SignUtils;
 
 import org.junit.Test;
@@ -14,7 +19,12 @@ import java.util.HashMap;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
-        System.out.println(A.class.isAssignableFrom(B.class));
+        String result = "{'data':null}";
+        JsonParser jsonParser = new JsonParser();
+        JsonElement parse = jsonParser.parse(result);
+        JsonObject jsonObject = parse.getAsJsonObject();
+        JsonElement dElement = jsonObject.get("data");
+        System.out.println(dElement.isJsonArray() + "=" + dElement.isJsonObject() + "=" + dElement.isJsonPrimitive()+"="+ JsonUtils.isJsonEmpty(dElement));
     }
 
 
