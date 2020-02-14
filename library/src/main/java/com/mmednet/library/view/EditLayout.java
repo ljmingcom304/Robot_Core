@@ -19,17 +19,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mmednet.library.R;
-import com.mmednet.library.table.assign.Table;
 import com.mmednet.library.table.assign.VoiceTable;
 import com.mmednet.library.util.StringUtils;
 import com.mmednet.library.view.edit.EditView;
 import com.mmednet.library.view.edit.IEditBox;
 import com.mmednet.library.view.edit.IEditText;
 import com.mmednet.library.view.edit.ISelectBox;
-import com.mmednet.library.view.watcher.CursorTextWatcher;
-import com.mmednet.library.view.watcher.LimitTextWatcher;
 import com.mmednet.library.view.edit.OnItemEditListener;
 import com.mmednet.library.view.edit.ViewFactory;
+import com.mmednet.library.view.watcher.CursorTextWatcher;
+import com.mmednet.library.view.watcher.LimitTextWatcher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -346,7 +345,7 @@ public class EditLayout extends LinearLayout implements VoiceTable{
      * @param size 字体大小
      */
     public void setTitleSize(int size) {
-        mTitleView.setTextSize(size);
+        mTitleView.setTextSize(TypedValue.COMPLEX_UNIT_PX,size);
     }
 
     /**
