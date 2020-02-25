@@ -39,11 +39,12 @@ import java.util.List;
  * Title:ISpinner
  * <p>
  * Description:下拉框（支持主题@android:style/Theme.Holo.Light.NoActionBar）
+ * 下拉框高版本错位问题android:overlapAnchor="false"
  * </p>
  * Author Jming.L
  * Date 2017/9/22 15:46
  */
-@SuppressLint( "AppCompatCustomView" )
+@SuppressLint("AppCompatCustomView")
 public class ISpinner extends Spinner implements EditView {
 
     private Context mContext;
@@ -106,7 +107,7 @@ public class ISpinner extends Spinner implements EditView {
             if (convertView == null) {
                 LayoutInflater inflater = LayoutInflater.from(context);
                 convertView = inflater.inflate(R.layout.core_item_spinner_dropdown, parent, false);
-                convertView.setBackground(UIUtils.getDrawable(context,R.drawable.core_selector_select_spinner));
+                convertView.setBackground(UIUtils.getDrawable(context, R.drawable.core_selector_select_spinner));
 
                 TextView textView = (TextView) convertView.findViewById(R.id.tv_hint);
                 textView.setIncludeFontPadding(false);
