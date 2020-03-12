@@ -11,21 +11,14 @@ import com.mmednet.library.http.parse.Resolver;
 import com.mmednet.library.log.Logger;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.security.SecureRandom;
-import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
-import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -43,7 +36,6 @@ import okhttp3.ResponseBody;
 import okio.BufferedSink;
 import okio.BufferedSource;
 import okio.Okio;
-import okio.Sink;
 
 /**
  * Title:OkHttp
@@ -156,7 +148,7 @@ public class OkHttp extends Network {
                 Logger.e(TAG, call.request().url().toString());
                 Logger.e(TAG, e.getMessage());
                 Logger.e(TAG, "###################################################################");
-                resolver.handleFailure(e.getMessage(), callBack);
+                resolver.handleFailure("网络异常，请稍后重试", callBack);
             }
 
             @Override
