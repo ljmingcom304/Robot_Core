@@ -148,6 +148,9 @@ public class OkHttp extends Network {
                 Logger.e(TAG, call.request().url().toString());
                 Logger.e(TAG, e.getMessage());
                 Logger.e(TAG, "###################################################################");
+                if (call.isCanceled()) {
+                    return;
+                }
                 resolver.handleFailure("网络异常，请稍后重试", callBack);
             }
 
