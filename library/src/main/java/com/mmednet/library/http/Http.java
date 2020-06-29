@@ -103,21 +103,26 @@ public class Http {
         Client client = getClient();
         client.uploadFile(fileKey, file);
         client.downloadFile(null);
-        client.call(url, null, params, HttpMode.POST, callBack, true);
+        client.call(url, null, params, HttpMode.POST, callBack,true);
     }
 
     public static <T> void send(String url, HttpCallBack<T> callBack) {
-        send(url, null, new HashMap<String, String>(), HttpMode.GET, callBack, true);
+        send(url, null, new HashMap<String, String>(), HttpMode.GET, callBack);
     }
 
 
     public static <T> void send(String url, Map<String, String> params, HttpCallBack<T> callBack) {
-        send(url, null, params, HttpMode.POST, callBack, true);
+        send(url, null, params, HttpMode.POST, callBack);
     }
 
     public static <T> void send(String url, Map<String, String> headers,
                                 Map<String, String> params, HttpCallBack<T> callBack) {
-        send(url, headers, params, HttpMode.POST, callBack, true);
+        send(url, headers, params, HttpMode.POST, callBack);
+    }
+
+    public static <T> void send(String url, Map<String, String> headers, Map<String, String> params,
+                                HttpMode method, HttpCallBack<T> callBack) {
+        send(url, headers, params, method, callBack, true);
     }
 
     /**
