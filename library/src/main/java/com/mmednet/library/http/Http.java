@@ -1,8 +1,5 @@
 package com.mmednet.library.http;
 
-import android.content.Context;
-
-import com.mmednet.library.Library;
 import com.mmednet.library.common.Constants;
 import com.mmednet.library.http.parse.Client;
 import com.mmednet.library.http.parse.HttpCallBack;
@@ -69,10 +66,22 @@ public class Http {
      * @param <T>      泛型类型
      */
     public static <T> void download(String url, File file, HttpCallBack<T> callBack) {
+        download(url, file, callBack, true);
+    }
+
+    /**
+     * 文件下载
+     *
+     * @param url      请求地址
+     * @param file     文件
+     * @param callBack 请求回调
+     * @param <T>      泛型类型
+     */
+    public static <T> void download(String url, File file, HttpCallBack<T> callBack, boolean isTag) {
         Client client = getClient();
         client.uploadFile(null, null);
         client.downloadFile(file);
-        client.call(url, null, null, HttpMode.GET, callBack);
+        client.call(url, null, null, HttpMode.GET, callBack, isTag);
     }
 
     /**
@@ -94,21 +103,21 @@ public class Http {
         Client client = getClient();
         client.uploadFile(fileKey, file);
         client.downloadFile(null);
-        client.call(url, null, params, HttpMode.POST, callBack);
+        client.call(url, null, params, HttpMode.POST, callBack, true);
     }
 
     public static <T> void send(String url, HttpCallBack<T> callBack) {
-        send(url, null, new HashMap<String, String>(), HttpMode.GET, callBack);
+        send(url, null, new HashMap<String, String>(), HttpMode.GET, callBack, true);
     }
 
-    public static <T> void send(String url, Map<String, String> params,
-                                HttpCallBack<T> callBack) {
-        send(url, null, params, HttpMode.POST, callBack);
+
+    public static <T> void send(String url, Map<String, String> params, HttpCallBack<T> callBack) {
+        send(url, null, params, HttpMode.POST, callBack, true);
     }
 
     public static <T> void send(String url, Map<String, String> headers,
                                 Map<String, String> params, HttpCallBack<T> callBack) {
-        send(url, headers, params, HttpMode.POST, callBack);
+        send(url, headers, params, HttpMode.POST, callBack, true);
     }
 
     /**
@@ -118,11 +127,11 @@ public class Http {
      * @param callBack 请求回调
      */
     public static <T> void send(String url, Map<String, String> headers, Map<String, String> params,
-                                HttpMode method, HttpCallBack<T> callBack) {
+                                HttpMode method, HttpCallBack<T> callBack, boolean isTag) {
         Client client = getClient();
         client.uploadFile(null, null);
         client.downloadFile(null);
-        client.call(url, headers, params, method, callBack);
+        client.call(url, headers, params, method, callBack, isTag);
     }
 
     /**

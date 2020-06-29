@@ -129,9 +129,10 @@ public class Client {
      * @param method   请求方式
      * @param callBack 回调
      * @param <T>      回调Bean
+     * @param isTag    已标记的请求不可重复发送
      */
     public <T> void call(String url, Map<String, String> headers, final Map<String, String> params,
-                         HttpMode method, final HttpCallBack<T> callBack) {
+                         HttpMode method, final HttpCallBack<T> callBack, boolean isTag) {
 
 
         //添加请求头
@@ -209,14 +210,18 @@ public class Client {
             mFileNetwork.uploadFile(mUploadFileKey, mUploadFile);
             mFileNetwork.downloadFile(mDownloadFile);
             mFileNetwork.request(clazz, callBack);
-            mFileNetwork.tag(url);
+            if (isTag) {
+                mFileNetwork.tag(url);
+            }
         } else {
             mTextNetwork.header(headersMap);
             mTextNetwork.url(requestUrl);
             mTextNetwork.param(requestParams);
             mTextNetwork.method(method);
             mTextNetwork.request(clazz, callBack);
-            mTextNetwork.tag(url);
+            if (isTag) {
+                mTextNetwork.tag(url);
+            }
         }
     }
 
