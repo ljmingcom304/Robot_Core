@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
@@ -69,6 +70,9 @@ public class PickerView extends View {
             mItems.add(String.valueOf(i));
         }
 
+        mLinePaint = new Paint();
+        mTextPaint = new Paint();
+
         mScroller = new Scroller(context, new AccelerateDecelerateInterpolator());
         ViewConfiguration configuration = ViewConfiguration.get(context);
         //执行手势动作的最小速度值，当手势速度低于该速度时不进行滑动
@@ -84,23 +88,21 @@ public class PickerView extends View {
         mHeight = h;
 
         this.setRow(3);
-        this.mTextSize = (int) (mSpace * 0.618f);
+        this.mTextSize = (int) (mSpace * 0.382f);
         this.mCenterColor = Color.BLACK;
-        this.mOtherColor = Color.GRAY;
-        this.mLineColor = Color.GRAY;
-
-        mTextPaint = new Paint();
+        this.mOtherColor = Color.parseColor("#99000000");
+        this.mLineColor = Color.parseColor("#0da5ec");
+        this.mOffset = -Math.max(mItems.indexOf(mCurrentItem), 0) * mSpace;
         mTextPaint.setColor(mOtherColor);
         mTextPaint.setTextAlign(Paint.Align.CENTER);
         mTextPaint.setTextSize(mTextSize);
         mTextPaint.setAntiAlias(true);
         mTextPaint.setDither(true);
 
-        mLinePaint = new Paint();
         mLinePaint.setColor(mLineColor);
         mLinePaint.setAntiAlias(true);
         mLinePaint.setDither(true);
-        mLinePaint.setStrokeWidth(5);
+        mLinePaint.setStrokeWidth(2);
     }
 
     @Override
@@ -144,6 +146,9 @@ public class PickerView extends View {
      * @param items 数据集合
      */
     public void setItems(List<String> items) {
+        if (items == null) {
+            items = new ArrayList<>();
+        }
         mItems = items;
         mOffset = 0;
     }
@@ -154,9 +159,11 @@ public class PickerView extends View {
      * @param item 条目名称
      */
     public void setItem(String item) {
-        mCurrentItem = item;
-        mOffset = -Math.max(mItems.indexOf(mCurrentItem), 0) * mSpace;
-        invalidate();
+        if (!TextUtils.isEmpty(item) && mItems.contains(item)) {
+            mCurrentItem = item;
+            mOffset = -Math.max(mItems.indexOf(mCurrentItem), 0) * mSpace;
+            invalidate();
+        }
     }
 
     /**
@@ -263,8 +270,9 @@ public class PickerView extends View {
                 invalidate();
             } else {
                 int index = Math.abs(Math.round(mOffset * 1.0f / mSpace));
+                mCurrentItem = mItems.get(index);
                 if (mListener != null) {
-                    mListener.onScroll(mItems.get(index));
+                    mListener.onScroll(mCurrentItem);
                 }
             }
         }
