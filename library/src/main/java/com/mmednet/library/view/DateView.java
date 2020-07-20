@@ -57,7 +57,7 @@ public class DateView extends LinearLayout {
         mMinView = new PickerView(context);
         mSecView = new PickerView(context);
 
-        mYearView.setItems(initList(new ArrayList<String>(), 1990, 2100));
+        mYearView.setItems(initList(new ArrayList<String>(), 1900, 2100));
         mMonthView.setItems(initList(new ArrayList<String>(), 1, 12));
         mDayView.setItems(initList(new ArrayList<String>(), 1, mCalendar.getActualMaximum(Calendar.DAY_OF_MONTH)));
         mHourView.setItems(initList(new ArrayList<String>(), 0, 23));
