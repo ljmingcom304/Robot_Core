@@ -148,7 +148,11 @@ public class DateView extends LinearLayout {
     private List<String> initList(List<String> list, int start, int end) {
         list.clear();
         for (int i = start; i <= end; i++) {
-            list.add(String.valueOf(i));
+            if (i < 10) {
+                list.add("0" + String.valueOf(i));
+            } else {
+                list.add(String.valueOf(i));
+            }
         }
         return list;
     }
