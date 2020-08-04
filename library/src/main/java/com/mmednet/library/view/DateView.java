@@ -77,7 +77,7 @@ public class DateView extends LinearLayout {
                 if (dayItem > maxItem) {
                     dayItem = maxItem;
                 }
-                mDayView.setItem(String.valueOf(dayItem));
+                timeToView(dayItem, mDayView);
             }
         });
 
@@ -124,12 +124,16 @@ public class DateView extends LinearLayout {
         int minute = mCalendar.get(Calendar.MINUTE);
         int second = mCalendar.get(Calendar.SECOND);
 
-        mYearView.setItem(String.valueOf(year));
-        mMonthView.setItem(String.valueOf(month));
-        mDayView.setItem(String.valueOf(day));
-        mHourView.setItem(String.valueOf(hour));
-        mMinView.setItem(String.valueOf(minute));
-        mSecView.setItem(String.valueOf(second));
+        timeToView(year, mYearView);
+        timeToView(month, mMonthView);
+        timeToView(day, mDayView);
+        timeToView(hour, mHourView);
+        timeToView(minute, mMinView);
+        timeToView(second, mSecView);
+    }
+
+    private void timeToView(int time, PickerView view) {
+        view.setItem(time < 10 ? "0" + time : String.valueOf(time));
     }
 
     public Date getCurrentTime() {
@@ -148,11 +152,7 @@ public class DateView extends LinearLayout {
     private List<String> initList(List<String> list, int start, int end) {
         list.clear();
         for (int i = start; i <= end; i++) {
-            if (i < 10) {
-                list.add("0" + String.valueOf(i));
-            } else {
-                list.add(String.valueOf(i));
-            }
+            list.add(i < 10 ? "0" + i : String.valueOf(i));
         }
         return list;
     }
