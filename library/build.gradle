@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 57
-        versionName "2.6.0"
+        versionCode 58
+        versionName "2.6.1"
         multiDexEnabled false
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
@@ -19,6 +19,11 @@ android {
         ndk {
             abiFilters 'armeabi' , 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
         }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     buildTypes {
@@ -38,22 +43,22 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:27.1.1'
-    compile rootProject.ext.clientxyzj
-    compile rootProject.ext.clientbaidu
-    compile 'com.google.code.gson:gson:2.8.2'
-    compile 'com.j256.ormlite:ormlite-android:5.0'
-    compile 'com.j256.ormlite:ormlite-core:5.0'
-    compile 'com.belerweb:pinyin4j:2.5.1'
-    compile 'com.squareup.okhttp3:okhttp:3.9.0'
-    compile 'com.squareup.okio:okio:2.2.2'
-    compile 'com.android.support:multidex:1.0.3'
-    compile 'org.jetbrains:annotations:13.0'
+    testImplementation 'junit:junit:4.13'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation rootProject.ext.clientxyzj
+    implementation rootProject.ext.clientbaidu
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.j256.ormlite:ormlite-android:5.0'
+    implementation 'com.j256.ormlite:ormlite-core:5.0'
+    implementation 'com.belerweb:pinyin4j:2.5.1'
+    implementation 'com.squareup.okhttp3:okhttp:4.5.0'
+    implementation 'com.squareup.okio:okio:2.5.0'
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'org.jetbrains:annotations:13.0'
 }
 
 apply from: './build-nexus.gradle'
