@@ -1,5 +1,6 @@
 package com.mmednet.library.http.okhttp;
 
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -71,7 +72,12 @@ public class OkHttp extends Network {
         clientBuilder.readTimeout(readTimeout, TimeUnit.SECONDS);      //读取超时
         clientBuilder.writeTimeout(writeTimeout, TimeUnit.SECONDS);
         clientBuilder.cookieJar(new OkCookie());
-        clientBuilder.sslSocketFactory(OkHttpFactory.buildSSLSocketFactory());
+
+        if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+            clientBuilder.sslSocketFactory(OkHttpFactory.buildSSLSocketFactory(), new X509Manager());
+        } else {
+            clientBuilder.sslSocketFactory(OkHttpFactory.buildSSLSocketFactory());
+        }
         clientBuilder.hostnameVerifier(new HostnameVerifier() {
             @Override
             public boolean verify(String hostname, SSLSession session) {
