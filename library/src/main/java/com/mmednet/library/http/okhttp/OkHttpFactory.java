@@ -6,6 +6,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509ExtendedTrustManager;
+import javax.net.ssl.X509TrustManager;
 
 /**
  * Title:OkHttpFactory
@@ -17,11 +18,11 @@ import javax.net.ssl.X509ExtendedTrustManager;
  */
 public class OkHttpFactory {
 
-    public static SSLSocketFactory buildSSLSocketFactory() {
+    public static SSLSocketFactory buildSSLSocketFactory(X509TrustManager trustManager) {
         SSLSocketFactory ssfFactory = null;
         try {
             SSLContext context = SSLContext.getInstance("TLS");
-            context.init(null, new TrustManager[]{new OkHttpTrustAllCerts()}, new SecureRandom());
+            context.init(null, new TrustManager[]{trustManager}, new SecureRandom());
             ssfFactory = context.getSocketFactory();
         } catch (Exception e) {
             e.printStackTrace();

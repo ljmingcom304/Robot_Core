@@ -20,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
+import javax.net.ssl.X509TrustManager;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -34,6 +35,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import okhttp3.internal.platform.Platform;
 import okio.BufferedSink;
 import okio.BufferedSource;
 import okio.Okio;
@@ -74,9 +76,10 @@ public class OkHttp extends Network {
         clientBuilder.cookieJar(new OkCookie());
 
         if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
-            clientBuilder.sslSocketFactory(OkHttpFactory.buildSSLSocketFactory(), new X509Manager());
+            OkHttpTrustAllCertsExtended certsExtended = new OkHttpTrustAllCertsExtended();
+            clientBuilder.sslSocketFactory(OkHttpFactory.buildSSLSocketFactory(certsExtended), certsExtended);
         } else {
-            clientBuilder.sslSocketFactory(OkHttpFactory.buildSSLSocketFactory());
+            clientBuilder.sslSocketFactory(OkHttpFactory.buildSSLSocketFactory(new OkHttpTrustAllCerts()));
         }
         clientBuilder.hostnameVerifier(new HostnameVerifier() {
             @Override
