@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 
 import com.mmednet.library.analyze.Analyzer;
 import com.mmednet.library.database.helper.DatabaseHelper;
+import com.mmednet.library.http.parse.Client;
 import com.mmednet.library.log.LogConfig;
 import com.mmednet.library.log.crash.CrashHandler;
 import com.mmednet.library.robot.Robot;
@@ -35,10 +36,6 @@ public class Library {
     private Library() {
     }
 
-    public static Library getInstance() {
-        return Singleton.INSTANCE.getInstance();
-    }
-
     private enum Singleton {
         INSTANCE;
         private Library library;
@@ -50,6 +47,10 @@ public class Library {
         public Library getInstance() {
             return library;
         }
+    }
+
+    public static Library getInstance() {
+        return Singleton.INSTANCE.getInstance();
     }
 
     /**

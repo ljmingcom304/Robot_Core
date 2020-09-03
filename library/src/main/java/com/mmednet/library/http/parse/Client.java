@@ -24,6 +24,7 @@ public class Client {
     private File mUploadFile;
     private File mDownloadFile;
     private String mUploadFileKey;
+    private static volatile Client mInstance;
 
     private Client() {
         mTextNetwork = new OkHttp();
@@ -31,21 +32,15 @@ public class Client {
         mHeaders = new HashMap<>();
     }
 
-    private enum Singleton {
-        INSTANCE;
-        private Client client;
-
-        Singleton() {
-            client = new Client();
-        }
-
-        public Client getInstance() {
-            return client;
-        }
-    }
-
     public static Client getInstance() {
-        return Singleton.INSTANCE.getInstance();
+        if (mInstance == null) {
+            synchronized(Client.class){
+                if(mInstance == null){
+                    mInstance = new Client();
+                }
+            }
+        }
+        return mInstance;
     }
 
     /**
