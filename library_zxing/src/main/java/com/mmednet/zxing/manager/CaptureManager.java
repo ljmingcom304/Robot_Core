@@ -5,7 +5,7 @@ import android.app.Application;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import androidx.fragment.app.FragmentActivity;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.Window;
@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.google.zxing.Result;
 import com.mmednet.zxing.camera.CameraManager;
-import com.mmednet.zxing.common.Constant;
 import com.mmednet.zxing.decode.DecodeImgCallback;
 import com.mmednet.zxing.decode.DecodeImgThread;
 import com.mmednet.zxing.decode.ImageUtil;

@@ -1,7 +1,7 @@
 package com.mmednet.library.http.okhttp;
 
 import android.os.Build;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 
 import java.net.Socket;
 import java.security.cert.CertificateException;
@@ -9,7 +9,6 @@ import java.security.cert.X509Certificate;
 
 import javax.net.ssl.SSLEngine;
 import javax.net.ssl.X509ExtendedTrustManager;
-import javax.net.ssl.X509TrustManager;
 
 /**
  * Title:OkHttpTrustAllCerts

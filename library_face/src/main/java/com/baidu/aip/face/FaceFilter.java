@@ -5,7 +5,7 @@ package com.baidu.aip.face;
 
 import android.graphics.Bitmap;
 import android.graphics.Rect;
-import android.support.v4.util.Pools;
+import androidx.core.util.Pools;
 import android.util.Log;
 import android.util.SparseArray;
 

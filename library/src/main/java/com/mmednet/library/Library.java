@@ -1,12 +1,11 @@
 package com.mmednet.library;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.mmednet.library.analyze.Analyzer;
 import com.mmednet.library.database.helper.DatabaseHelper;
-import com.mmednet.library.http.parse.Client;
 import com.mmednet.library.log.LogConfig;
 import com.mmednet.library.log.crash.CrashHandler;
 import com.mmednet.library.robot.Robot;

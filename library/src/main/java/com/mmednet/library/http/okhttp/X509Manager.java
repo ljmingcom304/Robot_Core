@@ -1,7 +1,7 @@
 package com.mmednet.library.http.okhttp;
 
 import android.os.Build;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 
 import java.net.Socket;
 import java.security.cert.CertificateException;

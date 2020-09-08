@@ -4,7 +4,7 @@
 package com.baidu.aip.face.camera;
 
 import android.graphics.Rect;
-import android.support.annotation.IntDef;
+import androidx.annotation.IntDef;
 import android.view.View;
 
 import com.baidu.aip.face.PreviewView;

@@ -6,7 +6,7 @@ package com.baidu.aip.face.camera;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Build;
-import android.support.annotation.IntDef;
+import androidx.annotation.IntDef;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;

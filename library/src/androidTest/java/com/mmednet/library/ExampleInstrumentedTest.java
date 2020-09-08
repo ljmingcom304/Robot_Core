@@ -1,22 +1,13 @@
 package com.mmednet.library;
 
-import android.content.Context;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.runner.AndroidJUnit4;
-import android.util.Log;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
 import com.mmednet.library.util.JsonUtils;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.io.Reader;
-import java.util.Set;
 
 import static org.junit.Assert.*;
 

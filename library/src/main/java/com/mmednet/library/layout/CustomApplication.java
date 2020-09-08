@@ -2,13 +2,10 @@ package com.mmednet.library.layout;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.multidex.MultiDexApplication;
-import android.util.ArrayMap;
+import androidx.multidex.MultiDexApplication;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
