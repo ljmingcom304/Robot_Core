@@ -1,9 +1,8 @@
 package com.mmednet.library.http.parse;
 
-import android.support.annotation.NonNull;
+
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.mmednet.library.Library;
 import com.mmednet.library.http.okhttp.ProgressUIListener;
@@ -11,7 +10,6 @@ import com.mmednet.library.log.Logger;
 import com.mmednet.library.util.UIUtils;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 
 public abstract class HttpCallBack<T> extends ProgressUIListener {
@@ -21,7 +19,7 @@ public abstract class HttpCallBack<T> extends ProgressUIListener {
     /**
      * 处理网络请求失败
      */
-    public final void onResult(@NonNull HttpResult httpResult, Serializable result) {
+    public final void onResult(HttpResult httpResult, Serializable result) {
         if (onPreExecute(httpResult)) {
             return;
         }
