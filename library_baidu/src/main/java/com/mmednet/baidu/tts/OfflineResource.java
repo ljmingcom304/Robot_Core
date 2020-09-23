@@ -2,34 +2,30 @@ package com.mmednet.baidu.tts;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.util.Log;
 
 import com.mmednet.baidu.utils.FileUtils;
 
+import java.io.IOException;
+import java.util.HashMap;
+
+import static android.content.ContentValues.TAG;
+
 
 /**
- * Title:OfflineResource
- * <p>
- * Description:Sdcard中不存在离线资源，需要将离线资源复制到Sdcard中
- * </p>
- * Author Jming.L
- * Date 2018/8/1 11:09
+ * 在线SDK不会使用这个文件
+ * Created by fujiayi on 2017/5/19.
  */
-class OfflineResource {
 
-    public static final String VOICE_FEMALE = "F";
-
-    public static final String VOICE_MALE = "M";
-
-
-    public static final String VOICE_DUYY = "Y";
-
-    public static final String VOICE_DUXY = "X";
+public class OfflineResource implements IOfflineResourceConst {
 
     private AssetManager assets;
     private String destPath;
 
     private String textFilename;
     private String modelFilename;
+
+    private static HashMap<String, Boolean> mapInitied = new HashMap<String, Boolean>();
 
     public OfflineResource(Context context, String voiceType) {
         context = context.getApplicationContext();
@@ -38,38 +34,48 @@ class OfflineResource {
         setOfflineVoiceType(voiceType);
     }
 
-    /**
-     * 声学模型文件
-     */
     public String getModelFilename() {
         return modelFilename;
     }
 
-    /**
-     * 文本模型文件
-     */
     public String getTextFilename() {
         return textFilename;
     }
 
     public void setOfflineVoiceType(String voiceType) {
-        String text = "bd_etts_text.dat";
+        String text = TEXT_MODEL;
         String model;
         if (VOICE_MALE.equals(voiceType)) {
-            model = "bd_etts_common_speech_m15_mand_eng_high_am-mix_v3.0.0_20170505.dat";
+            model = VOICE_MALE_MODEL;
         } else if (VOICE_FEMALE.equals(voiceType)) {
-            model = "bd_etts_common_speech_f7_mand_eng_high_am-mix_v3.0.0_20170512.dat";
+            model = VOICE_FEMALE_MODEL;
         } else if (VOICE_DUXY.equals(voiceType)) {
-            model = "bd_etts_common_speech_yyjw_mand_eng_high_am-mix_v3.0.0_20170512.dat";
+            model = VOICE_DUXY_MODEL;
         } else if (VOICE_DUYY.equals(voiceType)) {
-            model = "bd_etts_common_speech_as_mand_eng_high_am_v3.0.0_20170516.dat";
+            model = VOICE_DUYY_MODEL;
         } else {
             throw new RuntimeException("voice type is not in list");
         }
-        textFilename = destPath + "/" + text;
-        modelFilename = destPath + "/" + model;
-        FileUtils.copyFromAssets(assets, text, textFilename);
-        FileUtils.copyFromAssets(assets, model, modelFilename);
+        textFilename = copyAssetsFile(text);
+        modelFilename = copyAssetsFile(model);
     }
+
+
+    private String copyAssetsFile(String sourceFilename) {
+        String destFilename = destPath + "/" + sourceFilename;
+        boolean recover = false;
+        Boolean existed = mapInitied.get(sourceFilename); // 启动时完全覆盖一次
+        if (existed == null || !existed) {
+            recover = true;
+        }
+        try {
+            FileUtils.copyFromAssets(assets, sourceFilename, destFilename, recover);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Log.i(TAG, "文件复制成功：" + destFilename);
+        return destFilename;
+    }
+
 
 }

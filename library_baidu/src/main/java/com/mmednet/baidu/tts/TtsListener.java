@@ -26,14 +26,22 @@ public abstract class TtsListener implements SpeechSynthesizerListener, Message 
     /**
      * 语音流 16K采样率 16bits编码 单声道 。
      *
-     * @param utteranceId 序列号
+     * @param utteranceId
      * @param bytes       二进制语音 ，注意可能有空data的情况，可以忽略
      * @param progress    如合成“百度语音问题”这6个字， progress肯定是从0开始，到6结束。 但progress无法和合成到第几个字对应。
+     *                    engineType 下版本提供。1:音频数据由离线引擎合成； 0：音频数据由在线引擎（百度服务器）合成。
      */
-    @Override
-    public final void onSynthesizeDataArrived(String utteranceId, byte[] bytes, int progress) {
-        Log.i(TAG, "合成进度回调, 进度：" + progress + ";序列号:" + utteranceId);
+    public void onSynthesizeDataArrived(String utteranceId, byte[] bytes, int progress) {
+        Log.i(TAG, "合成进度回调, progress：" + progress + ";序列号:" + utteranceId);
+        // + ";" + (engineType == 1? "离线合成":"在线合成"));
     }
+
+    @Override
+    // engineType 下版本提供。1:音频数据由离线引擎合成； 0：音频数据由在线引擎（百度服务器）合成。
+    public void onSynthesizeDataArrived(String utteranceId, byte[] bytes, int progress, int engineType) {
+        onSynthesizeDataArrived(utteranceId, bytes, progress);
+    }
+
 
     //每句合成正常结束都会回调，如果过程中出错，则回调onError，不再回调此接口
     @Override
