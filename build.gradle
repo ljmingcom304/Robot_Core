@@ -49,5 +49,5 @@ ext {
     policy = 'SNAPSHOT'
     clientcore = "com.mmednet.robot:mmednet-robot-client-core:2.0.1-RELEASE"
     clientxyzj = "com.mmednet.robot:mmednet-robot-client-xyzj:1.0.0-RELEASE"
-    clientbaidu = "com.mmednet.robot:mmednet-robot-client-baidu:1.0.3-SNAPSHOT"
+    clientbaidu = "com.mmednet.robot:mmednet-robot-client-baidu:1.0.4-RELEASE"
 }
