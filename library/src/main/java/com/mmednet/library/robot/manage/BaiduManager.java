@@ -167,6 +167,10 @@ public class BaiduManager implements Manager {
             //5秒后不说话百度语音会崩溃，所以要及时关闭
             mAsrManager.start();
             mHandler.sendEmptyMessageDelayed(STATUS_ASREND, 5000);
+            //手动唤醒没有唤醒词
+            if (mAsrCallback != null) {
+                mAsrCallback.onBack(Status.WAKEUP, null);
+            }
         } else {
             mAsrManager.stop();
         }

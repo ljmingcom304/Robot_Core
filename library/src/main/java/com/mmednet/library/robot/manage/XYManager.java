@@ -100,6 +100,10 @@ public class XYManager implements Manager {
     public void wakeUp(boolean wakeup) {
         if (wakeup) {
             mRobot.wakeUp();
+            //手动唤醒没有唤醒词
+            if (mAsrCallback != null) {
+                mAsrCallback.onBack(Status.WAKEUP, null);
+            }
         }
     }
 
