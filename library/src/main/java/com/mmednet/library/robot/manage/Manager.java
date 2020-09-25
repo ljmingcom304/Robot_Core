@@ -43,9 +43,10 @@ public interface Manager {
      */
     void speech2Text(Callback callback);
 
-
     /**
      * 语音识别唤醒
+     *
+     * @param wakeup true:启动语音识别；false:关闭语音识别
      */
     void wakeUp(boolean wakeup);
 

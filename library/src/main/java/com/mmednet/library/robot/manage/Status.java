@@ -8,7 +8,9 @@ package com.mmednet.library.robot.manage;
  * Author Jming.L
  * Date 2017/9/4 17:32
  */
-public interface Callback {
+public enum Status {
 
-    void onBack(Status status, String result);
+    //成功|失败|进度|唤醒
+    SUCCESS, FAILURE, PROGRESS, WAKEUP
+
 }

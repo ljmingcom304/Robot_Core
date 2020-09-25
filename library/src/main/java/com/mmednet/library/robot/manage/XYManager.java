@@ -34,7 +34,7 @@ public class XYManager implements Manager {
         @Override
         public void onBack(String message) {
             if (mTtsCallback != null) {
-                mTtsCallback.onResult(Callback.SUCCESS, message);
+                mTtsCallback.onBack(Status.SUCCESS, message);
             }
         }
     };
@@ -43,7 +43,7 @@ public class XYManager implements Manager {
         public void onBack(String message) {
             Toast.makeText(mApp, message, Toast.LENGTH_SHORT).show();
             if (mAsrCallback != null) {
-                mAsrCallback.onResult(Callback.SUCCESS, message);
+                mAsrCallback.onBack(Status.SUCCESS, message);
             }
         }
     };
@@ -56,11 +56,11 @@ public class XYManager implements Manager {
                         message.lastIndexOf("/") + 1,
                         message.lastIndexOf("."));
                 if (mFaceCallback != null) {
-                    mFaceCallback.onResult(Callback.SUCCESS, message);
+                    mFaceCallback.onBack(Status.SUCCESS, message);
                 }
             } else {
                 if (mFaceCallback != null) {
-                    mFaceCallback.onResult(Callback.FAILURE, "error");
+                    mFaceCallback.onBack(Status.FAILURE, "error");
                 }
             }
         }
@@ -69,7 +69,7 @@ public class XYManager implements Manager {
         @Override
         public void onBack(String message) {
             if (mPicCallback != null) {
-                mPicCallback.onResult(Callback.SUCCESS, message);
+                mPicCallback.onBack(Status.SUCCESS, message);
             }
         }
     };

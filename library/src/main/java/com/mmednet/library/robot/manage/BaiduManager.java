@@ -63,7 +63,10 @@ public class BaiduManager implements Manager {
                     mHandler.sendEmptyMessageDelayed(STATUS_REASR, 1000);
                     mCount++;
                 } else {
-                    Log.w(TAG, "语音识别停止重连");
+                    Log.w(TAG, "重连失败停止识别");
+                    if (mAsrCallback != null) {
+                        mAsrCallback.onBack(Status.FAILURE, "重连失败停止识别");
+                    }
                 }
             }
         }
@@ -75,13 +78,11 @@ public class BaiduManager implements Manager {
             if (status == WakeupListener.SUCCESS) {
                 mHandler.sendEmptyMessageDelayed(STATUS_WAKEUP, 1000);
                 if (mAsrCallback != null) {
-                    mAsrCallback.onResult(Callback.WAKEUP, word);
+                    mAsrCallback.onBack(Status.WAKEUP, word);
                 }
             } else if (status == WakeupListener.FAILURE) {
+                //唤醒失败后5秒重新进行唤醒
                 mHandler.sendEmptyMessageDelayed(STATUS_REWAKEUP, 5000);
-                if (mAsrCallback != null) {
-                    mAsrCallback.onResult(Callback.FAILURE, word);
-                }
             }
         }
     };
@@ -90,10 +91,8 @@ public class BaiduManager implements Manager {
         @Override
         public void onResult(int status, String word) {
             if (status == WakeupListener.SUCCESS) {
-                //当有返回成功的语音结果后开启下一轮语音识别
-                wakeUp(true);
                 if (mAsrCallback != null) {
-                    mAsrCallback.onResult(Callback.SUCCESS, word);
+                    mAsrCallback.onBack(Status.SUCCESS, word);
                 }
             } else if (status == WakeupListener.PROGRESS) {
                 //当有结果返回时不再重试
@@ -101,11 +100,11 @@ public class BaiduManager implements Manager {
                 mHandler.removeMessages(STATUS_ASREND);
                 mHandler.removeMessages(STATUS_REASR);
                 if (mAsrCallback != null) {
-                    mAsrCallback.onResult(Callback.PROGRESS, word);
+                    mAsrCallback.onBack(Status.PROGRESS, word);
                 }
             } else if (status == WakeupListener.FAILURE) {
                 if (mAsrCallback != null) {
-                    mAsrCallback.onResult(Callback.FAILURE, word);
+                    mAsrCallback.onBack(Status.FAILURE, word);
                 }
             }
         }
@@ -116,11 +115,11 @@ public class BaiduManager implements Manager {
         public void onResult(int status, String word) {
             if (status == WakeupListener.SUCCESS) {
                 if (mTtsCallback != null) {
-                    mTtsCallback.onResult(Callback.SUCCESS, word);
+                    mTtsCallback.onBack(Status.SUCCESS, word);
                 }
             } else if (status == WakeupListener.FAILURE) {
                 if (mTtsCallback != null) {
-                    mTtsCallback.onResult(Callback.FAILURE, word);
+                    mTtsCallback.onBack(Status.FAILURE, word);
                 }
             }
         }

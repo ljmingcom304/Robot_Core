@@ -1,17 +1,16 @@
 package com.mmednet.library.robot.engine;
 
-import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.mmednet.library.log.Logger;
 import com.mmednet.library.robot.correct.Standard;
 import com.mmednet.library.robot.engine.action.Action;
 import com.mmednet.library.robot.manage.Callback;
 import com.mmednet.library.robot.manage.Manager;
+import com.mmednet.library.robot.manage.Status;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,19 +34,20 @@ public class Engine {
     private List<OnListener> listeners;
     private Callback callback = new Callback() {
         @Override
-        public void onResult(int status, String result) {
+        public void onBack(Status status, String result) {
             //处理语音回调的消息
-            if (status == Callback.SUCCESS) {
+            if (status == Status.SUCCESS) {
                 dispatchVoice(result);
             }
-            if (status == Callback.WAKEUP) {
+            if (status == Status.WAKEUP) {
                 wakeupVoice(result);
             }
-            if (status == Callback.PROGRESS) {
-                printVoice(result);
+            if (status == Status.PROGRESS) {
+                progressVoice(result);
             }
-            if (status == Callback.FAILURE) {
+            if (status == Status.FAILURE) {
                 Log.e(TAG, result);
+                failureVoice(result);
             }
         }
     };
@@ -56,7 +56,7 @@ public class Engine {
         public void handleMessage(Message msg) {
             String message = (String) msg.obj;
             //最新添加的优先级最高，以前添加的优先级最低
-            if (!handleVoice(message)) {
+            if (!successVoice(message)) {
                 if (!action.execute(message)) {
                     result = message;
                 }
@@ -92,7 +92,7 @@ public class Engine {
             msg.obj = voice;
             handler.sendMessage(msg);
         } else {
-            handleVoice(voice);
+            successVoice(voice);
         }
     }
 
@@ -127,7 +127,7 @@ public class Engine {
     /**
      * 处理临时消息
      */
-    private void printVoice(String voice) {
+    private void progressVoice(String voice) {
         boolean isListener = false;
         if (listener != null) {
             isListener = listener.onProgress(voice);
@@ -142,18 +142,36 @@ public class Engine {
     }
 
     /**
-     * 处理最终消息
+     * 处理失败消息
      */
-    private boolean handleVoice(String voice) {
+    private void failureVoice(String voice) {
         boolean isListener = false;
         if (listener != null) {
-            isListener = listener.onResult(voice);
+            isListener = listener.onFailure(voice);
         }
         //新挂载的数据优先级最高
         if (!isListener) {
             for (int i = listeners.size() - 1; i >= 0; i--) {
                 OnListener listener = listeners.get(i);
-                isListener = listener.onResult(voice);
+                isListener = listener.onFailure(voice);
+                if (isListener) break;
+            }
+        }
+    }
+
+    /**
+     * 处理最终消息
+     */
+    private boolean successVoice(String voice) {
+        boolean isListener = false;
+        if (listener != null) {
+            isListener = listener.onSuccess(voice);
+        }
+        //新挂载的数据优先级最高
+        if (!isListener) {
+            for (int i = listeners.size() - 1; i >= 0; i--) {
+                OnListener listener = listeners.get(i);
+                isListener = listener.onSuccess(voice);
                 if (isListener) break;
             }
         }
@@ -178,7 +196,7 @@ public class Engine {
         listeners.add(listener);
         //如果结果始终没有被消费，则交由新挂载的监听去消费
         if (result != null) {
-            listener.onResult(result);
+            listener.onSuccess(result);
             result = null;
         }
     }

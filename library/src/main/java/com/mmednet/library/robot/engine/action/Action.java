@@ -1,5 +1,8 @@
 package com.mmednet.library.robot.engine.action;
 
+import android.content.Context;
+
+import com.mmednet.library.Library;
 import com.mmednet.library.robot.engine.WholeVoice;
 import com.mmednet.library.robot.engine.operation.Command;
 import com.mmednet.library.util.StringUtils;
@@ -33,7 +36,8 @@ public class Action {
                 Command command = method.getAnnotation(Command.class);
                 int[] actionIds = command.actionId();
                 for (int act : actionIds) {
-                    String action = UIUtils.getString(act);
+                    Context context = Library.getInstance().getContext();
+                    String action = context.getResources().getString(act);
                     actionAndMethod.put(action, method);
                 }
                 String[] actionTexts = command.actionTexts();

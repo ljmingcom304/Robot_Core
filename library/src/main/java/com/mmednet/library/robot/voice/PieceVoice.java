@@ -24,7 +24,7 @@ public abstract class PieceVoice<T extends Layout> implements OnLayoutListener {
     private static final String TAG = PieceVoice.class.getSimpleName();
     private OnListener mListener = new OnListener() {
         @Override
-        public boolean onResult(String result) {
+        public boolean onSuccess(String result) {
             return PieceVoice.this.onResult(t, result);
         }
 
@@ -36,6 +36,11 @@ public abstract class PieceVoice<T extends Layout> implements OnLayoutListener {
         @Override
         public boolean onWakeup(String result) {
             return PieceVoice.this.onWakeup(result);
+        }
+
+        @Override
+        public boolean onFailure(String result) {
+            return PieceVoice.this.onFailure(result);
         }
     };
 
@@ -86,6 +91,10 @@ public abstract class PieceVoice<T extends Layout> implements OnLayoutListener {
     }
 
     protected boolean onWakeup(String result) {
+        return false;
+    }
+
+    protected boolean onFailure(String result) {
         return false;
     }
 

@@ -12,7 +12,7 @@ public interface OnListener {
     /**
      * 最终结果
      */
-    boolean onResult(String result);
+    boolean onSuccess(String result);
 
     /**
      * 中间信息
@@ -23,4 +23,9 @@ public interface OnListener {
      * 语音唤醒
      */
     boolean onWakeup(String result);
+
+    /**
+     * 消息失败
+     */
+    boolean onFailure(String result);
 }
