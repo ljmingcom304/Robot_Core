@@ -53,6 +53,8 @@ public class AsrManager {
         //是否回调当前音量数据
         params.put(SpeechConstant.ACCEPT_AUDIO_VOLUME, false);
         params.put(SpeechConstant.VAD_ENDPOINT_TIMEOUT, 1000);
+        params.put(SpeechConstant.DISABLE_PUNCTUATION, false);
+        params.put(SpeechConstant.ASR_PUNCTUATION_MODE, 2);
         String json = new JSONObject(params).toString();
         mManager.send(SpeechConstant.ASR_START, json, null, 0, 0);
     }
