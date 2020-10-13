@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -56,9 +57,6 @@ public class IEditText extends EditText implements EditView {
     private int paddingT = Value.VALUE_INT;
     private int paddingB = Value.VALUE_INT;
 
-    private LinearLayout.LayoutParams mParams01;
-    private LinearLayout.LayoutParams mParams02;
-
     public IEditText(Context context) {
         this(context, null);
     }
@@ -66,13 +64,6 @@ public class IEditText extends EditText implements EditView {
     public IEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
-        mParams01 = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
-        mParams02 = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
-
         if (mPadding == Value.VALUE_INT) {
             mPadding = UIUtils.getDimens(context, R.dimen.size_title_padding);
         }
@@ -115,8 +106,8 @@ public class IEditText extends EditText implements EditView {
         if (texts.size() > 0) {
             text = texts.get(0);
         }
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) getLayoutParams();
         if (editable) {// 可编辑
-            this.setLayoutParams(mParams01);
             this.setText(text);
             this.setHintTextColor(mHintColor);
             this.setHint(mHint);
@@ -125,8 +116,9 @@ public class IEditText extends EditText implements EditView {
             this.setFocusableInTouchMode(true);
             this.clearFocus();//不获取光标
             this.setBackgroundResource(mBackgroundResId);
+            params.width = LinearLayout.LayoutParams.MATCH_PARENT;
+            this.setLayoutParams(params);
         } else {// 不可编辑
-            this.setLayoutParams(mParams02);
             if (TextUtils.isEmpty(text)) {
                 text = mDefault;
             }
@@ -136,6 +128,8 @@ public class IEditText extends EditText implements EditView {
             this.setFocusableInTouchMode(false);
             this.clearFocus();
             this.setBackground(null);
+            params.width = LinearLayout.LayoutParams.WRAP_CONTENT;
+            this.setLayoutParams(params);
         }
 
         Drawable lDrawable = null;
