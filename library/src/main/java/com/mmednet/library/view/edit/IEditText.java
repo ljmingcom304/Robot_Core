@@ -34,7 +34,7 @@ import java.util.List;
  * Author Jming.L
  * Date 2017/9/22 15:46
  */
-@SuppressLint( "AppCompatCustomView" )
+@SuppressLint("AppCompatCustomView")
 public class IEditText extends EditText implements EditView {
 
     private Context mContext;
@@ -219,6 +219,15 @@ public class IEditText extends EditText implements EditView {
         ArrayList<String> hints = new ArrayList<>();
         hints.add(mHint);
         return hints;
+    }
+
+    private void setText(String text) {
+        //当不可以编辑并且默认值为空时显示横线
+        if (!mEditable && TextUtils.isEmpty(text)) {
+            super.setText(mDefault);
+        } else {
+            super.setText(text);
+        }
     }
 
     @Override
