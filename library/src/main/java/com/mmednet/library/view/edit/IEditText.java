@@ -116,7 +116,13 @@ public class IEditText extends EditText implements EditView {
             this.setFocusableInTouchMode(true);
             this.clearFocus();//不获取光标
             this.setBackgroundResource(mBackgroundResId);
-            params.width = LinearLayout.LayoutParams.MATCH_PARENT;
+            if (params == null) {
+                params = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT);
+            } else {
+                params.width = LinearLayout.LayoutParams.MATCH_PARENT;
+            }
             this.setLayoutParams(params);
         } else {// 不可编辑
             if (TextUtils.isEmpty(text)) {
@@ -128,7 +134,13 @@ public class IEditText extends EditText implements EditView {
             this.setFocusableInTouchMode(false);
             this.clearFocus();
             this.setBackground(null);
-            params.width = LinearLayout.LayoutParams.WRAP_CONTENT;
+            if (params == null) {
+                params = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT);
+            } else {
+                params.width = LinearLayout.LayoutParams.WRAP_CONTENT;
+            }
             this.setLayoutParams(params);
         }
 
