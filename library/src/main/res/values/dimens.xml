@@ -18,6 +18,7 @@
     <dimen name="core_size_7">7dp</dimen>
     <dimen name="core_size_8">8dp</dimen>
     <dimen name="core_size_10">10dp</dimen>
+    <dimen name="core_size_12">10dp</dimen>
     <dimen name="core_size_24">24dp</dimen>
     <dimen name="core_size_30">30dp</dimen>
     <dimen name="core_size_34">34dp</dimen>

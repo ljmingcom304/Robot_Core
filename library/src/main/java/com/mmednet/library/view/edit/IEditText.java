@@ -78,7 +78,7 @@ public class IEditText extends EditText implements EditView {
         }
 
         if (paddingT == Value.VALUE_INT) {
-            paddingT = UIUtils.getDimens(context, R.dimen.core_size_10);
+            paddingT = UIUtils.getDimens(context, R.dimen.core_size_12);
         }
         if (paddingB == Value.VALUE_INT) {
             paddingB = UIUtils.getDimens(context, R.dimen.core_size_7);
