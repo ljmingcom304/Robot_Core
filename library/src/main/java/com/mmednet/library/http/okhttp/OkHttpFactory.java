@@ -1,5 +1,7 @@
 package com.mmednet.library.http.okhttp;
 
+import android.util.Log;
+
 import java.security.SecureRandom;
 
 import javax.net.ssl.SSLContext;
@@ -25,7 +27,7 @@ public class OkHttpFactory {
             context.init(null, new TrustManager[]{trustManager}, new SecureRandom());
             ssfFactory = context.getSocketFactory();
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(OkHttpFactory.class.getSimpleName(), e.getMessage());
         }
         return ssfFactory;
     }

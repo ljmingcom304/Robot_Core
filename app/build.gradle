@@ -28,15 +28,11 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('androidx.test.espresso:espresso-core:3.1.0', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'com.yanzhenjie:permission:2.0.0-rc4'
-    compile 'cn.funtalk.miao.miaoplus:miaoplus:1.4.02-SNAPSHOT'
-    compile 'androidx.appcompat:appcompat:1.0.0'
-    testCompile 'junit:junit:4.13'
-    compile project(':library')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.yanzhenjie:permission:2.0.0-rc4'
+    implementation 'cn.funtalk.miao.miaoplus:miaoplus:1.4.02-SNAPSHOT'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation project(':library')
 }
 
 

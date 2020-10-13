@@ -23,32 +23,32 @@ public class OkHttpTrustAllCertsExtended extends X509ExtendedTrustManager {
 
 
     @Override
-    public void checkClientTrusted(X509Certificate[] chain, String authType, Socket socket) throws CertificateException {
+    public void checkClientTrusted(X509Certificate[] chain, String authType, Socket socket) {
 
     }
 
     @Override
-    public void checkServerTrusted(X509Certificate[] chain, String authType, Socket socket) throws CertificateException {
+    public void checkServerTrusted(X509Certificate[] chain, String authType, Socket socket) {
 
     }
 
     @Override
-    public void checkClientTrusted(X509Certificate[] chain, String authType, SSLEngine engine) throws CertificateException {
+    public void checkClientTrusted(X509Certificate[] chain, String authType, SSLEngine engine) {
 
     }
 
     @Override
-    public void checkServerTrusted(X509Certificate[] chain, String authType, SSLEngine engine) throws CertificateException {
+    public void checkServerTrusted(X509Certificate[] chain, String authType, SSLEngine engine) {
 
     }
 
     @Override
-    public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+    public void checkClientTrusted(X509Certificate[] chain, String authType) {
 
     }
 
     @Override
-    public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+    public void checkServerTrusted(X509Certificate[] chain, String authType) {
 
     }
 

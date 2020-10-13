@@ -240,6 +240,7 @@ public class EditLayout extends LinearLayout implements VoiceTable{
         //优先判断图形资源，没有图形资源则选择文本
         if (attr.leftDrawable == 0) {
             if (attr.leftText != null) {
+
                 this.setLeftDrawable(attr.leftText);
             }
         } else {
@@ -292,15 +293,15 @@ public class EditLayout extends LinearLayout implements VoiceTable{
         mTitleView.setTextColor(mAttribute.titleColor);
 
         // 是否必选
-        LayoutParams mRequiredParams = new LayoutParams(
+        LayoutParams requiredParams = new LayoutParams(
                 mTitleView.getLineHeight() / 2, mTitleView.getLineHeight());
-        mRequiredParams.setMarginEnd(5);
+        requiredParams.setMarginEnd(5);
         mRequiredView = new ImageView(mContext);
         mRequiredView.setScaleType(ImageView.ScaleType.CENTER);
         if (attr != null) {
             mRequiredView.setImageResource(attr.requiredDrawable);
         }
-        mRequiredView.setLayoutParams(mRequiredParams);
+        mRequiredView.setLayoutParams(requiredParams);
         mRequiredView.setVisibility(View.INVISIBLE);
 
         mTitleLayout.addView(mRequiredView);

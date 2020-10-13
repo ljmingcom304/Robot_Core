@@ -4,24 +4,16 @@ package com.mmednet.library.view.edit;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.content.res.Resources;
-import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.RectShape;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.mmednet.library.R;
 import com.mmednet.library.common.Value;
-import com.mmednet.library.util.DensityUtils;
 import com.mmednet.library.util.UIUtils;
 
 import java.util.ArrayList;
@@ -39,7 +31,7 @@ import java.util.List;
 public class IEditText extends EditText implements EditView {
 
     private Context mContext;
-    private List<String> texts;
+    private List<String> mTexts;
     protected String mDefault = "- - - - -";
     protected String mText;                 //内容
     protected String mHint;
@@ -69,7 +61,7 @@ public class IEditText extends EditText implements EditView {
         }
 
         if (paddingT == Value.VALUE_INT) {
-            paddingT = UIUtils.getDimens(context, R.dimen.core_size_12);
+            paddingT = UIUtils.getDimens(context, R.dimen.core_size_10);
         }
         if (paddingB == Value.VALUE_INT) {
             paddingB = UIUtils.getDimens(context, R.dimen.core_size_7);
@@ -79,7 +71,7 @@ public class IEditText extends EditText implements EditView {
     }
 
     private void initView() {
-        texts = new ArrayList<>();
+        mTexts = new ArrayList<>();
         this.setGravity(Gravity.CENTER_VERTICAL);
         this.setSingleLine(true);
         this.setEllipsize(TextUtils.TruncateAt.END);
@@ -291,13 +283,13 @@ public class IEditText extends EditText implements EditView {
 
     @Override
     public List<String> getTexts() {
-        texts.clear();
+        mTexts.clear();
         String text = getText().toString();
         if (!TextUtils.isEmpty(text)) {
             text = text.replace(mDefault, "").trim();
-            texts.add(text);
+            mTexts.add(text);
         }
-        return texts;
+        return mTexts;
     }
 
     @Override
