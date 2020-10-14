@@ -47,7 +47,6 @@ public class UIUtils {
             LinearLayout layout = (LinearLayout) toast.getView();
             if (layout.getChildCount() > 0) {
                 TextView textView = (TextView) layout.getChildAt(0);
-                textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
             }
             toast.show();
             oneTime = System.currentTimeMillis();
