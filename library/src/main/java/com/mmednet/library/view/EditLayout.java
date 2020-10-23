@@ -41,7 +41,7 @@ import java.util.List;
  * Author Jming.L
  * Date 2017/9/22 15:32
  */
-public class EditLayout extends LinearLayout implements VoiceTable{
+public class EditLayout extends LinearLayout implements VoiceTable {
 
     public static final int TYPE_EDITBOX = 0;       // 编辑框
     public static final int TYPE_TEXTBOX = 1;       // 文本框
@@ -51,22 +51,7 @@ public class EditLayout extends LinearLayout implements VoiceTable{
     public static final int TYPE_SINGLEBOX = 5;     // 单选框
     public static final int TYPE_MULTIBOX = 6;      // 多选框
 
-    private int mViewType = TYPE_EDITBOX;
-    private Context mContext;
-    private String mTitle;
-    private boolean mIsRequired;                    //是否为必填项
-
     private OnItemEditListener mClickListener;
-
-    private float mSpace;
-    private int mPadding;
-
-    private int editTextBackground;
-    private int editBoxBackground;
-    private int selectBoxBackground;
-
-    private int editBoxHintColor;
-    private int editBoxTextColor;
 
     private LinearLayout mTitleLayout;
     private TextView mTitleView;                    //标题控件
@@ -74,48 +59,52 @@ public class EditLayout extends LinearLayout implements VoiceTable{
     private EditView mEditView;                     //编辑控件
     private Attribute mAttribute;
 
-    private class Attribute {
-        private int requiredDrawable;
-        private int backgroundDrawable;
+    public static class Attribute {
+        public int viewType;                //编辑框类型
+        public String title;                //标题
+        public boolean editable;            //是否可以编辑
+        public int limit;                   //限制的小数位数
+        public float maxValue;              //输入框最大值
+        public float minValue;              //输入框最小值
+        public boolean isRequired;          //是否必填项
 
-        private int horizontalSpacing;
-        private int verticalSpacing;
+        public int requiredDrawable;        //必填星号
 
-        private int leftSpace;
-        private int topSpace;
-        private int rightSpace;
-        private int bottomSpace;
+        public int horizontalSpacing;       //选择框横向内间距
+        public int verticalSpacing;         //选择框纵向内间距
 
-        private int titleSize;
-        private int titleColor;
+        public int leftSpace;               //编辑框左外间距
+        public int topSpace;                //编辑框上外间距
+        public int rightSpace;              //编辑框右外间距
+        public int bottomSpace;             //编辑框下外间距
 
-        private String[] hints;
-        private String[] texts;
+        public int titleSize;               //标题尺寸
+        public int titleColor;              //标题颜色
 
-        private int hintColor;
-        private int textColor;
-        private int textSize;
+        public int textSize;                //输出框文本尺寸
+        public int textColor;               //输入框文本颜色
+        public int hintColor;               //提示款颜色
 
-        private boolean editable;
-        private int inputType;
+        public String[] hints = {};         //待选文本
+        public String[] texts = {};         //已选文本
 
-        private int leftDrawable;
-        private String leftText;
-        private int rightDrawable;
-        private String rightText;
+        public int editTextBackground;      //文本框背景
+        public int editBoxBackground;       //选择框背景
+        public int selectBoxBackground;     //选择框背景
 
-        private int limit;
-        private float maxValue;
-        private float minValue;
+        public int editBoxHintColor;        //选择框待选色
+        public int editBoxTextColor;        //选择框文本颜色
+
+        public int inputType;               //输入框输入类型
+
+        public int leftDrawable;            //左资源图片
+        public String leftText;             //左资源文本
+        public int rightDrawable;           //右资源图片
+        public String rightText;            //右资源文本
     }
 
     public EditLayout(Context context) {
         this(context, null);
-    }
-
-    public EditLayout(Context context, int viewType) {
-        this(context, null);
-        this.mViewType = viewType;
     }
 
     public EditLayout(Context context, AttributeSet attrs) {
@@ -124,17 +113,15 @@ public class EditLayout extends LinearLayout implements VoiceTable{
 
     public EditLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.mContext = context;
-        mPadding = getResources().getDimensionPixelSize(R.dimen.size_title_padding);
-        initAttrs(attrs);
+        this.mAttribute = new Attribute();
+        initAttrs(context, attrs);
     }
 
-    @SuppressWarnings( "deprecation" )
-    private void initAttrs(AttributeSet attrs) {
-        Resources.Theme theme = mContext.getTheme();
+    private void initAttrs(Context context, AttributeSet attrs) {
+        Resources.Theme theme = context.getTheme();
         TypedArray array = theme.obtainStyledAttributes(attrs, R.styleable.EditLayout, R.attr.editLayoutStyle, R.style.EditLayout);
+
         if (array != null) {
-            mAttribute = new Attribute();
             //小数位数
             mAttribute.limit = array.getInt(R.styleable.EditLayout_limit, -1);
             //最大值
@@ -142,13 +129,13 @@ public class EditLayout extends LinearLayout implements VoiceTable{
             //最小值
             mAttribute.minValue = array.getFloat(R.styleable.EditLayout_maxValue, 0);
             //是否必填
-            mIsRequired = array.getBoolean(R.styleable.EditLayout_required, false);
+            mAttribute.isRequired = array.getBoolean(R.styleable.EditLayout_required, false);
 
             //必填星号样式
             mAttribute.requiredDrawable = array.getResourceId(R.styleable.EditLayout_requiredDrawable, 0);
 
             //标题内容
-            mTitle = array.getString(R.styleable.EditLayout_titleText);
+            mAttribute.title = array.getString(R.styleable.EditLayout_titleText);
 
             //标题颜色
             mAttribute.titleColor = array.getColor(R.styleable.EditLayout_titleColor, Color.BLACK);
@@ -157,12 +144,12 @@ public class EditLayout extends LinearLayout implements VoiceTable{
             mAttribute.titleSize = (int) array.getDimension(R.styleable.EditLayout_titleSize, 24);
 
             //控件类型（先设置控件类型，否则会报空指针）
-            mViewType = array.getInt(R.styleable.EditLayout_viewType, TYPE_EDITBOX);
+            mAttribute.viewType = array.getInt(R.styleable.EditLayout_viewType, TYPE_EDITBOX);
 
             //背景资源
-            editTextBackground = array.getResourceId(R.styleable.EditLayout_editTextBackground, 0);
-            editBoxBackground = array.getResourceId(R.styleable.EditLayout_editBoxBackground, 0);
-            selectBoxBackground = array.getResourceId(R.styleable.EditLayout_selectBoxBackground, 0);
+            mAttribute.editTextBackground = array.getResourceId(R.styleable.EditLayout_editTextBackground, 0);
+            mAttribute.editBoxBackground = array.getResourceId(R.styleable.EditLayout_editBoxBackground, 0);
+            mAttribute.selectBoxBackground = array.getResourceId(R.styleable.EditLayout_selectBoxBackground, 0);
 
             //提示内容
             //String[] hints = null;
@@ -188,8 +175,8 @@ public class EditLayout extends LinearLayout implements VoiceTable{
             mAttribute.textColor = array.getColor(R.styleable.EditLayout_textColor, Color.BLACK);
 
             //存在EditBox属性则使用EditBox属性，不存在则使用默认属性
-            editBoxHintColor = array.getColor(R.styleable.EditLayout_editBoxHintColor, -1);
-            editBoxTextColor = array.getColor(R.styleable.EditLayout_editBoxTextColor, -1);
+            mAttribute.editBoxHintColor = array.getColor(R.styleable.EditLayout_editBoxHintColor, -1);
+            mAttribute.editBoxTextColor = array.getColor(R.styleable.EditLayout_editBoxTextColor, -1);
 
             //设置横向间距和纵向间距
             mAttribute.horizontalSpacing = (int) array.getDimension(R.styleable.EditLayout_editBoxHorizontalSpacing, 0);
@@ -212,25 +199,54 @@ public class EditLayout extends LinearLayout implements VoiceTable{
             }
 
             //标题大小
-            mAttribute.leftSpace = (int) array.getDimension(R.styleable.EditLayout_leftSpace, 0);
-            mAttribute.topSpace = (int) array.getDimension(R.styleable.EditLayout_topSpace, 0);
-            mAttribute.rightSpace = (int) array.getDimension(R.styleable.EditLayout_rightSpace, 0);
-            mAttribute.bottomSpace = (int) array.getDimension(R.styleable.EditLayout_bottomSpace, 0);
-            mSpace = array.getDimension(R.styleable.EditLayout_space, mAttribute.leftSpace);
+            int space = (int) array.getDimension(R.styleable.EditLayout_space, mAttribute.leftSpace);
+            mAttribute.leftSpace = (int) array.getDimension(R.styleable.EditLayout_leftSpace, space);
+            mAttribute.topSpace = (int) array.getDimension(R.styleable.EditLayout_topSpace, space);
+            mAttribute.rightSpace = (int) array.getDimension(R.styleable.EditLayout_rightSpace, space);
+            mAttribute.bottomSpace = (int) array.getDimension(R.styleable.EditLayout_bottomSpace, space);
+
 
             //输入类型
             mAttribute.inputType = array.getInt(R.styleable.EditLayout_dataType, EditorInfo.TYPE_CLASS_TEXT);
 
-            this.initView(mAttribute);
-            //在设置类型以前不要进行类型判断
-            this.setViewType(mViewType);
-
             array.recycle();
         }
+        this.initView(context, mAttribute);
+    }
+
+    protected void initView(Context context, Attribute attr) {
+        int padding = getResources().getDimensionPixelSize(R.dimen.size_title_padding);
+        mTitleLayout = new LinearLayout(context);
+        mTitleLayout.setPadding(padding, padding, padding, padding);
+        mTitleLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+        // 标题
+        mTitleView = new TextView(context);
+        mTitleView.setIncludeFontPadding(false);
+        mTitleView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mAttribute.titleSize);
+        mTitleView.setTextColor(mAttribute.titleColor);
+        this.setTitle(attr.title);
+
+        // 是否必选
+        LayoutParams requiredParams = new LayoutParams(
+                mTitleView.getLineHeight() / 2, mTitleView.getLineHeight());
+        requiredParams.setMarginEnd(5);
+        mRequiredView = new ImageView(context);
+        mRequiredView.setScaleType(ImageView.ScaleType.CENTER);
+        mRequiredView.setImageResource(attr.requiredDrawable);
+        mRequiredView.setLayoutParams(requiredParams);
+        mRequiredView.setVisibility(View.INVISIBLE);
+
+        mTitleLayout.addView(mRequiredView);
+        mTitleLayout.addView(mTitleView);
+
+        this.addView(mTitleLayout);
+        this.setRequired(mAttribute.isRequired);
+        //在设置类型以前不要进行类型判断
+        this.setViewType(mAttribute.viewType);
     }
 
     private void initResource(Attribute attr) {
-        this.setBackgroundView(attr.backgroundDrawable);
         this.setHint(attr.hints);
         this.setHintColor(attr.hintColor);
         this.setText(attr.texts);
@@ -240,7 +256,6 @@ public class EditLayout extends LinearLayout implements VoiceTable{
         //优先判断图形资源，没有图形资源则选择文本
         if (attr.leftDrawable == 0) {
             if (attr.leftText != null) {
-
                 this.setLeftDrawable(attr.leftText);
             }
         } else {
@@ -261,7 +276,7 @@ public class EditLayout extends LinearLayout implements VoiceTable{
 
     //限制输入框的小数位数
     private void limitNumber(final int limit, final float minValue, final float maxValue) {
-        if (mViewType == TYPE_EDITBOX) {
+        if (getViewType() == TYPE_EDITBOX) {
             EditText editText = (EditText) getEditView();
             if (editText.isEnabled()) {
                 if (limit < 0) {
@@ -272,43 +287,6 @@ public class EditLayout extends LinearLayout implements VoiceTable{
                 }
             }
         }
-    }
-
-    private void initView(Attribute attr) {
-        mTitleLayout = new LinearLayout(mContext);
-        mTitleLayout.setPadding(mPadding, mPadding, mPadding, mPadding);
-        mTitleLayout.setOrientation(LinearLayout.HORIZONTAL);
-        //mTitleLayout.setGravity(Gravity.CENTER_VERTICAL);
-
-        // 标题
-        mTitleView = new TextView(mContext);
-        if (!TextUtils.isEmpty(mTitle)) {
-            mTitleView.setText(mTitle);
-            mTitleLayout.setVisibility(View.VISIBLE);
-        } else {
-            mTitleLayout.setVisibility(View.GONE);
-        }
-        mTitleView.setIncludeFontPadding(false);
-        mTitleView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mAttribute.titleSize);
-        mTitleView.setTextColor(mAttribute.titleColor);
-
-        // 是否必选
-        LayoutParams requiredParams = new LayoutParams(
-                mTitleView.getLineHeight() / 2, mTitleView.getLineHeight());
-        requiredParams.setMarginEnd(5);
-        mRequiredView = new ImageView(mContext);
-        mRequiredView.setScaleType(ImageView.ScaleType.CENTER);
-        if (attr != null) {
-            mRequiredView.setImageResource(attr.requiredDrawable);
-        }
-        mRequiredView.setLayoutParams(requiredParams);
-        mRequiredView.setVisibility(View.INVISIBLE);
-
-        mTitleLayout.addView(mRequiredView);
-        mTitleLayout.addView(mTitleView);
-
-        this.addView(mTitleLayout);
-        this.setRequired(mIsRequired);
     }
 
     /**
@@ -327,7 +305,7 @@ public class EditLayout extends LinearLayout implements VoiceTable{
      * @return 布尔值
      */
     public boolean isRequired() {
-        return mIsRequired;
+        return mRequiredView.getVisibility() == View.VISIBLE;
     }
 
     /**
@@ -336,7 +314,6 @@ public class EditLayout extends LinearLayout implements VoiceTable{
      * @param isRequired true:必填项;false:非必填
      */
     public void setRequired(boolean isRequired) {
-        mIsRequired = isRequired;
         mRequiredView.setVisibility(isRequired ? View.VISIBLE : View.INVISIBLE);
     }
 
@@ -346,7 +323,7 @@ public class EditLayout extends LinearLayout implements VoiceTable{
      * @param size 字体大小
      */
     public void setTitleSize(int size) {
-        mTitleView.setTextSize(TypedValue.COMPLEX_UNIT_PX,size);
+        mTitleView.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
     }
 
     /**
@@ -404,7 +381,7 @@ public class EditLayout extends LinearLayout implements VoiceTable{
      * @return 标题内容
      */
     public String getTitle() {
-        return mTitle;
+        return mTitleView.getText().toString();
     }
 
     /**
@@ -413,13 +390,8 @@ public class EditLayout extends LinearLayout implements VoiceTable{
      * @param title 标题
      */
     public void setTitle(String title) {
-        if (!TextUtils.isEmpty(title)) {
-            mTitle = title;
-            mTitleView.setText(mTitle);
-            mTitleLayout.setVisibility(View.VISIBLE);
-        } else {
-            mTitleLayout.setVisibility(View.GONE);
-        }
+        mTitleView.setText(title);
+        mTitleLayout.setVisibility(title == null ? View.GONE : View.VISIBLE);
     }
 
     /**
@@ -428,7 +400,7 @@ public class EditLayout extends LinearLayout implements VoiceTable{
      * @return 控件类型
      */
     public int getViewType() {
-        return mViewType;
+        return mAttribute.viewType;
     }
 
     /**
@@ -494,39 +466,38 @@ public class EditLayout extends LinearLayout implements VoiceTable{
      * @param type 类型EditLayout
      */
     public void setViewType(int type) {
-        mViewType = type;
-        EditView editView = ViewFactory.create(mContext, type);
+        mAttribute.viewType = type;
+        EditView editView = ViewFactory.create(getContext(), type);
         this.setEditView(editView);
 
         if (editView instanceof IEditText) {
-            mAttribute.backgroundDrawable = editTextBackground;
+            editView.setBackgroundView(mAttribute.editTextBackground);
         }
 
         //EditBox需要设置横向间距和纵向间距
         if (editView instanceof IEditBox) {
-            if (editBoxHintColor != -1) {
-                mAttribute.hintColor = editBoxHintColor;
+            if (mAttribute.editBoxHintColor != -1) {
+                mAttribute.hintColor = mAttribute.editBoxHintColor;
             }
-            if (editBoxTextColor != -1) {
-                mAttribute.textColor = editBoxTextColor;
+            if (mAttribute.editBoxTextColor != -1) {
+                mAttribute.textColor = mAttribute.editBoxTextColor;
             }
-            mAttribute.backgroundDrawable = editBoxBackground;
 
             IEditBox box = (IEditBox) editView;
             box.setAverage(false);
+            box.setBackgroundView(mAttribute.editBoxBackground);
             box.setHorizontalSpacing(mAttribute.horizontalSpacing);
             box.setVerticalSpacing(mAttribute.verticalSpacing);
         }
 
         if (editView instanceof ISelectBox) {
-            mAttribute.backgroundDrawable = selectBoxBackground;
-
             final ISelectBox box = (ISelectBox) mEditView;
             final ViewTreeObserver vto = box.getViewTreeObserver();
             vto.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
                 @Override
                 public boolean onPreDraw() {
                     box.getViewTreeObserver().removeOnPreDrawListener(this);
+                    box.setBackgroundView(mAttribute.selectBoxBackground);
                     initResource(mAttribute);
                     return true;
                 }
@@ -559,7 +530,6 @@ public class EditLayout extends LinearLayout implements VoiceTable{
      */
     @Deprecated
     public void setSpace(float space) {
-        this.mSpace = space;
         View view = (View) mEditView;
         LayoutParams params = (LayoutParams) view.getLayoutParams();
         if (params == null) {
@@ -587,28 +557,28 @@ public class EditLayout extends LinearLayout implements VoiceTable{
      * @param editable true:可以编辑;false:不可编辑
      */
     public void setEditable(boolean editable) {
-        mAttribute.editable = editable;
         mEditView.setEditable(editable);
         //this.setSpace(mSpace);
-        String title = mTitle;
+        String title = getTitle();
         String blank = "\u0020\u0020";
-        if (mViewType == TYPE_EDITBOX
-                || mViewType == TYPE_TEXTBOX
-                || mViewType == TYPE_SPINNER) {
-            if (!TextUtils.isEmpty(mTitle)) {
+        int viewType = getViewType();
+        if (viewType == TYPE_EDITBOX
+                || viewType == TYPE_TEXTBOX
+                || viewType == TYPE_SPINNER) {
+            if (!TextUtils.isEmpty(getTitle())) {
                 if (editable) {
-                    title = mTitle + blank;
+                    title = getTitle() + blank;
                 } else {
-                    if (TextUtils.isEmpty(StringUtils.removeBlank(mTitle))) {
-                        title = mTitle + blank;
+                    if (TextUtils.isEmpty(StringUtils.removeBlank(getTitle()))) {
+                        title = getTitle() + blank;
                     } else {
-                        title = mTitle + "\u0020:";
+                        title = getTitle() + "\u0020:";
                     }
                 }
             }
         } else {
-            if (!TextUtils.isEmpty(mTitle)) {
-                title = mTitle + blank;
+            if (!TextUtils.isEmpty(getTitle())) {
+                title = getTitle() + blank;
             }
         }
         mTitleView.setText(title);
@@ -621,11 +591,12 @@ public class EditLayout extends LinearLayout implements VoiceTable{
      */
     @Override
     public boolean isLimit() {
-        return mViewType == TYPE_CHECKBOX
-                || mViewType == TYPE_RADIOBOX
-                || mViewType == TYPE_MULTIBOX
-                || mViewType == TYPE_SINGLEBOX
-                || mViewType == TYPE_SPINNER;
+        int viewType = getViewType();
+        return viewType == TYPE_CHECKBOX
+                || viewType == TYPE_RADIOBOX
+                || viewType == TYPE_MULTIBOX
+                || viewType == TYPE_SINGLEBOX
+                || viewType == TYPE_SPINNER;
     }
 
     /**
@@ -812,15 +783,6 @@ public class EditLayout extends LinearLayout implements VoiceTable{
     @Override
     public List<String> getTexts() {
         return mEditView.getTexts();
-    }
-
-    /**
-     * 设置控件相关背景资源
-     *
-     * @param resId 资源ID
-     */
-    private void setBackgroundView(int resId) {
-        mEditView.setBackgroundView(resId);
     }
 
     /**
