@@ -199,11 +199,11 @@ public class EditLayout extends LinearLayout implements VoiceTable {
             }
 
             //标题大小
-            int space = (int) array.getDimension(R.styleable.EditLayout_space, mAttribute.leftSpace);
+            int space = (int) array.getDimension(R.styleable.EditLayout_space, 0);
             mAttribute.leftSpace = (int) array.getDimension(R.styleable.EditLayout_leftSpace, space);
-            mAttribute.topSpace = (int) array.getDimension(R.styleable.EditLayout_topSpace, space);
-            mAttribute.rightSpace = (int) array.getDimension(R.styleable.EditLayout_rightSpace, space);
-            mAttribute.bottomSpace = (int) array.getDimension(R.styleable.EditLayout_bottomSpace, space);
+            mAttribute.topSpace = (int) array.getDimension(R.styleable.EditLayout_topSpace, 0);
+            mAttribute.rightSpace = (int) array.getDimension(R.styleable.EditLayout_rightSpace, 0);
+            mAttribute.bottomSpace = (int) array.getDimension(R.styleable.EditLayout_bottomSpace, 0);
 
 
             //输入类型
@@ -526,10 +526,9 @@ public class EditLayout extends LinearLayout implements VoiceTable {
     /**
      * 设置标题与编辑框的间隔
      *
-     * @param space 间隔距离
+     * @param leftSpace 间隔距离
      */
-    @Deprecated
-    public void setSpace(float space) {
+    public void setSpace(float leftSpace) {
         View view = (View) mEditView;
         LayoutParams params = (LayoutParams) view.getLayoutParams();
         if (params == null) {
@@ -537,7 +536,7 @@ public class EditLayout extends LinearLayout implements VoiceTable {
                     LayoutParams.WRAP_CONTENT);
             view.setLayoutParams(params);
         }
-        params.setMarginStart((int) space);
+        params.setMarginStart((int) leftSpace);
         params.gravity = Gravity.CENTER_VERTICAL;
     }
 
@@ -657,83 +656,6 @@ public class EditLayout extends LinearLayout implements VoiceTable {
         return mEditView.getHints();
     }
 
-    /**
-     * 获取内容在待选内容中索引(多值默认返回第一个值索引)
-     *
-     * @return 索引值
-     */
-    public int getTextPosition() {
-        if (isLimit()) {
-            String text = getText();
-            List<String> hints = getHints();
-            for (int i = 0; i < hints.size(); i++) {
-                String hint = hints.get(i);
-                if (TextUtils.equals(text, hint)) {
-                    return i;
-                }
-            }
-        }
-        return -1;
-    }
-
-    /**
-     * 获取内容在待选内容中索引
-     *
-     * @return 索引值集合
-     */
-    public List<Integer> getTextPositions() {
-        ArrayList<Integer> list = new ArrayList<>();
-        if (isLimit()) {
-            List<String> texts = getTexts();
-            List<String> hints = getHints();
-            X:
-            for (int i = 0; i < texts.size(); i++) {
-                String text = texts.get(i);
-                for (int j = 0; j < hints.size(); j++) {
-                    String hint = hints.get(j);
-                    if (TextUtils.equals(text, hint)) {
-                        list.add(j);
-                        continue X;
-                    }
-                }
-            }
-        }
-        return list;
-    }
-
-    /**
-     * 根据索引设置选项
-     *
-     * @param position 索引
-     */
-    public void setTextPosition(int... position) {
-        if (isLimit()) {
-            List<String> hints = getHints();
-            List<String> texts = new ArrayList<>();
-            for (int p : position) {
-                String text = hints.get(p);
-                texts.add(text);
-            }
-            this.setText(texts);
-        }
-    }
-
-    /**
-     * 根据索引设置选项
-     *
-     * @param position 索引
-     */
-    public void setTextPosition(List<Integer> position) {
-        if (isLimit()) {
-            List<String> hints = getHints();
-            List<String> texts = new ArrayList<>();
-            for (int p : position) {
-                String text = hints.get(p);
-                texts.add(text);
-            }
-            this.setText(texts);
-        }
-    }
 
     /**
      * 设置文本内容或选择内容
