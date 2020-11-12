@@ -100,14 +100,22 @@ public class Engine {
      * 语音识别
      */
     public void recognizeVoice(boolean recognize) {
-        manager.wakeUp(recognize);
+        try {
+            manager.wakeUp(recognize);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * 文本转语音
      */
     public void playVoice(String voice) {
-        manager.text2Speech(voice, null);
+        try {
+            manager.text2Speech(voice, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void wakeupVoice(String voice) {

@@ -34,8 +34,8 @@ public class Client {
 
     public static Client getInstance() {
         if (mInstance == null) {
-            synchronized(Client.class){
-                if(mInstance == null){
+            synchronized (Client.class) {
+                if (mInstance == null) {
                     mInstance = new Client();
                 }
             }
@@ -124,10 +124,10 @@ public class Client {
      * @param method   请求方式
      * @param callBack 回调
      * @param <T>      回调Bean
-     * @param isTag    已标记的请求不可重复发送
+     * @param tag      已标记的请求不可重复发送
      */
     public <T> void call(String url, Map<String, String> headers, final Map<String, String> params,
-                         HttpMode method, final HttpCallBack<T> callBack, boolean isTag) {
+                         HttpMode method, final HttpCallBack<T> callBack, Object tag) {
 
 
         //添加请求头
@@ -175,6 +175,7 @@ public class Client {
             requestParams = new HashMap<>();
         } else {
             if (jsonParams.size() > 0) {
+                //JSON数据将全局参数拼接到URL上，局部数据填充与JSON中
                 requestUrl = formatUrl(url, mergeParams, false);
                 requestParams = jsonParams;
             } else {
@@ -205,18 +206,14 @@ public class Client {
             mFileNetwork.uploadFile(mUploadFileKey, mUploadFile);
             mFileNetwork.downloadFile(mDownloadFile);
             mFileNetwork.request(clazz, callBack);
-            if (isTag) {
-                mFileNetwork.tag(url);
-            }
+            mFileNetwork.setTag(tag == null ? url : tag);
         } else {
             mTextNetwork.header(headersMap);
             mTextNetwork.url(requestUrl);
             mTextNetwork.param(requestParams);
             mTextNetwork.method(method);
             mTextNetwork.request(clazz, callBack);
-            if (isTag) {
-                mTextNetwork.tag(url);
-            }
+            mTextNetwork.setTag(tag == null ? url : tag);
         }
     }
 

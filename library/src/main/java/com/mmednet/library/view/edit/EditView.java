@@ -1,7 +1,6 @@
 package com.mmednet.library.view.edit;
 
 import android.graphics.drawable.Drawable;
-
 import java.util.List;
 
 public interface EditView {

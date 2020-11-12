@@ -80,8 +80,12 @@ public abstract class PieceVoice<T extends Layout> implements OnLayoutListener {
 
     @Override
     public void onDestroy() {
-        //页面销毁时停止语音识别
-        mEngine.recognizeVoice(false);
+        try {
+            //页面销毁时停止语音识别
+            mEngine.recognizeVoice(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     protected abstract boolean onResult(T t, String result);

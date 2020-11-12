@@ -51,16 +51,17 @@ import okio.Okio;
 public class OkHttp extends Network {
 
     private String url;
-    private String tag;
+    private Object tag;
     private String uploadFileKey;
     private File downloadFile;
     private File uploadFile;
     private HttpMode method;
     private OkHttpClient client;
     private Request.Builder requestBuilder;
-    private Map<String, Call> tags;
+    private Map<Object, Call> tags;
     private Map<String, String> headers;
     private Map<String, String> params;
+
     private static final String TAG = "OkHttp";
     private Resolver resolver;
 
@@ -297,20 +298,14 @@ public class OkHttp extends Network {
     }
 
     @Override
-    public void tag(String tag) {
-        Call call = tags.get(tag);
-        if (call != null) {
-            if (!call.isCanceled()) {
-                call.cancel();
-                tags.remove(tag);
-            }
-        }
+    public void setTag(Object tag) {
+        cancel(tag);
         this.tag = tag;
-        requestBuilder.tag(this.tag);
+        this.requestBuilder.tag(this.tag);
     }
 
     @Override
-    public void cancel(String tag) {
+    public void cancel(Object tag) {
         Call call = tags.get(tag);
         if (call != null) {
             if (!call.isCanceled()) {

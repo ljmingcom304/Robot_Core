@@ -26,14 +26,14 @@ public abstract class Network {
      *
      * @param tag 标记
      */
-    public abstract void tag(String tag);
+    public abstract void setTag(Object tag);
 
     /**
      * 取消网络请求
      *
      * @param tag 标记
      */
-    public abstract void cancel(String tag);
+    public abstract void cancel(Object tag);
 
     /**
      * Connection
