@@ -94,6 +94,7 @@ public abstract class FragmentDialog extends DialogFragment implements LayoutDia
             window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
             window.setGravity(Gravity.CENTER);
             window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
             WindowManager.LayoutParams attributes = window.getAttributes();
             attributes.width = mWidth;
             attributes.height = mHeight;

@@ -97,6 +97,7 @@ public abstract class BaseDialog extends Dialog implements LayoutDialog {
             window.setGravity(Gravity.CENTER);
             window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
             WindowManager.LayoutParams attributes = window.getAttributes();
             attributes.width = mWidth;
             attributes.height = mHeight;
