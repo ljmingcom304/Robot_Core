@@ -69,7 +69,7 @@ public class PickerView extends View {
         for (int i = 0; i <= 10; i++) {
             mItems.add(String.valueOf(i));
         }
-
+        mCurrentItem = mItems.get(0);
         mLinePaint = new Paint();
         mTextPaint = new Paint();
 
@@ -150,6 +150,7 @@ public class PickerView extends View {
             items = new ArrayList<>();
         }
         mItems = items;
+        mCurrentItem = mItems.size() > 0 ? mItems.get(0) : "";
         mOffset = 0;
     }
 
