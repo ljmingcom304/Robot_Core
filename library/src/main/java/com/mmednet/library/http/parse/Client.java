@@ -210,7 +210,6 @@ public class Client {
             mTextNetwork.url(requestUrl);
             mTextNetwork.param(requestParams);
             mTextNetwork.method(method);
-            mTextNetwork.setTag(tag == null ? url : tag);
             mTextNetwork.request(clazz, callBack);
             mFileNetwork.setTag(tag == null ? url : tag);
         }

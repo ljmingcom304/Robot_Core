@@ -101,6 +101,7 @@ public class OkHttp extends Network {
             return;
         }
         requestBuilder = new Request.Builder();
+        requestBuilder.tag(tag);
         requestBuilder.url(url);
         //设置请求头
         if (headers != null) {
@@ -312,9 +313,8 @@ public class OkHttp extends Network {
 
     @Override
     public void setTag(Object tag) {
-        cancel(tag);
+        this.cancel(tag);
         this.tag = tag;
-        this.requestBuilder.tag(tag);
     }
 
     @Override
