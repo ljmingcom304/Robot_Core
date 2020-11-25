@@ -22,99 +22,60 @@ public class URL {
 
     private static final String URL_HOST = URL.class.getName() + "HOST";
     private static final String URL_IMAGE = URL.class.getName() + "IMAGE";
-    private static Map<Class<?>, URL> registryMap;
-    private SharedPreferences mShared;
-
-    private String host;
-    private String image;
-    private Map<String, String> stringMap;
 
     protected URL() {
-        Library library = Library.getInstance();
-        Context context = library.getContext();
-        String name = getClass().getName();
-        mShared = context.getSharedPreferences(name, Context.MODE_PRIVATE);
-        stringMap = new HashMap<>();
     }
 
-    public static synchronized <T extends URL> T getInstance(Class<T> clazz) {
-        if (registryMap == null) {
-            registryMap = new HashMap<>();
-        }
-        if (!registryMap.containsKey(clazz)) {
-            try {
-                T instance = clazz.newInstance();
-                registryMap.put(clazz, instance);
-                return instance;
-            } catch (InstantiationException | IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
-        //noinspection unchecked
-        return (T) registryMap.get(clazz);
+    private static SharedPreferences getShared() {
+        Context context = Library.getInstance().getContext();
+        return context.getSharedPreferences(URL.class.getName(), Context.MODE_PRIVATE);
     }
 
-    public static URL getInstance() {
-        return getInstance(URL.class);
+    private static SharedPreferences.Editor getEditor() {
+        return getShared().edit();
     }
 
 
-    public void setHost(String host) {
-        this.host = host;
-        SharedPreferences.Editor editor = mShared.edit();
+    public static void setHost(String host) {
+        SharedPreferences.Editor editor = getEditor();
         editor.putString(URL_HOST, host);
         editor.apply();
     }
 
-    public String getHost() {
-        if (TextUtils.isEmpty(host)) {
-            host = mShared.getString(URL_HOST, null);
-        }
-        return host;
+    public static String getHost() {
+        return getShared().getString(URL_HOST, null);
     }
 
-    public String getImage() {
-        if (TextUtils.isEmpty(image)) {
-            host = mShared.getString(URL_IMAGE, null);
-        }
-        return image;
+    public static String getImage() {
+        return getShared().getString(URL_IMAGE, null);
     }
 
-    public void setImage(String image) {
-        this.image = image;
-        SharedPreferences.Editor editor = mShared.edit();
-        editor.putString(URL_IMAGE, host);
+    public static void setImage(String image) {
+        SharedPreferences.Editor editor = getEditor();
+        editor.putString(URL_IMAGE, image);
         editor.apply();
     }
 
-    public static String url(String path) {
-        URL url = URL.getInstance();
-        return url.getHost() + path;
-    }
-
-    public static String image(String path) {
-        URL url = URL.getInstance();
-        return url.getImage() + path;
-    }
-
-    public void setValue(String key, String value) {
-        stringMap.put(key, value);
-        SharedPreferences.Editor editor = mShared.edit();
+    public static void setValue(String key, String value) {
+        SharedPreferences.Editor editor = getEditor();
         editor.putString(key, value);
         editor.apply();
     }
 
-    public String getValue(String key) {
-        String value = stringMap.get(key);
-        if (value == null) {
-            value = mShared.getString(key, null);
-        }
-        return value;
+    public static String getValue(String key) {
+        return getShared().getString(key, null);
+    }
+
+    public static String url(String path) {
+        return getHost() + path;
+    }
+
+    public static String image(String path) {
+        return getImage() + path;
     }
 
     public static String value(String key, String path) {
-        URL url = URL.getInstance();
-        return url.getValue(key) + (path == null ? "" : path);
+        return getValue(key) + (path == null ? "" : path);
     }
 
 }

@@ -128,7 +128,10 @@ public class Client {
      */
     public <T> void call(String url, Map<String, String> headers, final Map<String, String> params,
                          HttpMode method, final HttpCallBack<T> callBack, Object tag) {
-
+        if (url == null) {
+            Log.e(TAG, "URL为空，网络请求失败");
+            return;
+        }
 
         //添加请求头
         HashMap<String, String> headersMap = new HashMap<>();
