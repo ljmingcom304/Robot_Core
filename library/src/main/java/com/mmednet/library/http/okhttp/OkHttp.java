@@ -96,6 +96,10 @@ public class OkHttp extends Network {
 
     @Override
     public <T> void request(final Class<T> clazz, final HttpCallBack<T> callBack) {
+        if (TextUtils.isEmpty(url)) {
+            Log.e(TAG, "URL为空，网络请求中断");
+            return;
+        }
         requestBuilder = new Request.Builder();
         requestBuilder.url(url);
         //设置请求头

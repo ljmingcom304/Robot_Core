@@ -128,11 +128,6 @@ public class Client {
      */
     public <T> void call(String url, Map<String, String> headers, final Map<String, String> params,
                          HttpMode method, final HttpCallBack<T> callBack, Object tag) {
-        if (url == null) {
-            Log.e(TAG, "URL为空，网络请求失败");
-            return;
-        }
-
         //添加请求头
         HashMap<String, String> headersMap = new HashMap<>();
         headersMap.put("x-meridian-sign-version", "v1");        //将JSON数据也进行签名
@@ -208,15 +203,15 @@ public class Client {
             mFileNetwork.method(method);
             mFileNetwork.uploadFile(mUploadFileKey, mUploadFile);
             mFileNetwork.downloadFile(mDownloadFile);
-            mFileNetwork.request(clazz, callBack);
             mFileNetwork.setTag(tag == null ? url : tag);
+            mFileNetwork.request(clazz, callBack);
         } else {
             mTextNetwork.header(headersMap);
             mTextNetwork.url(requestUrl);
             mTextNetwork.param(requestParams);
             mTextNetwork.method(method);
-            mTextNetwork.request(clazz, callBack);
             mTextNetwork.setTag(tag == null ? url : tag);
+            mTextNetwork.request(clazz, callBack);
         }
     }
 
