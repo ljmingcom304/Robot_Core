@@ -203,8 +203,8 @@ public class Client {
             mFileNetwork.method(method);
             mFileNetwork.uploadFile(mUploadFileKey, mUploadFile);
             mFileNetwork.downloadFile(mDownloadFile);
-            mFileNetwork.setTag(tag == null ? url : tag);
             mFileNetwork.request(clazz, callBack);
+            mFileNetwork.setTag(tag == null ? url : tag);
         } else {
             mTextNetwork.header(headersMap);
             mTextNetwork.url(requestUrl);
@@ -212,6 +212,7 @@ public class Client {
             mTextNetwork.method(method);
             mTextNetwork.setTag(tag == null ? url : tag);
             mTextNetwork.request(clazz, callBack);
+            mFileNetwork.setTag(tag == null ? url : tag);
         }
     }
 

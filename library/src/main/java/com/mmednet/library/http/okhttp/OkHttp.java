@@ -150,7 +150,16 @@ public class OkHttp extends Network {
         }
 
         //响应
-        Call call = client.newCall(requestBuilder.build());
+        Request request = null;
+        try {
+            request = requestBuilder.build();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (request == null) {
+            return;
+        }
+        Call call = client.newCall(request);
         tags.put(tag, call);
         call.enqueue(new Callback() {
 
@@ -305,17 +314,15 @@ public class OkHttp extends Network {
     public void setTag(Object tag) {
         cancel(tag);
         this.tag = tag;
-        this.requestBuilder.tag(this.tag);
+        this.requestBuilder.tag(tag);
     }
 
     @Override
     public void cancel(Object tag) {
         Call call = tags.get(tag);
-        if (call != null) {
-            if (!call.isCanceled()) {
-                call.cancel();
-                tags.remove(tag);
-            }
+        if (call != null && call.isExecuted()) {
+            call.cancel();
+            tags.remove(tag);
         }
     }
 
