@@ -13,6 +13,7 @@ import android.util.LruCache;
 
 import com.mmednet.library.Library;
 import com.mmednet.library.common.Constants;
+import com.mmednet.library.log.Logger;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -837,10 +838,25 @@ public class ACache {
         private void clear() {
             lastUsageDates.clear();
             cacheSize.set(0);
-            File[] files = cacheDir.listFiles();
-            if (files != null) {
-                for (File f : files) {
-                    f.delete();
+            deleteFile(cacheDir);
+        }
+
+        public void deleteFile(File file) {
+            //判断文件不为null或文件目录存在
+            if (file == null || !file.exists()) {
+                return;
+            }
+            //取得这个目录下的所有子文件对象
+            File[] files = file.listFiles();
+            //遍历该目录下的文件对象
+            for (File f : files) {
+                //判断子目录是否存在子目录,如果是文件则删除
+                if (f.isDirectory()) {
+                    deleteFile(f);
+                } else {
+                    String fileName = f.getAbsolutePath();
+                    boolean result = f.delete();
+                    Logger.i("文件移除：" + fileName + "[结果：" + result + "]");
                 }
             }
         }
@@ -1041,7 +1057,7 @@ public class ACache {
         /*
          * Bitmap → Drawable
          */
-        @SuppressWarnings( "deprecation" )
+        @SuppressWarnings("deprecation")
         private static Drawable bitmap2Drawable(Bitmap bm) {
             if (bm == null) {
                 return null;
