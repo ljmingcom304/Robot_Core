@@ -736,8 +736,10 @@ public class ACache {
      * @return 是否移除成功
      */
     public boolean remove(String key) {
-        if (key != null)
+        if (key != null) {
             mStringCache.remove(key);
+            mByteCache.remove(key);
+        }
         return mCache.remove(key);
     }
 
@@ -746,6 +748,7 @@ public class ACache {
      */
     public void clear() {
         mStringCache.evictAll();
+        mByteCache.evictAll();
         mCache.clear();
     }
 
@@ -841,7 +844,7 @@ public class ACache {
             deleteFile(cacheDir);
         }
 
-        public void deleteFile(File file) {
+        private void deleteFile(File file) {
             //判断文件不为null或文件目录存在
             if (file == null || !file.exists()) {
                 return;
