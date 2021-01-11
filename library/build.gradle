@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 87
-        versionName "2.9.0"
+        versionCode 88
+        versionName "2.9.1"
         multiDexEnabled false
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
@@ -47,7 +47,7 @@ dependencies {
     androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    testImplementation 'junit:junit:4.13'
+    testImplementation 'junit:junit:4.13.1'
     implementation rootProject.ext.clientxyzj
     implementation rootProject.ext.clientbaidu
     implementation 'com.google.code.gson:gson:2.8.5'
@@ -56,8 +56,9 @@ dependencies {
     implementation 'com.belerweb:pinyin4j:2.5.1'
     implementation 'com.squareup.okhttp3:okhttp:4.5.0'
     implementation 'com.squareup.okio:okio:2.5.0'
-    implementation 'androidx.multidex:multidex:2.0.0'
-    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'com.squareup.okhttp3:mockwebserver:4.5.0'
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
 }
 
 apply from: './build-nexus.gradle'
