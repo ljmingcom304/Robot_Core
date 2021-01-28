@@ -35,12 +35,12 @@ public class OcrManager {
     private Fragment mFragment;
     private OnResultListener<IDCardResult> mListener;
 
-    private OcrManager(Activity activity) {
+    public OcrManager(Activity activity) {
         mActivity = activity;
         mContext = activity.getBaseContext();
     }
 
-    private OcrManager(Fragment fragment) {
+    public OcrManager(Fragment fragment) {
         mFragment = fragment;
         mContext = fragment.getContext();
     }
