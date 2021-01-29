@@ -30,9 +30,31 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.yanzhenjie:permission:2.0.0-rc4'
-    implementation 'cn.funtalk.miao.miaoplus:miaoplus:1.4.02-SNAPSHOT'
-    implementation 'androidx.appcompat:appcompat:1.0.0'
+    //implementation 'cn.funtalk.miao.miaoplus:miaoplus:1.6.44.1-SNAPSHOT'
+    //implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation project(':library')
+    /*implementation rootProject.ext.clientreader
+    implementation rootProject.ext.clientplayer
+    implementation rootProject.ext.clientocr
+    annotationProcessor rootProject.ext.glidecompiler
+    annotationProcessor 'androidx.annotation:annotation:1.1.0'
+    api rootProject.ext.constraint
+    api rootProject.ext.design
+    api rootProject.ext.cardviewv7
+    api rootProject.ext.appcompatv7
+    api rootProject.ext.recyclerviewv7
+    api rootProject.ext.supportv4
+    api rootProject.ext.percent
+    api rootProject.ext.multidex
+    api rootProject.ext.okhttp
+    api rootProject.ext.okio
+    api rootProject.ext.gson
+    api rootProject.ext.ormliteandroid
+    api rootProject.ext.ormlitecore
+    api rootProject.ext.clientcore
+    api rootProject.ext.refresh
+    api rootProject.ext.glide
+    api rootProject.ext.annotation*/
 }
 
 
