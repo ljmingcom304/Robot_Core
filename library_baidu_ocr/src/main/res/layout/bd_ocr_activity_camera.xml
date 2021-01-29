@@ -5,6 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/return_button"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_margin="40dp"
+        android:padding="12dp"
+        android:src="@drawable/bd_ocr_cancel" />
+
     <include
         android:id="@+id/take_picture_container"
         layout="@layout/bd_ocr_take_picture"

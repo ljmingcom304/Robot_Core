@@ -73,7 +73,7 @@ public class CameraActivity extends Activity {
         @Override
         public boolean onRequestPermission() {
             ActivityCompat.requestPermissions(CameraActivity.this,
-                    new String[] {Manifest.permission.CAMERA},
+                    new String[]{Manifest.permission.CAMERA},
                     PERMISSIONS_REQUEST_CAMERA);
             return false;
         }
@@ -114,6 +114,13 @@ public class CameraActivity extends Activity {
         initParams();
 
         cameraView.setAutoPictureCallback(autoTakePictureCallback);
+
+        findViewById(R.id.return_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
@@ -203,11 +210,11 @@ public class CameraActivity extends Activity {
     private void initNative(final String token) {
         CameraNativeHelper.init(CameraActivity.this, token,
                 new CameraNativeHelper.CameraNativeInitCallback() {
-            @Override
-            public void onError(int errorCode, Throwable e) {
-                cameraView.setInitNativeStatus(errorCode);
-            }
-        });
+                    @Override
+                    public void onError(int errorCode, Throwable e) {
+                        cameraView.setInitNativeStatus(errorCode);
+                    }
+                });
     }
 
     private void showTakePicture() {
@@ -252,7 +259,7 @@ public class CameraActivity extends Activity {
                     != PackageManager.PERMISSION_GRANTED) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     ActivityCompat.requestPermissions(CameraActivity.this,
-                            new String[] {Manifest.permission.READ_EXTERNAL_STORAGE},
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                             PERMISSIONS_EXTERNAL_STORAGE);
                     return;
                 }
@@ -427,7 +434,7 @@ public class CameraActivity extends Activity {
         }
         return result;
     }
-    
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -498,7 +505,6 @@ public class CameraActivity extends Activity {
 
     /**
      * 做一些收尾工作
-     *
      */
     private void doClear() {
         CameraThreadPool.cancelAutoFocusTimer();
