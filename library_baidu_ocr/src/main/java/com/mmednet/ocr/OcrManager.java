@@ -16,7 +16,9 @@ import com.baidu.ocr.ui.camera.CameraActivity;
 import com.baidu.ocr.ui.camera.CameraNativeHelper;
 import com.baidu.ocr.ui.camera.CameraView;
 import com.mmednet.ocr.utils.FileUtils;
+
 import java.io.File;
+
 import androidx.fragment.app.Fragment;
 
 /**
@@ -45,18 +47,8 @@ public class OcrManager {
         mContext = fragment.getContext();
     }
 
-    public static void init(final Context context, String ak, String sk) {
-        OCR.getInstance(context).initAccessTokenWithAkSk(new OnResultListener<AccessToken>() {
-            @Override
-            public void onResult(AccessToken result) {
-
-            }
-
-            @Override
-            public void onError(OCRError error) {
-                error.printStackTrace();
-            }
-        }, context.getApplicationContext(), ak, sk);
+    public static void init(final Context context, String ak, String sk, OnResultListener<AccessToken> listener) {
+        OCR.getInstance(context).initAccessTokenWithAkSk(listener, context.getApplicationContext(), ak, sk);
     }
 
     /**
