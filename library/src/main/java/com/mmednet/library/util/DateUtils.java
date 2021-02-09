@@ -186,7 +186,7 @@ public class DateUtils {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat(format);
             return dateFormat.parse(str);
-        } catch (ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -228,7 +228,7 @@ public class DateUtils {
         Date date = null;
         try {
             date = format.parse(str);
-        } catch (ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         if (date != null)
@@ -249,7 +249,7 @@ public class DateUtils {
         Date date = null;
         try {
             date = sdf.parse(time);
-        } catch (ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         if (date != null)
@@ -270,7 +270,7 @@ public class DateUtils {
         Date date = null;
         try {
             date = sdf.parse(str);
-        } catch (ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         if (date != null)
@@ -291,7 +291,7 @@ public class DateUtils {
         Date date = null;
         try {
             date = sdf.parse(str);
-        } catch (ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         if (date != null)
@@ -312,7 +312,7 @@ public class DateUtils {
         Date date = null;
         try {
             date = sdf.parse(time);
-        } catch (ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         if (date != null)
