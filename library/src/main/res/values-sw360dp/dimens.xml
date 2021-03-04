@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<dimen name="core_font_24">10.8000sp</dimen>
+	<dimen name="core_font_26">11.7000sp</dimen>
+	<dimen name="core_font_28">12.6000sp</dimen>
+	<dimen name="core_font_30">13.5000sp</dimen>
+	<dimen name="core_font_32">14.4000sp</dimen>
+	<dimen name="core_font_34">15.3000sp</dimen>
+	<dimen name="size_title_padding">4.5000dp</dimen>
+	<dimen name="size_rect_round">2.2500dp</dimen>
+	<dimen name="size_rect_padding">4.5000dp</dimen>
+	<dimen name="size_rect_margin">4.5000dp</dimen>
+	<dimen name="core_size_1">0.4500dp</dimen>
+	<dimen name="core_size_5">2.2500dp</dimen>
+	<dimen name="core_size_7">3.1500dp</dimen>
+	<dimen name="core_size_8">3.6000dp</dimen>
+	<dimen name="core_size_10">4.5000dp</dimen>
+	<dimen name="core_size_12">5.4000dp</dimen>
+	<dimen name="core_size_24">10.8000dp</dimen>
+	<dimen name="core_size_30">13.5000dp</dimen>
+	<dimen name="core_size_34">15.3000dp</dimen>
+	<dimen name="core_size_66">29.7000dp</dimen>
+	<dimen name="core_size_74">33.3000dp</dimen>
+	<dimen name="core_size_80">36.0000dp</dimen>
+	<dimen name="core_size_100">45.0000dp</dimen>
+</resources>
