@@ -60,6 +60,9 @@ public abstract class PieceVoice<T extends Layout> implements OnLayoutListener {
 
     @Override
     public void onResume() {
+        if (mEngine == null) {
+            return;
+        }
         try {
             mEngine.attachOnListener(mListener);
             Log.i(TAG, "attach " + t.getClass().getName());
@@ -70,6 +73,9 @@ public abstract class PieceVoice<T extends Layout> implements OnLayoutListener {
 
     @Override
     public void onPause() {
+        if (mEngine == null) {
+            return;
+        }
         try {
             mEngine.detachOnListener(mListener);
             Log.i(TAG, "detach " + t.getClass().getName());
@@ -80,6 +86,9 @@ public abstract class PieceVoice<T extends Layout> implements OnLayoutListener {
 
     @Override
     public void onDestroy() {
+        if (mEngine == null) {
+            return;
+        }
         try {
             //页面销毁时停止语音识别
             mEngine.recognizeVoice(false);
