@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.mmednet.library.layout.Layout;
 import com.mmednet.library.layout.OnLayoutListener;
+import com.mmednet.library.log.Logger;
 import com.mmednet.library.robot.Robot;
 import com.mmednet.library.robot.engine.Engine;
 import com.mmednet.library.robot.engine.OnListener;
@@ -61,6 +62,7 @@ public abstract class PieceVoice<T extends Layout> implements OnLayoutListener {
     @Override
     public void onResume() {
         if (mEngine == null) {
+            Logger.e(TAG, "Engine is null!");
             return;
         }
         try {
@@ -74,6 +76,7 @@ public abstract class PieceVoice<T extends Layout> implements OnLayoutListener {
     @Override
     public void onPause() {
         if (mEngine == null) {
+            Logger.e(TAG, "Engine is null!");
             return;
         }
         try {
