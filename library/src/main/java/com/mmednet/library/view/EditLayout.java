@@ -225,7 +225,6 @@ public class EditLayout extends LinearLayout implements VoiceTable {
         mTitleView.setIncludeFontPadding(false);
         mTitleView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mAttribute.titleSize);
         mTitleView.setTextColor(mAttribute.titleColor);
-        this.setTitle(attr.title);
 
         // 是否必选
         LayoutParams requiredParams = new LayoutParams(
@@ -381,7 +380,7 @@ public class EditLayout extends LinearLayout implements VoiceTable {
      * @return 标题内容
      */
     public String getTitle() {
-        return mTitleView.getText().toString();
+        return mAttribute.title;
     }
 
     /**
@@ -390,8 +389,33 @@ public class EditLayout extends LinearLayout implements VoiceTable {
      * @param title 标题
      */
     public void setTitle(String title) {
-        mTitleView.setText(title);
+        mAttribute.title = title;
         mTitleLayout.setVisibility(title == null ? View.GONE : View.VISIBLE);
+        if (title == null) {
+            return;
+        }
+        String blank = "\u0020\u0020";
+        int viewType = getViewType();
+        if (viewType == TYPE_EDITBOX
+                || viewType == TYPE_TEXTBOX
+                || viewType == TYPE_SPINNER) {
+            if (!TextUtils.isEmpty(getTitle())) {
+                if (mAttribute.editable) {
+                    title = getTitle() + blank;
+                } else {
+                    if (TextUtils.isEmpty(StringUtils.removeBlank(getTitle()))) {
+                        title = getTitle() + blank;
+                    } else {
+                        title = getTitle() + "\u0020:";
+                    }
+                }
+            }
+        } else {
+            if (!TextUtils.isEmpty(getTitle())) {
+                title = getTitle() + blank;
+            }
+        }
+        mTitleView.setText(title);
     }
 
     /**
@@ -547,7 +571,7 @@ public class EditLayout extends LinearLayout implements VoiceTable {
      */
     @Override
     public boolean isEditable() {
-        return mEditView.isEditable();
+        return mAttribute.editable;
     }
 
     /**
@@ -556,31 +580,10 @@ public class EditLayout extends LinearLayout implements VoiceTable {
      * @param editable true:可以编辑;false:不可编辑
      */
     public void setEditable(boolean editable) {
+        mAttribute.editable = editable;
         mEditView.setEditable(editable);
+        this.setTitle(getTitle());
         //this.setSpace(mSpace);
-        String title = getTitle();
-        String blank = "\u0020\u0020";
-        int viewType = getViewType();
-        if (viewType == TYPE_EDITBOX
-                || viewType == TYPE_TEXTBOX
-                || viewType == TYPE_SPINNER) {
-            if (!TextUtils.isEmpty(getTitle())) {
-                if (editable) {
-                    title = getTitle() + blank;
-                } else {
-                    if (TextUtils.isEmpty(StringUtils.removeBlank(getTitle()))) {
-                        title = getTitle() + blank;
-                    } else {
-                        title = getTitle() + "\u0020:";
-                    }
-                }
-            }
-        } else {
-            if (!TextUtils.isEmpty(getTitle())) {
-                title = getTitle() + blank;
-            }
-        }
-        mTitleView.setText(title);
     }
 
     /**
