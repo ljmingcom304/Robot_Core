@@ -1,1 +1,1 @@
-include ':app', ':library', ':library_klyl', ':library_xyzj', ':library_baidu_voice', ':library_baidu_ocr', ':library_reader', ':library_baidu_face', ':library_baidu_player','library_zxing','library_view'
+include ':app', ':library', ':library_klyl', ':library_xyzj', ':library_baidu_voice', ':library_baidu_ocr', ':library_reader', ':library_baidu_face', ':library_baidu_player','library_zxing','library_view','library_umeng'

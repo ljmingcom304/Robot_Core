@@ -10,6 +10,8 @@
 * library_klyl:康力优蓝库工程
 * library_xyzj:小鱼在家库工程
 * library_reader:身份证读取器
+* library_zxing:ZXing二维码
+* library_umeng:友盟推送统计
 
 ## Gradle依赖刷新
 gradle build --refresh-dependencies

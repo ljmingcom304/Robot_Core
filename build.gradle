@@ -4,6 +4,7 @@ buildscript {
     repositories {
         jcenter() { url 'https://maven.aliyun.com/repository/jcenter' }
         maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://dl.bintray.com/umsdk/release' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.1'
@@ -20,6 +21,8 @@ allprojects {
         maven { url 'https://jitpack.io'}
         maven { url 'http://mvn.miaomore.cn/nexus/content/groups/public'}
         maven { url 'http://10.1.1.22:8081/nexus/content/groups/public/'}
+        //友盟推送依赖插件
+        maven { url 'https://dl.bintray.com/umsdk/release' }
     }
 }
 
