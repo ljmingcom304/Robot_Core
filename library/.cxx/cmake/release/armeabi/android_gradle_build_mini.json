@@ -1,0 +1,19 @@
+{
+  "buildFiles": [
+    "D:\\doctorgit\\Robot_Core\\library\\CMakeLists.txt",
+    "C:\\sdk\\ndk-bundle\\build\\cmake\\android.toolchain.cmake"
+  ],
+  "cleanCommands": [
+    "C:\\sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"D:\\doctorgit\\Robot_Core\\library\\.cxx\\cmake\\release\\armeabi\" clean"
+  ],
+  "buildTargetsCommand": "C:\\sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe  -C \"D:\\doctorgit\\Robot_Core\\library\\.cxx\\cmake\\release\\armeabi\" {LIST_OF_TARGETS_TO_BUILD}",
+  "libraries": {
+    "result-Release-armeabi": {
+      "artifactName": "result",
+      "buildCommand": "C:\\sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"D:\\doctorgit\\Robot_Core\\library\\.cxx\\cmake\\release\\armeabi\" result",
+      "abi": "armeabi",
+      "output": "D:\\doctorgit\\Robot_Core\\library\\build\\intermediates\\cmake\\release\\obj\\armeabi\\libresult.so",
+      "runtimeFiles": []
+    }
+  }
+}

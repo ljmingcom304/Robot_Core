@@ -1,0 +1,42 @@
+{
+  "stringTable": {
+    "0": "D:/doctorgit/Robot_Core/library/.cxx/cmake/release/armeabi",
+    "1": "--target=armv5te-none-linux-androideabi --gcc-toolchain=C:/sdk/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64 --sysroot=C:/sdk/ndk-bundle/sysroot -Dresult_EXPORTS -isystem C:/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include -isystem C:/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/libs/armeabi/include -isystem C:/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/backward -isystem C:/sdk/ndk-bundle/sysroot/usr/include/arm-linux-androideabi -D__ANDROID_API__=19 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -march=armv5te -mtune=xscale -msoft-float -fno-integrated-as -mthumb -Wa,--noexecstack -Wformat -Werror=format-security -Os -DNDEBUG -fPIC"
+  },
+  "buildFiles": [
+    "D:\\doctorgit\\Robot_Core\\library\\CMakeLists.txt",
+    "C:\\sdk\\ndk-bundle\\build\\cmake\\android.toolchain.cmake"
+  ],
+  "cleanCommands": [
+    "C:\\sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"D:\\doctorgit\\Robot_Core\\library\\.cxx\\cmake\\release\\armeabi\" clean"
+  ],
+  "buildTargetsCommand": "C:\\sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe  -C \"D:\\doctorgit\\Robot_Core\\library\\.cxx\\cmake\\release\\armeabi\" {LIST_OF_TARGETS_TO_BUILD}",
+  "libraries": {
+    "result-Release-armeabi": {
+      "buildCommand": "C:\\sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"D:\\doctorgit\\Robot_Core\\library\\.cxx\\cmake\\release\\armeabi\" result",
+      "buildType": "release",
+      "toolchain": "1562292280",
+      "abi": "armeabi",
+      "artifactName": "result",
+      "files": [
+        {
+          "src": "D:\\doctorgit\\Robot_Core\\library\\src\\main\\cpp\\result.cpp",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        }
+      ],
+      "headers": [],
+      "output": "D:\\doctorgit\\Robot_Core\\library\\build\\intermediates\\cmake\\release\\obj\\armeabi\\libresult.so",
+      "runtimeFiles": []
+    }
+  },
+  "toolchains": {
+    "1562292280": {
+      "cppCompilerExecutable": "C:\\sdk\\ndk-bundle\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe"
+    }
+  },
+  "cFileExtensions": [],
+  "cppFileExtensions": [
+    "cpp"
+  ]
+}

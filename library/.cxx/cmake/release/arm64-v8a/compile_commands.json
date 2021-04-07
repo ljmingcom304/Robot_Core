@@ -1,0 +1,7 @@
+[
+{
+  "directory": "D:/doctorgit/Robot_Core/library/.cxx/cmake/release/arm64-v8a",
+  "command": "C:\\sdk\\ndk-bundle\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android --gcc-toolchain=C:/sdk/ndk-bundle/toolchains/aarch64-linux-android-4.9/prebuilt/windows-x86_64 --sysroot=C:/sdk/ndk-bundle/sysroot  -Dresult_EXPORTS -isystem C:/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include -isystem C:/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/libs/arm64-v8a/include -isystem C:/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/backward  -isystem C:/sdk/ndk-bundle/sysroot/usr/include/aarch64-linux-android -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security   -O2 -DNDEBUG  -fPIC   -o CMakeFiles\\result.dir\\src\\main\\cpp\\result.cpp.o -c D:\\doctorgit\\Robot_Core\\library\\src\\main\\cpp\\result.cpp",
+  "file": "D:/doctorgit/Robot_Core/library/src/main/cpp/result.cpp"
+}
+]
