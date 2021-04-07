@@ -1,0 +1,1501 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}
+
+type Address {
+  body: String!
+  city: String!
+  district: String
+  lantitude: String
+  longitude: String
+  province: String!
+  zipcode: String
+}
+
+"医生排班"
+type Agenda {
+  created: Date!
+  doctor: Doctor!
+  duration: Int!
+  "结束时间"
+  end: Date!
+  id: ID!
+  nid: Int!
+  "重复日：　1 周一　7 周日"
+  repeats: [Int!]
+  "重复时间段：开始　结束　忙"
+  slots: [TimeSlot!]!
+  "开始时间"
+  start: Date!
+  status: AgendaStatus!
+  title: String
+  updated: Date!
+  user: User!
+}
+
+type AgendaList {
+  cursor: String!
+  data: [Agenda!]!
+  id: ID!
+  more: Boolean!
+  offset: Int!
+  total: Int!
+}
+
+type AgendasResponse {
+  code: Int
+  data: [Agenda!]!
+  errors: [Error!]
+  message: String
+  total: Int
+}
+
+type Diagnosis {
+  commission: Float
+  created: Date!
+  doctor: Doctor!
+  "服务时长"
+  duration: Int
+  id: ID!
+  nid: Int!
+  "价格（分），可以为0"
+  price: Int!
+  status: DiagnosisStatus!
+  "RichText: 图文问诊, OneToOne: 一对一专诊, FreeClinic: 免费义诊, Instant: 极速问诊"
+  type: DiagnosisType!
+  updated: Date!
+  user: User!
+}
+
+type DiagnosisList {
+  cursor: String!
+  data: [Diagnosis!]!
+  id: ID!
+  more: Boolean!
+  offset: Int!
+  total: Int!
+}
+
+type DiagnosisesResponse {
+  code: Int
+  data: [Diagnosis!]!
+  errors: [Error!]
+  message: String
+  total: Int
+}
+
+"中华人民共和国县以上行政区划代码（2020年11月）"
+type District {
+  "市"
+  city: String!
+  "行政区划代码"
+  code: String!
+  created: Date!
+  "区/县"
+  district: String!
+  id: ID!
+  nid: Int!
+  "省"
+  province: String!
+  status: DistrictStatus!
+  type: DistrictType!
+  updated: Date!
+  user: User!
+}
+
+type DistrictList {
+  cursor: String!
+  data: [District!]!
+  id: ID!
+  more: Boolean!
+  offset: Int!
+  total: Int!
+}
+
+type DistrictsResponse {
+  code: Int
+  data: [District!]!
+  errors: [Error!]
+  message: String
+  total: Int
+}
+
+type Doctor {
+  "网易云通信ID"
+  accid: String
+  "领域简介"
+  area: String
+  "资格证书照片"
+  certificates: [File!]
+  "联系方式（选填）"
+  contact: String
+  created: Date!
+  "科室"
+  department: String!
+  dob: Date
+  fullname: String
+  gender: Gender
+  hospital: Hospital!
+  id: ID!
+  "身份证号码"
+  idNumber: String
+  "身份证正反面照片"
+  idcards: [File!]
+  "简介"
+  intro: String
+  "手机号"
+  mobile: String
+  nickname: String
+  nid: Int!
+  "头像照片"
+  photo: File
+  "职称"
+  rank: String!
+  setting: String
+  "擅长"
+  specialty: String
+  "Active: 可用, Disabled: 禁止"
+  status: DoctorStatus!
+  "擅长标签"
+  tags: [String!]
+  "社会头衔"
+  title: String
+  "网易云通信Token"
+  token: String
+  "Expert: 专家, Guru: 名医"
+  type: DoctorType!
+  updated: Date!
+  user: User!
+}
+
+type DoctorList {
+  cursor: String!
+  data: [Doctor!]!
+  id: ID!
+  more: Boolean!
+  offset: Int!
+  total: Int!
+}
+
+type DoctorsResponse {
+  code: Int
+  data: [Doctor!]!
+  errors: [Error!]
+  message: String
+  total: Int
+}
+
+type Error {
+  code: Int!
+  errmsg: String!
+}
+
+type File {
+  created: Date!
+  group: ID
+  id: ID!
+  intro: String
+  locale: String
+  metadata: String
+  modified: Date!
+  name: String!
+  nid: Int!
+  status: FileStatus!
+  thumbnails: [File!]
+  type: FileType!
+  updated: Date!
+  url: String
+  user: ID!
+}
+
+type FileList {
+  cursor: String!
+  data: [File!]!
+  id: ID!
+  more: Boolean!
+  offset: Int!
+  total: Int!
+}
+
+type FilesResponse {
+  code: Int
+  data: [File!]!
+  errors: [Error!]
+  message: String
+  total: Int
+}
+
+type Group {
+  created: Date!
+  id: ID!
+  name: String!
+  nid: Int!
+  status: GroupStatus!
+  updated: Date!
+  users: [ID!]
+}
+
+type GroupList {
+  cursor: String!
+  data: [Group!]!
+  id: ID!
+  more: Boolean!
+  offset: Int!
+  total: Int!
+}
+
+type GroupsResponse {
+  code: Int
+  data: [Group!]!
+  errors: [Error!]
+  message: String
+  total: Int
+}
+
+type Hospital {
+  address: Address!
+  avatar: File
+  created: Date!
+  id: ID!
+  intro: String
+  level: String!
+  name: String!
+  nid: Int!
+  status: HospitalStatus!
+  type: HospitalType!
+  updated: Date!
+  user: User!
+}
+
+type HospitalList {
+  cursor: String!
+  data: [Hospital!]!
+  id: ID!
+  more: Boolean!
+  offset: Int!
+  total: Int!
+}
+
+type HospitalsResponse {
+  code: Int
+  data: [Hospital!]!
+  errors: [Error!]
+  message: String
+  total: Int
+}
+
+type ListObject {
+  cursor: String!
+  id: ID!
+  more: Boolean!
+  offset: Int!
+  total: Int!
+}
+
+type Media {
+  audios: [File!]
+  images: [File!]!
+  videos: [File!]
+}
+
+"注册用户"
+type Member {
+  created: Date!
+  dob: Date
+  fullname: String
+  gender: Gender
+  id: ID!
+  "身份证号码"
+  idNumber: String
+  "手机号"
+  mobile: String
+  nickname: String
+  nid: Int!
+  "头像照片"
+  photo: File
+  setting: String
+  status: MemberStatus!
+  type: MemberType!
+  updated: Date!
+  user: User!
+}
+
+type MemberList {
+  cursor: String!
+  data: [Member!]!
+  id: ID!
+  more: Boolean!
+  offset: Int!
+  total: Int!
+}
+
+type MembersResponse {
+  code: Int
+  data: [Member!]!
+  errors: [Error!]
+  message: String
+  total: Int
+}
+
+"通知消息"
+type Message {
+  "内容"
+  body: String!
+  created: Date!
+  "发送者"
+  from: User!
+  id: ID!
+  nid: Int!
+  status: MessageStatus!
+  "标题"
+  title: String
+  "接收者"
+  to: User!
+  type: MessageType!
+  updated: Date!
+  user: User!
+}
+
+type MessageList {
+  cursor: String!
+  data: [Message!]!
+  id: ID!
+  more: Boolean!
+  offset: Int!
+  total: Int!
+}
+
+type MessagesResponse {
+  code: Int
+  data: [Message!]!
+  errors: [Error!]
+  message: String
+  total: Int
+}
+
+type Mutation {
+  createAgenda(input: CreateAgendaInput!): Agenda!
+  createAgendas(inputs: [CreateAgendaInput!]!): AgendasResponse!
+  createDiagnoses(inputs: [CreateDiagnosisInput!]!): DiagnosisesResponse!
+  createDiagnosis(input: CreateDiagnosisInput!): Diagnosis!
+  createDistrict(input: CreateDistrictInput!): District!
+  createDistricts(inputs: [CreateDistrictInput!]!): DistrictsResponse!
+  createDoctor(input: CreateDoctorInput!): Doctor!
+  createDoctors(inputs: [CreateDoctorInput!]!): DoctorsResponse!
+  createHospital(input: CreateHospitalInput!): Hospital!
+  createHospitals(inputs: [CreateHospitalInput!]!): HospitalsResponse!
+  createMember(input: CreateMemberInput!): Member!
+  createMembers(inputs: [CreateMemberInput!]!): MembersResponse!
+  createMessage(input: CreateMessageInput!): Message!
+  createMessages(inputs: [CreateMessageInput!]!): MessagesResponse!
+  createOrder(input: CreateOrderInput!): Order!
+  createOrders(inputs: [CreateOrderInput!]!): OrdersResponse!
+  createPayment(input: CreatePaymentInput!): Payment!
+  createPayments(inputs: [CreatePaymentInput!]!): PaymentsResponse!
+  createSession(input: CreateSessionInput!): Session!
+  createSessions(inputs: [CreateSessionInput!]!): SessionsResponse!
+  createWepayJs(input: CreateWepayInput!): WepayOutput!
+  deleteAgendas(ids: [ID!]!): [ID!]!
+  deleteDiagnoses(ids: [ID!]!): [ID!]!
+  deleteDistricts(ids: [ID!]!): [ID!]!
+  deleteDoctors(ids: [ID!]!): [ID!]!
+  deleteHospitals(ids: [ID!]!): [ID!]!
+  deleteMembers(ids: [ID!]!): [ID!]!
+  deleteMessages(ids: [ID!]!): [ID!]!
+  deleteOrders(ids: [ID!]!): [ID!]!
+  deletePayments(ids: [ID!]!): [ID!]!
+  deleteSessions(ids: [ID!]!): [ID!]!
+  loginUser(password: String!, username: String!): UserToken!
+  sendSms(input: SmsInput!): Boolean!
+  signinUser(input: SigninUserInput!): UserToken!
+  updateAgenda(input: UpdateAgendaInput!): Agenda!
+  updateDiagnosis(input: UpdateDiagnosisInput!): Diagnosis!
+  updateDistrict(input: UpdateDistrictInput!): District!
+  updateDoctor(input: UpdateDoctorInput!): Doctor!
+  updateHospital(input: UpdateHospitalInput!): Hospital!
+  updateMember(input: UpdateMemberInput!): Member!
+  updateMessage(input: UpdateMessageInput!): Message!
+  updateOrder(input: UpdateOrderInput!): Order!
+  updatePayment(input: UpdatePaymentInput!): Payment!
+  updateSession(input: UpdateSessionInput!): Session!
+}
+
+"通知消息"
+type Notification {
+  "内容"
+  body: String!
+  created: Date!
+  id: ID!
+  mobile: String!
+  nid: Int!
+  order: ID!
+  status: NotificationStatus!
+  type: NotificationType!
+  updated: Date!
+}
+
+type NotificationList {
+  cursor: String!
+  data: [Notification!]!
+  id: ID!
+  more: Boolean!
+  offset: Int!
+  total: Int!
+}
+
+type NotificationsResponse {
+  code: Int
+  data: [Notification!]!
+  errors: [Error!]
+  message: String
+  total: Int
+}
+
+"服务订单"
+type Order {
+  "病情描述"
+  body: String
+  created: Date!
+  diagnosis: Diagnosis!
+  doctor: Doctor!
+  end: Date
+  "相关病例文件，可包括图片、文档"
+  files: [File!]
+  id: ID!
+  nid: Int!
+  patient: Patient!
+  payment: Payment
+  "价格（分）"
+  price: Int!
+  "医生退诊原因"
+  reason: String
+  session: Session
+  start: Date
+  status: OrderStatus!
+  type: OrderType!
+  updated: Date!
+  user: User!
+}
+
+type OrderList {
+  cursor: String!
+  data: [Order!]!
+  id: ID!
+  more: Boolean!
+  offset: Int!
+  total: Int!
+}
+
+"订单状态更新通知"
+type OrderUpdated {
+  end: Date
+  id: ID!
+  start: Date
+  status: OrderStatus
+}
+
+type OrdersResponse {
+  code: Int
+  data: [Order!]!
+  errors: [Error!]
+  message: String
+  total: Int
+}
+
+type PageResponse {
+  code: Int
+  errors: [Error!]
+  message: String
+  total: Int
+}
+
+type Patient {
+  "网易云信accid"
+  accid: String
+  age: Int
+  dob: Date
+  fullname: String!
+  gender: Gender
+  mobile: String
+  photo: String
+  uid: String!
+}
+
+"支付记录"
+type Payment {
+  "金额（分）"
+  amount: Int!
+  created: Date!
+  id: ID!
+  nid: Int!
+  "支付时间"
+  paid: Date!
+  payid: String!
+  status: PaymentStatus!
+  type: PaymentType!
+  updated: Date!
+  user: User!
+  wepay: Wepay
+}
+
+type PaymentList {
+  cursor: String!
+  data: [Payment!]!
+  id: ID!
+  more: Boolean!
+  offset: Int!
+  total: Int!
+}
+
+type PaymentOutput {
+  amount: Float!
+  created: Date!
+  id: ID!
+  name: String!
+  nid: Int!
+  status: PaymentStatus!
+  type: PaymentType!
+  wepay: WepayOutput
+}
+
+type PaymentsResponse {
+  code: Int
+  data: [Payment!]!
+  errors: [Error!]
+  message: String
+  total: Int
+}
+
+type Person {
+  dob: Date
+  fullname: String
+  gender: Gender
+  "身份证号码"
+  idNumber: String
+  "手机号"
+  mobile: String
+  nickname: String
+  setting: String
+}
+
+type Query {
+  "start: 开始时间, end: 结束时间, 必须同时传入，返回此时间段内所有排班"
+  agendas(
+    doctor: ID, 
+    "结束时间"
+    end: Date, 
+    "列表返回最大行"
+    limit: Int = 25, 
+    "列表偏移量"
+    offset: Int = 0, 
+    "搜索值"
+    query: String, 
+    "排序项，例如按时间正序： created，按时间倒序：-created"
+    sort: String, 
+    "开始时间"
+    start: Date, 
+    status: String, 
+    "全局文本搜索"
+    text: String, 
+    type: String, 
+    user: ID
+  ): AgendaList!
+  config(type: String!): String!
+  diagnoses(
+    doctor: ID, 
+    "结束时间"
+    end: Date, 
+    "列表返回最大行"
+    limit: Int = 25, 
+    "列表偏移量"
+    offset: Int = 0, 
+    "搜索值"
+    query: String, 
+    "排序项，例如按时间正序： created，按时间倒序：-created"
+    sort: String, 
+    "开始时间"
+    start: Date, 
+    status: String, 
+    "全局文本搜索"
+    text: String, 
+    type: String, 
+    user: ID
+  ): DiagnosisList!
+  districts(
+    "结束时间"
+    end: Date, 
+    "列表返回最大行"
+    limit: Int = 25, 
+    "列表偏移量"
+    offset: Int = 0, 
+    "搜索值"
+    query: String, 
+    "排序项，例如按时间正序： created，按时间倒序：-created"
+    sort: String, 
+    "开始时间"
+    start: Date, 
+    status: String, 
+    "全局文本搜索"
+    text: String, 
+    type: String, 
+    user: ID
+  ): DistrictList!
+  doctors(
+    area: String, 
+    department: String, 
+    "结束时间"
+    end: Date, 
+    fullname: String, 
+    "列表返回最大行"
+    limit: Int = 25, 
+    "列表偏移量"
+    offset: Int = 0, 
+    "搜索值"
+    query: String, 
+    "排序项，例如按时间正序： created，按时间倒序：-created"
+    sort: String, 
+    "开始时间"
+    start: Date, 
+    status: String, 
+    "全局文本搜索"
+    text: String, 
+    type: String, 
+    user: ID
+  ): DoctorList!
+  getAgenda(id: ID!): Agenda!
+  getDiagnosis(id: ID!): Diagnosis!
+  getDistrict(id: ID!): District!
+  getDoctor(id: ID!, user: Boolean): Doctor
+  getHospital(id: ID!): Hospital!
+  getMember(id: ID!): Member!
+  getMessage(id: ID!): Message!
+  getOrder(id: ID!): Order!
+  getPayment(id: ID!): Payment!
+  getSession(id: ID!): Session!
+  getUser(id: ID): UserToken!
+  hospitals(
+    "结束时间"
+    end: Date, 
+    "列表返回最大行"
+    limit: Int = 25, 
+    "列表偏移量"
+    offset: Int = 0, 
+    "搜索值"
+    query: String, 
+    "排序项，例如按时间正序： created，按时间倒序：-created"
+    sort: String, 
+    "开始时间"
+    start: Date, 
+    status: String, 
+    "全局文本搜索"
+    text: String, 
+    type: String, 
+    user: ID
+  ): HospitalList!
+  members(
+    "结束时间"
+    end: Date, 
+    "列表返回最大行"
+    limit: Int = 25, 
+    "列表偏移量"
+    offset: Int = 0, 
+    "搜索值"
+    query: String, 
+    "排序项，例如按时间正序： created，按时间倒序：-created"
+    sort: String, 
+    "开始时间"
+    start: Date, 
+    status: String, 
+    "全局文本搜索"
+    text: String, 
+    type: String, 
+    user: ID
+  ): MemberList!
+  messages(
+    "结束时间"
+    end: Date, 
+    "列表返回最大行"
+    limit: Int = 25, 
+    "列表偏移量"
+    offset: Int = 0, 
+    "搜索值"
+    query: String, 
+    "排序项，例如按时间正序： created，按时间倒序：-created"
+    sort: String, 
+    "开始时间"
+    start: Date, 
+    status: String, 
+    "全局文本搜索"
+    text: String, 
+    type: String, 
+    user: ID
+  ): MessageList!
+  orders(
+    doctor: ID, 
+    "结束时间"
+    end: Date, 
+    "列表返回最大行"
+    limit: Int = 25, 
+    "列表偏移量"
+    offset: Int = 0, 
+    "搜索值"
+    query: String, 
+    "排序项，例如按时间正序： created，按时间倒序：-created"
+    sort: String, 
+    "开始时间"
+    start: Date, 
+    status: String, 
+    "全局文本搜索"
+    text: String, 
+    type: String, 
+    user: ID
+  ): OrderList!
+  payments(
+    "结束时间"
+    end: Date, 
+    "列表返回最大行"
+    limit: Int = 25, 
+    "列表偏移量"
+    offset: Int = 0, 
+    "搜索值"
+    query: String, 
+    "排序项，例如按时间正序： created，按时间倒序：-created"
+    sort: String, 
+    "开始时间"
+    start: Date, 
+    status: String, 
+    "全局文本搜索"
+    text: String, 
+    type: String, 
+    user: ID
+  ): PaymentList!
+  sessions(
+    doctor: ID, 
+    "结束时间"
+    end: Date, 
+    "列表返回最大行"
+    limit: Int = 25, 
+    "列表偏移量"
+    offset: Int = 0, 
+    "搜索值"
+    query: String, 
+    "排序项，例如按时间正序： created，按时间倒序：-created"
+    sort: String, 
+    "开始时间"
+    start: Date, 
+    status: String, 
+    "全局文本搜索"
+    text: String, 
+    type: String, 
+    user: ID
+  ): SessionList!
+}
+
+"医生接诊订单"
+type Session {
+  body: String
+  "主诉"
+  complaint: String
+  created: Date!
+  diagnosis: Diagnosis!
+  doctor: Doctor!
+  end: Date
+  files: [File!]
+  id: ID!
+  "检查建议"
+  inspection: String
+  "用药建议"
+  medication: String
+  messages: [Message!]
+  nid: Int!
+  "其它说明"
+  other: String
+  patient: Patient!
+  start: Date
+  status: SessionStatus!
+  "咨询总结"
+  summary: String
+  type: SessionType!
+  updated: Date!
+  user: User!
+}
+
+type SessionList {
+  cursor: String!
+  data: [Session!]!
+  id: ID!
+  more: Boolean!
+  offset: Int!
+  total: Int!
+}
+
+type SessionsResponse {
+  code: Int
+  data: [Session!]!
+  errors: [Error!]
+  message: String
+  total: Int
+}
+
+type Social {
+  comment: Int!
+  like: Int!
+  read: Int!
+}
+
+type Subscription {
+  agendaCreated: [Agenda!]!
+  diagnosisCreated: [Diagnosis!]!
+  districtCreated: [District!]!
+  doctorCreated: [Doctor!]!
+  hospitalCreated: [Hospital!]!
+  memberCreated: [Member!]!
+  messageCreated: [Message!]!
+  orderCreated: [Order!]!
+  orderUpdated(user: ID!): OrderUpdated!
+  paymentCreated: [Payment!]!
+  sessionCreated: [Session!]!
+  userCreated: [User!]!
+}
+
+type Target {
+  gender: Gender
+  maxAge: Int
+  minAge: Int
+}
+
+type TimeSlot {
+  "忙"
+  busy: Boolean
+  "结束时间"
+  end: Date!
+  "开始时间"
+  start: Date!
+  title: String
+}
+
+type User {
+  created: Date!
+  id: ID!
+  mobile: String
+  nid: Int!
+  roles: [String!]!
+  status: UserStatus!
+  updated: Date!
+  username: String!
+}
+
+type UserList {
+  cursor: String!
+  data: [User!]!
+  id: ID!
+  more: Boolean!
+  offset: Int!
+  total: Int!
+}
+
+type UserToken {
+  token: String!
+  user: User!
+}
+
+type UsersResponse {
+  code: Int
+  data: [User!]!
+  errors: [Error!]
+  message: String
+  total: Int
+}
+
+type Wepay {
+  appid: String
+  noncestr: String
+  package: String
+  partnerid: String
+  prepayid: String
+  sign: String
+  timestamp: Int
+}
+
+type WepayOutput {
+  appId: String
+  appid: String
+  id: ID!
+  nonceStr: String
+  noncestr: String
+  package: String!
+  partnerid: String
+  paySign: String
+  prepayid: String
+  sign: String
+  signType: String
+  timeStamp: Int
+  timestamp: Int
+}
+
+enum AgendaStatus {
+  Active
+  Disabled
+}
+
+enum DiagnosisStatus {
+  Active
+  Disabled
+}
+
+enum DiagnosisType {
+  FreeClinic
+  Instant
+  OneToOne
+  RichText
+}
+
+enum DistrictStatus {
+  Active
+  Disabled
+}
+
+enum DistrictType {
+  Default
+}
+
+"Default: 医生　Expert: 专家, Guru: 名医"
+enum DoctorStatus {
+  Active
+  Disabled
+}
+
+enum DoctorType {
+  Default
+  Expert
+  Guru
+}
+
+enum FileStatus {
+  DELETED
+  OK
+}
+
+enum FileType {
+  AUDIO
+  DOC
+  IMAGE
+  PDF
+  TEXT
+  VIDEO
+}
+
+enum Gender {
+  Female
+  Male
+}
+
+enum GroupStatus {
+  CLOSE
+  OPEN
+}
+
+enum HospitalStatus {
+  Active
+  Disabled
+}
+
+enum HospitalType {
+  Default
+}
+
+enum MemberStatus {
+  Active
+  Disabled
+}
+
+enum MemberType {
+  Default
+}
+
+enum MessageStatus {
+  Active
+  Disabled
+}
+
+enum MessageType {
+  Default
+}
+
+enum NotificationStatus {
+  Active
+  Disabled
+}
+
+enum NotificationType {
+  Default
+}
+
+"Paying 待付款 Waiting 待接诊 Pending 待服务 Serving 服务中 Started 已开始 Ending 结束中 Cancelled 已取消 Refunding 退款中 Refunded 已退款 Done 已完成"
+enum OrderStatus {
+  Active
+  Cancelled
+  Disabled
+  Done
+  Ended
+  Ending
+  Paying
+  Pending
+  Refunded
+  Refunding
+  Serving
+  Started
+  Waiting
+}
+
+enum OrderType {
+  Default
+}
+
+enum PaymentStatus {
+  Active
+  Disabled
+  Paid
+}
+
+enum PaymentType {
+  Alipay
+  ApplePay
+  Cash
+  Default
+  UnionPay
+  WepayAPP
+  WepayJS
+}
+
+enum SessionStatus {
+  Active
+  Disabled
+  End
+  Start
+}
+
+enum SessionType {
+  Default
+}
+
+enum SmsType {
+  LOGIN
+  PASSCODE
+  VERIFY
+}
+
+enum UserStatus {
+  Active
+  Disabled
+  Expired
+  Lock
+}
+
+input CreateAddressInput {
+  body: Date
+  city: String
+  district: String
+  lantitude: String
+  longitude: String
+  province: String
+  zipcode: String
+}
+
+input CreateAgendaInput {
+  doctor: ID!
+  duration: Int!
+  end: Date!
+  name: String
+  repeats: [Int!]
+  start: Date!
+}
+
+input CreateDiagnosisInput {
+  doctor: ID
+  duration: Int
+  price: Int!
+  status: DiagnosisStatus
+  type: DiagnosisType
+}
+
+input CreateDistrictInput {
+  city: String!
+  code: String!
+  name: String!
+  province: String!
+}
+
+input CreateDoctorInput {
+  area: String
+  certificates: [Upload!]
+  contact: String
+  department: String
+  dob: Date
+  fullname: String
+  gender: Gender
+  hospital: ID
+  idNumber: String
+  idcards: [Upload!]
+  intro: String
+  mobile: String
+  nickname: String
+  photo: Upload
+  rank: String
+  setting: String
+  specialty: String
+  tags: [String!]
+  title: String
+}
+
+input CreateFileInput {
+  group: ID
+  name: String!
+  path: String!
+  status: FileStatus
+  type: FileType
+  user: ID
+}
+
+input CreateGroupInput {
+  body: String
+  name: String!
+  status: GroupStatus
+  type: String!
+  users: [ID!]
+}
+
+input CreateHospitalInput {
+  address: CreateAddressInput
+  avatar: Upload
+  intro: String!
+  level: String!
+  name: String!
+}
+
+input CreateMediaInput {
+  audios: [Upload!]
+  images: [Upload!]
+  videos: [Upload!]
+}
+
+input CreateMemberInput {
+  dob: Date
+  fullname: String
+  gender: Gender
+  idNumber: String
+  mobile: String
+  nickname: String
+  setting: String
+}
+
+input CreateMessageInput {
+  body: String!
+  from: ID!
+  title: String
+  to: ID!
+}
+
+input CreateNotificationInput {
+  body: String!
+  mobile: String!
+  order: ID!
+}
+
+input CreateOrderInput {
+  body: String
+  diagnosis: ID!
+  end: Date
+  files: [Upload!]
+  patient: CreatePatientInput!
+  start: Date
+}
+
+input CreatePatientInput {
+  accid: String
+  age: Int
+  dob: Date
+  fullname: String!
+  gender: Gender
+  "用户头像"
+  photo: String
+  uid: String!
+}
+
+input CreatePaymentInput {
+  amount: Int!
+  name: String
+  openid: String
+  payid: String
+  type: PaymentType
+}
+
+input CreatePersonInput {
+  dob: Date
+  fullname: String
+  gender: Gender
+  idNumber: String
+  mobile: String
+  nickname: String
+  setting: String
+}
+
+input CreateSessionInput {
+  body: String
+  diagnosis: ID!
+  doctor: ID!
+  end: Date
+  files: Upload
+  patient: CreatePatientInput!
+  start: Date
+}
+
+input CreateTimeSlotInput {
+  busy: Boolean
+  duration: String
+  end: Date!
+  start: Date!
+  title: String
+}
+
+input CreateUserInput {
+  mobile: String
+  password: String
+  roles: [String!]
+  username: String!
+}
+
+input CreateWepayInput {
+  body: String!
+  fee: Float!
+}
+
+input DeleteMediaInput {
+  audios: [String!]
+  images: [String!]
+  videos: [String!]
+}
+
+input GroupInput {
+  id: ID!
+  name: String
+  type: String!
+}
+
+input RegisterUserInput {
+  code: String!
+  mobile: String
+  password: String
+  username: String!
+}
+
+input SigninUserInput {
+  code: String
+  mobile: String
+  password: String
+  register: Boolean
+  username: String
+}
+
+input SmsInput {
+  mobile: String!
+  timeout: Int
+  type: SmsType!
+}
+
+input TargetInput {
+  gender: Gender
+  maxAge: Int
+  minAge: Int
+}
+
+input UpdateAgendaInput {
+  doctor: ID!
+  duration: Int!
+  end: Date!
+  id: ID!
+  name: String
+  repeats: [Int!]
+  start: Date!
+}
+
+input UpdateDiagnosisInput {
+  commission: Float
+  doctor: ID
+  id: ID!
+  price: Int
+  status: DiagnosisStatus
+}
+
+input UpdateDistrictInput {
+  city: String
+  code: String
+  district: String
+  id: ID!
+  province: String
+}
+
+input UpdateDoctorInput {
+  area: String
+  certificates: [Upload!]
+  contact: String
+  department: String
+  dob: Date
+  fullname: String
+  gender: Gender
+  hospital: ID
+  id: ID!
+  idNumber: String
+  idcards: [Upload!]
+  intro: String
+  mobile: String
+  nickname: String
+  photo: Upload
+  rank: String
+  setting: String
+  specialty: String
+  tags: [String!]
+  title: String
+}
+
+input UpdateFileInput {
+  group: ID
+  name: String
+  status: FileStatus
+  type: FileType
+}
+
+input UpdateFilesInput {
+  create: [Upload!]
+  delete: [ID!]
+}
+
+input UpdateGroupInput {
+  name: String
+  status: GroupStatus
+  type: String
+}
+
+input UpdateHospitalInput {
+  avatar: Upload
+  id: ID!
+  rid: String!
+  topic: String!
+}
+
+input UpdateMediaInput {
+  create: CreateMediaInput
+  delete: DeleteMediaInput
+}
+
+input UpdateMemberInput {
+  dob: Date
+  fullname: String
+  gender: Gender
+  id: ID!
+  idNumber: String
+  mobile: String
+  nickname: String
+  setting: String
+}
+
+input UpdateMessageInput {
+  body: String!
+  from: ID!
+  id: ID!
+  title: String
+  to: ID!
+}
+
+input UpdateNotificationInput {
+  body: String!
+  from: ID!
+  id: ID!
+  title: String
+  to: ID!
+}
+
+input UpdateOption {
+  delete: Boolean
+}
+
+input UpdateOrderInput {
+  body: String
+  diagnosis: ID
+  end: Date
+  files: [Upload!]
+  id: ID!
+  patient: UpdatePatientInput
+  reason: String
+  start: Date
+  status: OrderStatus
+}
+
+input UpdatePatientInput {
+  accid: String
+  age: Int
+  dob: Date
+  fullname: String
+  gender: Gender
+  "用户头像"
+  photo: String
+  uid: String
+}
+
+input UpdatePaymentInput {
+  amount: Int
+  id: ID!
+  paid: Int
+  payid: Date
+}
+
+input UpdatePersonInput {
+  dob: Date
+  fullname: String
+  gender: Gender
+  idNumber: String
+  mobile: String
+  nickname: String
+  setting: String
+}
+
+input UpdateSessionInput {
+  body: String
+  complaint: String
+  diagnosis: ID
+  doctor: ID
+  end: Date
+  files: Upload
+  id: ID!
+  inspection: String
+  medication: String
+  other: String
+  patient: ID
+  start: Date
+  summary: String
+}
+
+input UpdateTimeSlotInput {
+  busy: Boolean
+  end: Date
+  start: Date
+  title: String
+}
+
+input UpdateUserInput {
+  id: ID!
+  mobile: String
+  password: String
+  roles: [String!]
+}
+
+
+"Date custom scalar type"
+scalar Date
+
+"The `Upload` scalar type represents a file upload."
+scalar Upload
