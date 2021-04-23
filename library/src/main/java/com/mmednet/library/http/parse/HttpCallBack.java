@@ -20,17 +20,15 @@ public abstract class HttpCallBack<T> extends ProgressUIListener {
      * 处理网络请求失败
      */
     public final void onResult(HttpResult httpResult, Serializable result) {
-        if (onPreExecute(httpResult)) {
-            return;
+        if (!onPreExecute(httpResult)) {
+            if (httpResult.getHttpCode() == HttpCode.SUCCESS) {
+                this.onSuccess(result);
+            } else if (httpResult.getHttpCode() == HttpCode.NO_DATA) {
+                this.onEmpty(httpResult);
+            } else {
+                this.onFailure(httpResult);
+            }
         }
-        if (httpResult.getHttpCode() == HttpCode.SUCCESS) {
-            this.onSuccess(result);
-        } else if (httpResult.getHttpCode() == HttpCode.NO_DATA) {
-            this.onEmpty(httpResult);
-        } else {
-            this.onFailure(httpResult);
-        }
-
         this.onPostExecute();
     }
 
