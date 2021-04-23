@@ -56,6 +56,7 @@ public class OkHttp extends Network {
     private File downloadFile;
     private File uploadFile;
     private HttpMode method;
+    private String printUrl;
     private OkHttpClient client;
     private Request.Builder requestBuilder;
     private Map<Object, Call> tags;
@@ -168,6 +169,7 @@ public class OkHttp extends Network {
             public void onFailure(Call call, IOException e) {
                 tags.remove(tag);
                 tag = null;
+                Logger.e(TAG, "Url:" + printUrl);
                 Logger.e(TAG, "###################################################################");
                 Logger.e(TAG, call.request().url().toString());
                 Logger.e(TAG, e.getMessage());
@@ -185,6 +187,7 @@ public class OkHttp extends Network {
                 Request request = response.request();
                 Headers reqHeaders = request.headers();
                 Headers resHeaders = response.headers();
+                Logger.i(TAG, "Url:" + printUrl);
                 Logger.i(TAG, "###################################################################");
                 Logger.i(TAG, call.request().url().toString());
                 Logger.i(TAG, "Status:[Method:" + request.method() + "][Code:" + response.code() + "][Message:" + response.message() + "]");
@@ -234,6 +237,11 @@ public class OkHttp extends Network {
                 }
             }
         });
+    }
+
+    @Override
+    public void setPrint(String printUrl) {
+        this.printUrl = printUrl;
     }
 
     private String cookiesToString(HttpUrl url, Headers headers) {

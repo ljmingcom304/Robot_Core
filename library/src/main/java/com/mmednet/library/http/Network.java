@@ -87,4 +87,10 @@ public abstract class Network {
      */
     public abstract <T> void request(Class<T> clazz, HttpCallBack<T> callBack);
 
+    /**
+     * 打印输出
+     *
+     * @param printUrl 打印输出的URL
+     */
+    public abstract void setPrint(String printUrl);
 }

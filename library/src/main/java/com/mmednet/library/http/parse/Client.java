@@ -163,18 +163,19 @@ public class Client {
         Map<String, String> printParams = new HashMap<>();
         printParams.putAll(mergeParams);
         printParams.putAll(jsonParams);
-        this.formatUrl(url, printParams, true);
+        //打印输出用的URL
+        String printUrl = formatUrl(url, printParams);
 
         //请求用的请求参数
         String requestUrl;
         Map<String, String> requestParams;
         if (method == HttpMode.GET) {
-            requestUrl = formatUrl(url, mergeParams, false);
+            requestUrl = formatUrl(url, mergeParams);
             requestParams = new HashMap<>();
         } else {
             if (jsonParams.size() > 0) {
                 //JSON数据将全局参数拼接到URL上，局部数据填充与JSON中
-                requestUrl = formatUrl(url, mergeParams, false);
+                requestUrl = formatUrl(url, mergeParams);
                 requestParams = jsonParams;
             } else {
                 requestUrl = url;
@@ -201,21 +202,24 @@ public class Client {
             mFileNetwork.url(requestUrl);
             mFileNetwork.param(requestParams);
             mFileNetwork.method(method);
+            mFileNetwork.setPrint(printUrl);
             mFileNetwork.uploadFile(mUploadFileKey, mUploadFile);
             mFileNetwork.downloadFile(mDownloadFile);
             mFileNetwork.setTag(tag == null ? url : tag);
+
             mFileNetwork.request(clazz, callBack);
         } else {
             mTextNetwork.header(headersMap);
             mTextNetwork.url(requestUrl);
             mTextNetwork.param(requestParams);
             mTextNetwork.method(method);
+            mTextNetwork.setPrint(printUrl);
             mTextNetwork.setTag(tag == null ? url : tag);
             mTextNetwork.request(clazz, callBack);
         }
     }
 
-    private String formatUrl(String url, Map<String, String> params, boolean isPrint) {
+    private String formatUrl(String url, Map<String, String> params) {
         String result;
         if (params == null || params.size() == 0) {
             result = url;
@@ -233,9 +237,6 @@ public class Client {
                 builder.append(entry.getValue());
             }
             result = builder.toString();
-        }
-        if (isPrint) {
-            Logger.i(TAG, result);
         }
         return result;
     }
