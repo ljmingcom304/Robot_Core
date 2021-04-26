@@ -58,6 +58,15 @@ public class Client {
     }
 
     /**
+     * 返回请求头
+     *
+     * @return 请求头
+     */
+    public Map<String, String> getHeaders() {
+        return mHeaders;
+    }
+
+    /**
      * 设置全局参数
      */
     public void setParams(Map<String, String> params) {
@@ -66,6 +75,15 @@ public class Client {
         for (Map.Entry<String, String> entry : this.mParams.entrySet()) {
             Log.i(TAG, "GlobalParams:" + entry.getKey() + "=" + entry.getValue());
         }
+    }
+
+    /**
+     * 返回全局参数
+     *
+     * @return 全局参数
+     */
+    public Map<String, String> getParams() {
+        return mParams;
     }
 
     //设置安全措施的请求参数
@@ -206,7 +224,6 @@ public class Client {
             mFileNetwork.uploadFile(mUploadFileKey, mUploadFile);
             mFileNetwork.downloadFile(mDownloadFile);
             mFileNetwork.setTag(tag == null ? url : tag);
-
             mFileNetwork.request(clazz, callBack);
         } else {
             mTextNetwork.header(headersMap);

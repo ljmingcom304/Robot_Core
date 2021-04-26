@@ -64,10 +64,10 @@ public class OkHttp extends Network {
     private Map<String, String> params;
 
     private static final String TAG = "OkHttp";
-    private Resolver resolver;
+    private final Resolver resolver;
 
     public OkHttp() {
-        this(15, 30, 30);
+        this(20, 30, 30);
     }
 
     public OkHttp(int connectTimeout, int readTimeout, int writeTimeout) {
@@ -128,7 +128,7 @@ public class OkHttp extends Network {
                     Logger.e(TAG, uploadFile.getName() + " does not exist.");
                 }
             } else {
-                if (params.keySet().contains(TYPE_JSON)) {//JSON类型的请求
+                if (params.containsKey(TYPE_JSON)) {//JSON类型的请求
                     String json = params.get(TYPE_JSON);
                     MediaType type = MediaType.parse("application/json;charset=utf-8");
                     RequestBody body = RequestBody.create(type, json);
@@ -180,6 +180,7 @@ public class OkHttp extends Network {
                 resolver.handleFailure("网络异常，请稍后重试", callBack);
             }
 
+            @SuppressWarnings("NullableProblems")
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 tags.remove(tag);
@@ -247,11 +248,9 @@ public class OkHttp extends Network {
     private String cookiesToString(HttpUrl url, Headers headers) {
         List<Cookie> cookies = Cookie.parseAll(url, headers);
         StringBuilder builder = new StringBuilder();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                String str = "[" + cookie.name() + ":" + cookie.value() + "]";
-                builder.append(str);
-            }
+        for (Cookie cookie : cookies) {
+            String str = "[" + cookie.name() + ":" + cookie.value() + "]";
+            builder.append(str);
         }
         return builder.toString();
     }

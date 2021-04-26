@@ -34,12 +34,30 @@ public class Http {
     }
 
     /**
+     * 返回请求头
+     *
+     * @return 请求头
+     */
+    public Map<String, String> getHeaders() {
+        return getClient().getHeaders();
+    }
+
+    /**
      * 全局请求参数
      *
      * @param params 请求参数
      */
     public static void setParams(Map<String, String> params) {
         getClient().setParams(params);
+    }
+
+    /**
+     * 返回全局参数
+     *
+     * @return 全局参数
+     */
+    public Map<String, String> getParams() {
+        return getClient().getParams();
     }
 
     /**
