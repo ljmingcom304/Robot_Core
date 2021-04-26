@@ -38,7 +38,7 @@ public class Http {
      *
      * @return 请求头
      */
-    public Map<String, String> getHeaders() {
+    public static Map<String, String> getHeaders() {
         return getClient().getHeaders();
     }
 
@@ -56,7 +56,7 @@ public class Http {
      *
      * @return 全局参数
      */
-    public Map<String, String> getParams() {
+    public static Map<String, String> getParams() {
         return getClient().getParams();
     }
 
