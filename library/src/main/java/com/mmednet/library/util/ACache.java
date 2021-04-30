@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.LruCache;
 
+import com.google.gson.Gson;
 import com.mmednet.library.Library;
 import com.mmednet.library.common.Constants;
 import com.mmednet.library.log.Logger;
@@ -56,9 +57,10 @@ public class ACache {
     private static final String CACHE = Constants.CACHE;
     private static final String TAG = "ACache";
 
-    private static Map<String, ACache> mInstanceMap = new HashMap<>();
-    private LruCache<String, String> mStringCache = new LruCache<>(MAX_MEMORY);
-    private LruCache<String, byte[]> mByteCache = new LruCache<>(MAX_MEMORY);
+    private static final Map<String, ACache> mInstanceMap = new HashMap<>();
+    private final LruCache<String, String> mStringCache = new LruCache<>(MAX_MEMORY);
+    private final LruCache<String, byte[]> mByteCache = new LruCache<>(MAX_MEMORY);
+    private final Gson mGson = new Gson();
     private ACacheManager mCache;
 
     private ACache() {
@@ -543,17 +545,43 @@ public class ACache {
     }
 
     // =======================================
+    // ============= Bean 数据 读写 ===============
+    // =======================================
+
+    public void put(String key, Serializable value) {
+        put(key, mGson.toJson(value), -1);
+    }
+
+    public void put(String key, Serializable value, int saveTime) {
+        put(key, mGson.toJson(value), saveTime);
+    }
+
+    public <T> T getAsObject(String key, Class<T> clazz) {
+        String json = getAsString(key);
+        T t = mGson.fromJson(json, clazz);
+        if (t == null) {
+            try {
+                t = clazz.newInstance();
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage());
+            }
+        }
+        return t;
+    }
+
+    // =======================================
     // ============= 序列化 数据 读写 ===============
     // =======================================
 
     /**
-     * 保存 Serializable数据 到 缓存中
+     * 保存 Serializable数据 到 缓存中（有的Android机器存在序列化属性丢失问题）
      *
      * @param key   保存的key
      * @param value 保存的value
      */
-    public void put(String key, Serializable value) {
-        put(key, value, -1);
+    @Deprecated
+    private void putSerializable(String key, Serializable value) {
+        putSerializable(key, value, -1);
     }
 
     /**
@@ -563,7 +591,8 @@ public class ACache {
      * @param value    保存的value
      * @param saveTime 保存的时间，单位：秒
      */
-    public void put(String key, Serializable value, int saveTime) {
+    @Deprecated
+    private void putSerializable(String key, Serializable value, int saveTime) {
         ObjectOutputStream oos = null;
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -587,11 +616,12 @@ public class ACache {
         }
     }
 
-    public <T> T getAsObject(String key, Class<T> clazz) {
+    @Deprecated
+    private <T> T getAsSerializable(String key, Class<T> clazz) {
         T t1 = null;
         try {
             //noinspection unchecked
-            T t2 = (T) getAsObject(key);
+            T t2 = (T) getAsSerializable(key);
             if (t2 != null) {
                 return t2;
             }
@@ -612,7 +642,8 @@ public class ACache {
      * @param key KEY
      * @return Serializable 数据
      */
-    public Object getAsObject(String key) {
+    @Deprecated
+    private Object getAsSerializable(String key) {
         byte[] data = getAsBinary(key);
         if (data != null) {
             ByteArrayInputStream bais = null;
@@ -755,7 +786,7 @@ public class ACache {
     /**
      * 缓存管理器
      */
-    private class ACacheManager {
+    private static class ACacheManager {
         private final AtomicLong cacheSize;
         private final AtomicInteger cacheCount;
         private final long sizeLimit;
@@ -815,14 +846,14 @@ public class ACache {
             }
             cacheSize.addAndGet(valueSize);
 
-            Long currentTime = System.currentTimeMillis();
+            long currentTime = System.currentTimeMillis();
             file.setLastModified(currentTime);
             lastUsageDates.put(file, currentTime);
         }
 
         private File get(String key) {
             File file = newFile(key);
-            Long currentTime = System.currentTimeMillis();
+            long currentTime = System.currentTimeMillis();
             file.setLastModified(currentTime);
             lastUsageDates.put(file, currentTime);
 
@@ -830,7 +861,7 @@ public class ACache {
         }
 
         private File newFile(String key) {
-            return new File(cacheDir, key.hashCode() + "");
+            return new File(cacheDir, String.valueOf(key.hashCode()));
         }
 
         private boolean remove(String key) {
@@ -928,8 +959,7 @@ public class ACache {
             if (strs != null && strs.length == 2) {
                 String saveTimeStr = strs[0];
                 while (saveTimeStr.startsWith("0")) {
-                    saveTimeStr = saveTimeStr
-                            .substring(1, saveTimeStr.length());
+                    saveTimeStr = saveTimeStr.substring(1, saveTimeStr.length());
                 }
                 long saveTime = Long.valueOf(saveTimeStr);
                 long deleteAfter = Long.valueOf(strs[1]);

@@ -19,12 +19,7 @@ import java.util.HashMap;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
-        String result = "{'data':null}";
-        JsonParser jsonParser = new JsonParser();
-        JsonElement parse = jsonParser.parse(result);
-        JsonObject jsonObject = parse.getAsJsonObject();
-        JsonElement dElement = jsonObject.get("data");
-        System.out.println(dElement.isJsonArray() + "=" + dElement.isJsonObject() + "=" + dElement.isJsonPrimitive()+"="+ JsonUtils.isJsonEmpty(dElement));
+        System.out.println("=" + Runtime.getRuntime().maxMemory());
     }
 
 
