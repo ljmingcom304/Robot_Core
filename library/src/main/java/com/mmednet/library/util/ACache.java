@@ -166,7 +166,7 @@ public class ACache {
      * 读取 String数据
      */
     public String getAsString(String key) {
-        String result = mStringCache.get(key);
+        String result = Utils.clearDateInfo(mStringCache.get(key));
         if (result != null) {
             return result;
         }
@@ -510,7 +510,7 @@ public class ACache {
     public byte[] getAsBinary(String key) {
         byte[] bytes = null;
         if (key != null)
-            bytes = mByteCache.get(key);
+            bytes = Utils.clearDateInfo(mByteCache.get(key));
         if (bytes != null && bytes.length > 0) {
             return bytes;
         }
@@ -567,7 +567,6 @@ public class ACache {
         }
         if (t == null) {
             try {
-                t = mGson.fromJson(json, clazz);
                 t = clazz.newInstance();
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage());
