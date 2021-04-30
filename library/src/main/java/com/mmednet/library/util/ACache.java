@@ -12,6 +12,7 @@ import android.util.Log;
 import android.util.LruCache;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.mmednet.library.Library;
 import com.mmednet.library.common.Constants;
 import com.mmednet.library.log.Logger;
@@ -558,9 +559,15 @@ public class ACache {
 
     public <T> T getAsObject(String key, Class<T> clazz) {
         String json = getAsString(key);
-        T t = mGson.fromJson(json, clazz);
+        T t = null;
+        try {
+            t = mGson.fromJson(json, clazz);
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
         if (t == null) {
             try {
+                t = mGson.fromJson(json, clazz);
                 t = clazz.newInstance();
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage());
