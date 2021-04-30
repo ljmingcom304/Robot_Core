@@ -166,7 +166,10 @@ public class ACache {
      * 读取 String数据
      */
     public String getAsString(String key) {
-        String result = Utils.clearDateInfo(mStringCache.get(key));
+        String result = null;
+        if (key != null) {
+            result = Utils.clearDateInfo(mStringCache.get(key));
+        }
         if (result != null) {
             return result;
         }
@@ -546,36 +549,6 @@ public class ACache {
     }
 
     // =======================================
-    // ============= Bean 数据 读写 ===============
-    // =======================================
-
-    public void put(String key, Serializable value) {
-        put(key, mGson.toJson(value), -1);
-    }
-
-    public void put(String key, Serializable value, int saveTime) {
-        put(key, mGson.toJson(value), saveTime);
-    }
-
-    public <T> T getAsObject(String key, Class<T> clazz) {
-        String json = getAsString(key);
-        T t = null;
-        try {
-            t = mGson.fromJson(json, clazz);
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
-        }
-        if (t == null) {
-            try {
-                t = clazz.newInstance();
-            } catch (Exception e) {
-                Log.e(TAG, e.getMessage());
-            }
-        }
-        return t;
-    }
-
-    // =======================================
     // ============= 序列化 数据 读写 ===============
     // =======================================
 
@@ -586,8 +559,8 @@ public class ACache {
      * @param value 保存的value
      */
     @Deprecated
-    private void putSerializable(String key, Serializable value) {
-        putSerializable(key, value, -1);
+    private void put(String key, Serializable value) {
+        put(key, value, -1);
     }
 
     /**
@@ -598,7 +571,7 @@ public class ACache {
      * @param saveTime 保存的时间，单位：秒
      */
     @Deprecated
-    private void putSerializable(String key, Serializable value, int saveTime) {
+    private void put(String key, Serializable value, int saveTime) {
         ObjectOutputStream oos = null;
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -622,12 +595,11 @@ public class ACache {
         }
     }
 
-    @Deprecated
-    private <T> T getAsSerializable(String key, Class<T> clazz) {
+    private <T> T getAsObject(String key, Class<T> clazz) {
         T t1 = null;
         try {
             //noinspection unchecked
-            T t2 = (T) getAsSerializable(key);
+            T t2 = (T) getAsObject(key);
             if (t2 != null) {
                 return t2;
             }
@@ -648,8 +620,7 @@ public class ACache {
      * @param key KEY
      * @return Serializable 数据
      */
-    @Deprecated
-    private Object getAsSerializable(String key) {
+    private Object getAsObject(String key) {
         byte[] data = getAsBinary(key);
         if (data != null) {
             ByteArrayInputStream bais = null;
@@ -969,6 +940,9 @@ public class ACache {
                 }
                 long saveTime = Long.valueOf(saveTimeStr);
                 long deleteAfter = Long.valueOf(strs[1]);
+                if (deleteAfter < 0) {
+                    return false;
+                }
                 if (System.currentTimeMillis() > saveTime + deleteAfter * 1000) {
                     return true;
                 }
