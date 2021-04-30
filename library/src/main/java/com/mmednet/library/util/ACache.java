@@ -558,8 +558,7 @@ public class ACache {
      * @param key   保存的key
      * @param value 保存的value
      */
-    @Deprecated
-    private void put(String key, Serializable value) {
+    public void put(String key, Serializable value) {
         put(key, value, -1);
     }
 
@@ -570,8 +569,7 @@ public class ACache {
      * @param value    保存的value
      * @param saveTime 保存的时间，单位：秒
      */
-    @Deprecated
-    private void put(String key, Serializable value, int saveTime) {
+    public void put(String key, Serializable value, int saveTime) {
         ObjectOutputStream oos = null;
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -595,7 +593,7 @@ public class ACache {
         }
     }
 
-    private <T> T getAsObject(String key, Class<T> clazz) {
+    public <T> T getAsObject(String key, Class<T> clazz) {
         T t1 = null;
         try {
             //noinspection unchecked
@@ -620,7 +618,7 @@ public class ACache {
      * @param key KEY
      * @return Serializable 数据
      */
-    private Object getAsObject(String key) {
+    public Object getAsObject(String key) {
         byte[] data = getAsBinary(key);
         if (data != null) {
             ByteArrayInputStream bais = null;
