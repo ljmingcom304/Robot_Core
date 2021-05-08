@@ -37,7 +37,7 @@ public class Library {
 
     private enum Singleton {
         INSTANCE;
-        private Library library;
+        private final Library library;
 
         Singleton() {
             library = new Library();

@@ -1,11 +1,16 @@
 package com.mmednet.library.http.parse;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.mmednet.library.Library;
 import com.mmednet.library.http.Network;
 import com.mmednet.library.http.okhttp.OkHttp;
-import com.mmednet.library.log.Logger;
 import com.mmednet.library.util.SignUtils;
 
 import java.io.File;
@@ -16,11 +21,14 @@ import java.util.Map;
 
 public class Client {
 
-    private static final String TAG = "Client";
+    private static final String TAG = "Client_TAG";
+    private static final String HEADER = "Client_Header";
+    private static final String PARAMS = "Client_Params";
+
     private Network mTextNetwork;
     private Network mFileNetwork;
-    private Map<String, String> mHeaders;
-    private Map<String, String> mParams;
+    private Map<String, String> mGlobalHeaders;
+    private Map<String, String> mGlobalParams;
     private File mUploadFile;
     private File mDownloadFile;
     private String mUploadFileKey;
@@ -29,7 +37,7 @@ public class Client {
     private Client() {
         mTextNetwork = new OkHttp();
         mFileNetwork = new OkHttp(30, 60, 60);
-        mHeaders = new HashMap<>();
+        mGlobalHeaders = new HashMap<>();
     }
 
     public static Client getInstance() {
@@ -54,7 +62,13 @@ public class Client {
      * 设置请求头
      */
     public void setHeaders(Map<String, String> headers) {
-        this.mHeaders = headers;
+        this.mGlobalHeaders = headers;
+        this.writeCache(HEADER, headers);
+        if (mGlobalHeaders != null) {
+            for (Map.Entry<String, String> entry : mGlobalHeaders.entrySet()) {
+                Log.i(TAG, HEADER + ":" + entry.getKey() + "=" + entry.getValue());
+            }
+        }
     }
 
     /**
@@ -63,17 +77,22 @@ public class Client {
      * @return 请求头
      */
     public Map<String, String> getHeaders() {
-        return mHeaders;
+        if (mGlobalHeaders == null) {
+            mGlobalHeaders = this.readCache(HEADER);
+        }
+        return mGlobalHeaders;
     }
 
     /**
      * 设置全局参数
      */
     public void setParams(Map<String, String> params) {
-        this.mParams = params;
-        if (mParams == null) return;
-        for (Map.Entry<String, String> entry : this.mParams.entrySet()) {
-            Log.i(TAG, "GlobalParams:" + entry.getKey() + "=" + entry.getValue());
+        this.mGlobalParams = params;
+        this.writeCache(PARAMS, params);
+        if (mGlobalParams != null) {
+            for (Map.Entry<String, String> entry : mGlobalParams.entrySet()) {
+                Log.i(TAG, PARAMS + ":" + entry.getKey() + "=" + entry.getValue());
+            }
         }
     }
 
@@ -83,7 +102,50 @@ public class Client {
      * @return 全局参数
      */
     public Map<String, String> getParams() {
-        return mParams;
+        if (mGlobalParams == null) {
+            mGlobalParams = this.readCache(PARAMS);
+        }
+        return mGlobalParams;
+    }
+
+    /**
+     * 写入缓存
+     */
+    private void writeCache(String key, Map<String, String> values) {
+        Context context = Library.getInstance().getContext();
+        if (context == null) {
+            return;
+        }
+        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(context);
+        if (shared != null) {
+            SharedPreferences.Editor editor = shared.edit();
+            if (values == null || values.size() == 0) {
+                editor.remove(key);
+            } else {
+                Gson gson = new Gson();
+                String json = gson.toJson(values);
+                editor.putString(key, json);
+            }
+            editor.commit();
+        }
+    }
+
+    /**
+     * 读取缓存
+     */
+    private Map<String, String> readCache(String key) {
+        Context context = Library.getInstance().getContext();
+        if (context == null) {
+            return null;
+        }
+        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(context);
+        String json = shared.getString(key, null);
+        if (!TextUtils.isEmpty(json)) {
+            Gson gson = new Gson();
+            return gson.fromJson(json, new TypeToken<HashMap<String, String>>() {
+            }.getType());
+        }
+        return null;
     }
 
     //设置安全措施的请求参数
@@ -98,7 +160,7 @@ public class Client {
         try {
             String sign = SignUtils.generateSign(signParams);
             params.put("sign", sign);
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -149,22 +211,22 @@ public class Client {
         //添加请求头
         HashMap<String, String> headersMap = new HashMap<>();
         headersMap.put("x-meridian-sign-version", "v1");        //将JSON数据也进行签名
-        if (mHeaders != null) {
-            headersMap.putAll(mHeaders);
+        if (mGlobalHeaders != null) {
+            headersMap.putAll(mGlobalHeaders);
         }
         if (headers != null) {
             headersMap.putAll(headers);
         }
 
         //OKHttp中Value值不能为NULL
-        formatNullParams(mParams);
+        formatNullParams(mGlobalParams);
         formatNullParams(params);
 
         //合并请求参数并打印(不包括TYPE_JSON)
         Map<String, String> mergeParams = new HashMap<>();
         Map<String, String> jsonParams = new HashMap<>();
-        if (mParams != null) {
-            mergeParams.putAll(mParams);
+        if (mGlobalParams != null) {
+            mergeParams.putAll(mGlobalParams);
         }
         if (params != null) {
             String key = Network.TYPE_JSON;
