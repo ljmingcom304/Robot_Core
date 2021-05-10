@@ -1,6 +1,7 @@
 package com.mmednet.library;
 
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -60,13 +61,25 @@ public class Library {
      * @param isDebug 是否Debug模式
      */
     public static void init(Context context, @Nullable String rootDir, boolean isDebug) {
+        init(context, rootDir, isDebug, isDebug);
+    }
+
+    /**
+     * 初始化资源
+     *
+     * @param context 上下文
+     * @param rootDir Sdcard根目录
+     * @param isDebug 是否Debug模式
+     * @param isCrash 是否崩溃模式
+     */
+    public static void init(Context context, @Nullable String rootDir, boolean isDebug, boolean isCrash) {
         Library instance = getInstance();
         instance.context = context;
         instance.rootDir = rootDir;
         instance.isDebug = isDebug;
         instance.buildType = isDebug ? "debug" : "release";
         LogConfig.initLogger(context, isDebug, isDebug);
-        CrashHandler.initCrashHandler(context, isDebug);
+        CrashHandler.initCrashHandler(context, isCrash);
     }
 
     /**

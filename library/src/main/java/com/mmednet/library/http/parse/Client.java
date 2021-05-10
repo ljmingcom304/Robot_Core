@@ -126,7 +126,7 @@ public class Client {
                 String json = gson.toJson(values);
                 editor.putString(key, json);
             }
-            editor.commit();
+            editor.apply();
         }
     }
 
@@ -167,12 +167,13 @@ public class Client {
 
     //OkHttp的Value不能为NULL
     private void formatNullParams(Map<String, String> params) {
-        if (params != null) {
-            for (Map.Entry<String, String> itEntry : params.entrySet()) {
-                String value = itEntry.getValue();
-                if (value == null) {
-                    itEntry.setValue("");//OkHttp的Value不能为NULL
-                }
+        if (params == null) {
+            return;
+        }
+        for (Map.Entry<String, String> itEntry : params.entrySet()) {
+            String value = itEntry.getValue();
+            if (value == null) {
+                itEntry.setValue("");//OkHttp的Value不能为NULL
             }
         }
     }
