@@ -44,18 +44,18 @@ public class UncaughtCrashHandler implements Thread.UncaughtExceptionHandler {
         mHandler.post(mRunnable);
     }
 
-    //结束当前Acitivty
+    //结束当前Activity
     private void finishActivity() {
         try {
-            @SuppressLint( "PrivateApi" )
-            Class activityThreadClass = Class.forName("android.app.ActivityThread");
-            @SuppressWarnings( "unchecked" )
+            @SuppressLint("PrivateApi")
+            Class<?> activityThreadClass = Class.forName("android.app.ActivityThread");
             Object activityThread = activityThreadClass.getMethod("currentActivityThread").invoke(null);
             Field activitiesField = activityThreadClass.getDeclaredField("mActivities");
             activitiesField.setAccessible(true);
+            //noinspection rawtypes
             Map activities = (Map) activitiesField.get(activityThread);
             for (Object activityRecord : activities.values()) {
-                Class activityRecordClass = activityRecord.getClass();
+                Class<?> activityRecordClass = activityRecord.getClass();
                 Field pausedField = activityRecordClass.getDeclaredField("paused");
                 pausedField.setAccessible(true);
                 if (!pausedField.getBoolean(activityRecord)) {

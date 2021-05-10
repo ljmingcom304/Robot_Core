@@ -67,7 +67,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 
     private static void initCrashHandler(Context context, boolean isDebug, String toastMsg,
                                          OnCrashHandler onCrashHandler) {
-        final CrashHandler crashHandler = new CrashHandler();
+        CrashHandler crashHandler = new CrashHandler();
         if (null != toastMsg) {
             crashHandler.toastMsg = toastMsg;
         } else {
@@ -77,7 +77,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
         crashHandler.isDebug = isDebug;
         crashHandler.infoMap = new TreeMap<>();
         crashHandler.onCrashHandler = onCrashHandler;
-        crashHandler.context = Library.getInstance().getContext();
+        crashHandler.context = context;
         crashHandler.filePath = FileUtils.getCachePath(context, Constants.CRASH);
         crashHandler.format = new SimpleDateFormat("yyyyMMdd-HHmmss", Locale.getDefault());
         if (isDebug) {
