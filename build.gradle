@@ -4,11 +4,11 @@ buildscript {
     repositories {
         jcenter() { url 'https://maven.aliyun.com/repository/jcenter' }
         maven { url 'https://maven.aliyun.com/repository/google' }
-        maven { url 'https://dl.bintray.com/umsdk/release' }
+        maven { url 'https://repo1.maven.org/maven2/' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.0'
-        classpath 'com.apollographql.apollo:apollo-gradle-plugin:2.5.2'
+        //classpath 'com.apollographql.apollo:apollo-gradle-plugin:2.5.2'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -22,7 +22,7 @@ allprojects {
         maven { url 'http://mvn.miaomore.cn/nexus/content/groups/public'}
         maven { url 'http://10.1.1.22:8081/nexus/content/groups/public/'}
         //友盟推送依赖插件
-        maven { url 'https://dl.bintray.com/umsdk/release' }
+        maven { url 'https://repo1.maven.org/maven2/' }
     }
 }
 
