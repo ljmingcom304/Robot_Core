@@ -153,7 +153,7 @@ public class ACache {
      * @param value    保存的String数据
      * @param saveTime 保存的时间，单位：秒
      */
-    public void put(String key, String value, int saveTime) {
+    public void put(String key, String value, long saveTime) {
         put(key, Utils.newStringWithDateInfo(saveTime, value));
     }
 
@@ -217,7 +217,7 @@ public class ACache {
     /**
      * 保存long到缓存中
      */
-    public void put(String key, long value, int saveTime) {
+    public void put(String key, long value, long saveTime) {
         put(key, String.valueOf(value), saveTime);
     }
 
@@ -252,7 +252,7 @@ public class ACache {
     /**
      * 保存int类型数据
      */
-    public void put(String key, int value, int saveTime) {
+    public void put(String key, int value, long saveTime) {
         put(key, String.valueOf(value), saveTime);
     }
 
@@ -287,7 +287,7 @@ public class ACache {
     /**
      * 保存float类型数据
      */
-    public void put(String key, float value, int saveTime) {
+    public void put(String key, float value, long saveTime) {
         put(key, String.valueOf(value), saveTime);
     }
 
@@ -322,7 +322,7 @@ public class ACache {
     /**
      * 保存double类型数据
      */
-    public void put(String key, double value, int saveTime) {
+    public void put(String key, double value, long saveTime) {
         put(key, String.valueOf(value), saveTime);
     }
 
@@ -357,7 +357,7 @@ public class ACache {
     /**
      * 保存boolean类型数据
      */
-    public void put(String key, boolean value, int saveTime) {
+    public void put(String key, boolean value, long saveTime) {
         put(key, String.valueOf(value), saveTime);
     }
 
@@ -403,7 +403,7 @@ public class ACache {
      * @param value    保存的JSONObject数据
      * @param saveTime 保存的时间，单位：秒
      */
-    public void put(String key, JSONObject value, int saveTime) {
+    public void put(String key, JSONObject value, long saveTime) {
         put(key, value.toString(), saveTime);
     }
 
@@ -441,7 +441,7 @@ public class ACache {
      * @param value    保存的JSONArray数据
      * @param saveTime 保存的时间，单位：秒
      */
-    public void put(String key, JSONArray value, int saveTime) {
+    public void put(String key, JSONArray value, long saveTime) {
         put(key, value.toString(), saveTime);
     }
 
@@ -500,7 +500,7 @@ public class ACache {
      * @param value    保存的数据
      * @param saveTime 保存的时间，单位：秒
      */
-    public void put(String key, byte[] value, int saveTime) {
+    public void put(String key, byte[] value, long saveTime) {
         put(key, Utils.newByteArrayWithDateInfo(saveTime, value));
     }
 
@@ -569,7 +569,7 @@ public class ACache {
      * @param value    保存的value
      * @param saveTime 保存的时间，单位：秒
      */
-    public void put(String key, Serializable value, int saveTime) {
+    public void put(String key, Serializable value, long saveTime) {
         ObjectOutputStream oos = null;
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -948,11 +948,11 @@ public class ACache {
             return false;
         }
 
-        private static String newStringWithDateInfo(int second, String strInfo) {
+        private static String newStringWithDateInfo(long second, String strInfo) {
             return createDateInfo(second) + strInfo;
         }
 
-        private static byte[] newByteArrayWithDateInfo(int second, byte[] data2) {
+        private static byte[] newByteArrayWithDateInfo(long second, byte[] data2) {
             byte[] data1 = createDateInfo(second).getBytes();
             byte[] retdata = new byte[data1.length + data2.length];
             System.arraycopy(data1, 0, retdata, 0, data1.length);
@@ -1012,7 +1012,7 @@ public class ACache {
 
         private static final char mSeparator = ' ';
 
-        private static String createDateInfo(int second) {
+        private static String createDateInfo(long second) {
             String currentTime = System.currentTimeMillis() + "";
             while (currentTime.length() < 13) {
                 currentTime = "0" + currentTime;
