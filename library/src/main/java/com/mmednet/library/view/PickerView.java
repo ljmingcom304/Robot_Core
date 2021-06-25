@@ -152,6 +152,7 @@ public class PickerView extends View {
         mItems = items;
         mCurrentItem = mItems.size() > 0 ? mItems.get(0) : "";
         mOffset = 0;
+        invalidate();
     }
 
     /**
