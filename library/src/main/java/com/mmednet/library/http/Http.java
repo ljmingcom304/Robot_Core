@@ -145,11 +145,11 @@ public class Http {
     }
 
     public static <T> void send(String url, Map<String, String> params, HttpMode method, HttpCallBack<T> callBack) {
-        send(url, null, params, HttpMode.POST, callBack, null);
+        send(url, null, params, method, callBack, null);
     }
 
     public static <T> void send(String url, Map<String, String> params, HttpMode method, HttpCallBack<T> callBack, Object tag) {
-        send(url, null, params, HttpMode.POST, callBack, tag);
+        send(url, null, params, method, callBack, tag);
     }
 
     public static <T> void send(String url, Map<String, String> headers, Map<String, String> params, HttpCallBack<T> callBack) {
