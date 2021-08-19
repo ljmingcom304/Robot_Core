@@ -2,8 +2,6 @@ package com.mmednet.umeng;
 
 import android.app.Notification;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.util.Log;
 
@@ -13,13 +11,7 @@ import com.umeng.commonsdk.UMConfigure;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
 import com.umeng.message.UmengMessageHandler;
-import com.umeng.message.UmengNotificationClickHandler;
 import com.umeng.message.entity.UMessage;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Observer;
 
 /**
  * Title: UPushUtils
@@ -31,7 +23,6 @@ import java.util.Observer;
  */
 public class UmengUtils {
 
-    private static final List<UmengObserver> mObservers = new ArrayList<>();
     private static final String TAG = UmengUtils.class.getSimpleName();
     private static String umengToken;
 
@@ -70,7 +61,7 @@ public class UmengUtils {
                     Log.e(TAG, "友盟注册失败：" + s + "=" + s1);
                 }
             });
-            pushAgent.setDisplayNotificationNumber(3);
+            pushAgent.setDisplayNotificationNumber(5);
             //接收消息时处理
             pushAgent.setMessageHandler(new UmengMessageHandler() {
                 @Override
@@ -79,18 +70,6 @@ public class UmengUtils {
                         return notification.makeNotification(msg.title, msg.text, msg.text, logoRes);
                     }
                     return super.getNotification(context, msg);
-                }
-            });
-            //点击消息时处理
-            pushAgent.setNotificationClickHandler(new UmengNotificationClickHandler() {
-
-                @Override
-                public void handleMessage(Context context, UMessage uMessage) {
-                    super.handleMessage(context, uMessage);
-                    Log.i(TAG, "友盟消息测试：" + uMessage.after_open + "=" + uMessage.text);
-                    for (UmengObserver observer : mObservers) {
-                        observer.onMessage(context, uMessage);
-                    }
                 }
             });
         } catch (Exception e) {
@@ -102,13 +81,14 @@ public class UmengUtils {
      * 友盟消息观察者
      *
      * @param observer 观察者
-     * @param register 注册|注销
      */
-    public static void registerObserver(UmengObserver observer, boolean register) {
-        if (register) {
-            mObservers.add(observer);
-        } else {
-            mObservers.remove(observer);
+    public static void registerObserver(Context context, UmengObserver observer) {
+        try {
+            PushAgent pushAgent = PushAgent.getInstance(context);
+            //点击消息时处理
+            pushAgent.setNotificationClickHandler(observer);
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
     }
 
