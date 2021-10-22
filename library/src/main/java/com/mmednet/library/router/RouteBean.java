@@ -1,6 +1,7 @@
 package com.mmednet.library.router;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Title:RouteBean
@@ -15,7 +16,6 @@ public class RouteBean implements Serializable {
     private static final long serialVersionUID = 6684144211528641098L;
     private String host;
     private String path;
-    private int priority;
     private String des;
     private String className;
 
@@ -33,14 +33,6 @@ public class RouteBean implements Serializable {
 
     public void setPath(String path) {
         this.path = path;
-    }
-
-    public int getPriority() {
-        return priority;
-    }
-
-    public void setPriority(int priority) {
-        this.priority = priority;
     }
 
     public String getDes() {
@@ -65,9 +57,22 @@ public class RouteBean implements Serializable {
         return "RouteBean{" +
                 "host='" + host + '\'' +
                 ", path='" + path + '\'' +
-                ", priority=" + priority +
                 ", des='" + des + '\'' +
                 ", className='" + className + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RouteBean routeBean = (RouteBean) o;
+        return Objects.equals(host, routeBean.host) &&
+                Objects.equals(path, routeBean.path);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(host, path);
     }
 }

@@ -9,12 +9,14 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
 import androidx.annotation.NonNull;
+
 import android.text.TextUtils;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -65,19 +67,16 @@ public class Route {
                     bean.setHost(annotation.host());
                     bean.setPath(annotation.path());
                     bean.setDes(annotation.desc());
-                    bean.setPriority(annotation.priority());
+                    if (route.beans.contains(bean)) {
+                        throw new Exception("RouteNode repeat![Activity:" + act.name + "]" +
+                                "[Host:" + annotation.host() + "][Path:" + annotation.path() + "]");
+                    }
                     route.beans.add(bean);
                 }
-            } catch (ClassNotFoundException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        Collections.sort(route.beans, new Comparator<RouteBean>() {
-            @Override
-            public int compare(RouteBean o1, RouteBean o2) {
-                return o2.getPriority() - o1.getPriority();
-            }
-        });
     }
 
 

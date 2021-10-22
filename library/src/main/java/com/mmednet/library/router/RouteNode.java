@@ -22,15 +22,8 @@ public @interface RouteNode{
     String path();        //路径
 
     /**
-     * The priority of route.
-     */
-    int priority() default -1;    //优先级
-
-    /**
      * description of the activity, user for gen route table
      */
     String desc() default "";    //描述
-
-
 
 }
