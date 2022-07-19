@@ -51,6 +51,9 @@ private class Message {
 }
 ```
 
+##各种工具类集合
+implementation 'com.blankj:utilcode:1.23.2'
+
 ## Graphql相关
 
 ### 插件安装
