@@ -57,6 +57,9 @@ implementation 'com.blankj:utilcode:1.23.2'
 ## 数据库查询软件
 Navicat Premium
 
+## 官方推荐数据库
+Room
+
 ## Graphql相关
 
 ### 插件安装
