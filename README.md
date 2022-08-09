@@ -60,6 +60,9 @@ Navicat Premium
 ## 官方推荐数据库
 Room
 
+## OpenCV教程
+http://woshicver.com/
+
 ## Graphql相关
 
 ### 插件安装
