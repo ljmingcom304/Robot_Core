@@ -63,6 +63,9 @@ Room
 ## OpenCV教程
 http://woshicver.com/
 
+## Github项目发布依赖
+发布 GitHub 版本到 JitPack
+
 ## Graphql相关
 
 ### 插件安装
